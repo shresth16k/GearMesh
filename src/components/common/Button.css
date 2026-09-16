@@ -1,0 +1,148 @@
+.rewrap-btn-wrapper {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.rewrap-btn-wrapper--full {
+  display: flex;
+  width: 100%;
+}
+
+.rewrap-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.rewrap-btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.rewrap-btn--full {
+  width: 100%;
+}
+
+/* Sizes */
+.rewrap-btn--sm {
+  padding: 8px 16px;
+  font-size: 13px;
+  border-radius: var(--radius-sm);
+}
+
+.rewrap-btn--md {
+  padding: 12px 22px;
+  font-size: 15px;
+  border-radius: var(--radius-md);
+  min-height: 46px;
+}
+
+.rewrap-btn--lg {
+  padding: 14px 28px;
+  font-size: 16px;
+  border-radius: var(--radius-lg);
+  min-height: 52px;
+}
+
+/* Primary Forest Green */
+.rewrap-btn--primary {
+  background-color: var(--color-primary-forest);
+  color: #FFFFFF;
+  border-color: var(--color-primary-forest);
+  box-shadow: 0 4px 14px rgba(24, 58, 43, 0.15);
+}
+
+.rewrap-btn--primary:hover:not(:disabled) {
+  background-color: #132F23;
+  border-color: #132F23;
+}
+
+/* Capsule Variant (analyzed from user's image) */
+.rewrap-btn--capsule {
+  background-color: var(--color-deep-forest);
+  color: #FFFFFF;
+  border-radius: 9999px;
+  padding: 14px 32px;
+  min-height: 52px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  box-shadow: 0 6px 18px rgba(16, 41, 31, 0.2);
+}
+
+.rewrap-btn--capsule:hover:not(:disabled) {
+  background-color: #0c1e16;
+  box-shadow: 0 8px 24px rgba(16, 41, 31, 0.28);
+}
+
+.rewrap-btn--capsule .rewrap-btn__arrow {
+  transition: transform 0.2s ease;
+}
+
+.rewrap-btn--capsule:hover .rewrap-btn__arrow {
+  transform: translateX(3px);
+}
+
+/* Secondary Ivory / Forest */
+.rewrap-btn--secondary {
+  background-color: var(--color-soft-ivory);
+  color: var(--color-primary-forest);
+  border-color: var(--color-soft-border);
+  box-shadow: var(--shadow-card);
+}
+
+.rewrap-btn--secondary:hover:not(:disabled) {
+  background-color: #F4EFE6;
+  border-color: #CFCBC0;
+}
+
+/* Ghost / Subtle */
+.rewrap-btn--ghost {
+  background-color: transparent;
+  color: var(--color-charcoal);
+}
+
+.rewrap-btn--ghost:hover:not(:disabled) {
+  background-color: rgba(24, 58, 43, 0.05);
+}
+
+/* Outline */
+.rewrap-btn--outline {
+  background-color: transparent;
+  color: var(--color-primary-forest);
+  border-color: var(--color-primary-forest);
+}
+
+.rewrap-btn--outline:hover:not(:disabled) {
+  background-color: rgba(24, 58, 43, 0.05);
+}
+
+.rewrap-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Caption below the button (from user uploaded image) */
+.rewrap-btn__caption {
+  margin: 0;
+  font-size: 13.5px;
+  color: var(--color-muted-gray);
+  text-align: center;
+  line-height: 1.4;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}

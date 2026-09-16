@@ -1,0 +1,320 @@
+.rewrap-life-kit {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-warm-cream);
+  overflow: hidden;
+}
+
+.rewrap-life-kit__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+}
+
+.rewrap-life-kit__back-btn {
+  background: none;
+  border: none;
+  color: var(--color-charcoal);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.rewrap-life-kit__header-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--color-pale-sage);
+  color: var(--color-deep-forest);
+  padding: 5px 12px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.rewrap-life-kit__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 20px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.rewrap-life-kit__title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-deep-forest);
+  letter-spacing: -0.02em;
+}
+
+.rewrap-life-kit__subtitle {
+  margin: 4px 0 0 0;
+  font-size: 13.5px;
+  color: var(--color-muted-gray);
+  line-height: 1.45;
+}
+
+/* Prompt input card */
+.rewrap-life-kit__input-card {
+  background: var(--color-soft-ivory);
+  border: 1px solid var(--color-soft-border);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rewrap-life-kit__prompt-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-deep-forest);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.rewrap-life-kit__textarea {
+  border: 1px solid var(--color-soft-border);
+  background: #FFFFFF;
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--color-charcoal);
+  resize: none;
+  outline: none;
+  line-height: 1.4;
+}
+
+.rewrap-life-kit__textarea:focus {
+  border-color: var(--color-primary-forest);
+}
+
+.rewrap-life-kit__input-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.rewrap-life-kit__suggestions {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.rewrap-life-kit__suggestions span {
+  font-size: 11px;
+  background: var(--color-warm-cream);
+  padding: 4px 8px;
+  border-radius: 9999px;
+  color: var(--color-charcoal);
+  cursor: pointer;
+  white-space: nowrap;
+  border: 1px solid var(--color-soft-border);
+}
+
+.rewrap-life-kit__generate-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--color-deep-forest);
+  color: #FFFFFF;
+  border: none;
+  padding: 7px 14px;
+  border-radius: 9999px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.rewrap-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Results section */
+.rewrap-life-kit__results {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.rewrap-life-kit__results-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-primary-forest);
+}
+
+.rewrap-life-kit__kit-name {
+  margin: 2px 0 0 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-deep-forest);
+}
+
+.rewrap-life-kit__kit-desc {
+  margin: 2px 0 0 0;
+  font-size: 13px;
+  color: var(--color-muted-gray);
+  line-height: 1.4;
+}
+
+/* Items list */
+.rewrap-life-kit__items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rewrap-kit-item-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--color-soft-ivory);
+  border: 1px solid var(--color-soft-border);
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.rewrap-kit-item-row:hover {
+  border-color: var(--color-muted-sage);
+}
+
+.rewrap-kit-item-row--selected {
+  background: #FFFFFF;
+  border-color: var(--color-primary-forest);
+  box-shadow: 0 2px 8px rgba(24, 58, 43, 0.08);
+}
+
+.rewrap-kit-item-row__check {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 1.5px solid var(--color-soft-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-muted-gray);
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.rewrap-kit-item-row--selected .rewrap-kit-item-row__check {
+  background: var(--color-primary-forest);
+  border-color: var(--color-primary-forest);
+}
+
+.rewrap-kit-item-row__img {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.rewrap-kit-item-row__details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.rewrap-kit-item-row__name {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--color-charcoal);
+  line-height: 1.3;
+}
+
+.rewrap-kit-item-row__meta {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11.5px;
+  color: var(--color-muted-gray);
+}
+
+.rewrap-kit-item-row__price {
+  text-align: right;
+}
+
+.rewrap-kit-item-row__amount {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-deep-forest);
+}
+
+.rewrap-kit-item-row__unit {
+  font-size: 11px;
+  color: var(--color-muted-gray);
+  margin-left: 2px;
+}
+
+/* Total checkout bar */
+.rewrap-life-kit__total-card {
+  background: var(--color-pale-sage);
+  border: 1px solid var(--color-muted-sage);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.rewrap-life-kit__total-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.rewrap-life-kit__total-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-deep-forest);
+}
+
+.rewrap-life-kit__total-price {
+  font-weight: 800;
+  color: var(--color-deep-forest);
+  display: flex;
+  align-items: baseline;
+}
+
+.rewrap-life-kit__total-currency {
+  font-size: 14px;
+}
+
+.rewrap-life-kit__total-number {
+  font-size: 22px;
+  letter-spacing: -0.02em;
+}
+
+.rewrap-life-kit__total-period {
+  font-size: 12px;
+  color: var(--color-deep-forest);
+  opacity: 0.8;
+  margin-left: 3px;
+}

@@ -1,0 +1,293 @@
+import { Item, User, Transaction, Category, LifeKit } from '../types';
+
+export const currentUser: User = {
+  id: 'u-current',
+  name: 'Alex Rivera',
+  location: 'Rajpur Road, Dehradun',
+  avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80',
+  rating: 4.9,
+  reviewsCount: 28,
+  isVerified: true,
+  itemsBorrowed: 12,
+  itemsLent: 8,
+  impactSavedAmount: 12400,
+  impactKgKept: 18.5
+};
+
+export const mockCategories: Category[] = [
+  { id: 'camping', name: 'Camping', iconName: 'Tent', count: 34 },
+  { id: 'tools', name: 'Tools', iconName: 'Wrench', count: 52 },
+  { id: 'electronics', name: 'Electronics', iconName: 'Camera', count: 41 },
+  { id: 'sports', name: 'Sports', iconName: 'Bike', count: 29 },
+  { id: 'kitchen', name: 'Kitchen', iconName: 'Coffee', count: 18 },
+  { id: 'events', name: 'Events', iconName: 'Music', count: 15 },
+  { id: 'books', name: 'Books', iconName: 'BookOpen', count: 64 },
+];
+
+export const mockItems: Item[] = [
+  {
+    id: 'item-1',
+    title: 'Sony A7 III Mirrorless Camera',
+    category: 'electronics',
+    pricePerDay: 450,
+    rating: 4.9,
+    reviewCount: 32,
+    distanceKm: 1.2,
+    location: 'Hathibarkala, Dehradun',
+    imageUrl: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=800&q=80',
+    isAvailable: true,
+    description: 'Professional full-frame camera body with 24.2MP BSI sensor. Exceptional low-light performance, 4K HDR video, and 5-axis image stabilization. Comes with 2 Sony batteries, 64GB Extreme Pro SD card, and weather-resistant strap.',
+    features: ['4K Video', 'Dual SD Slots', 'Weather Sealed', '2 Batteries Included', 'E-Mount'],
+    carbonSavingsKg: 26,
+    materialSavingsKg: 2.1,
+    lat: 30.3440,
+    lng: 78.0560,
+    owner: {
+      id: 'u-2',
+      name: 'Rohan Sharma',
+      location: 'Dehradun Central',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+      rating: 4.9,
+      reviewsCount: 45,
+      isVerified: true,
+      itemsBorrowed: 6,
+      itemsLent: 21,
+      impactSavedAmount: 34000,
+      impactKgKept: 45
+    }
+  },
+  {
+    id: 'item-2',
+    title: 'Quechua 4-Person Canvas Camping Tent',
+    category: 'camping',
+    pricePerDay: 250,
+    rating: 4.8,
+    reviewCount: 19,
+    distanceKm: 0.8,
+    location: 'Dalanwala, Dehradun',
+    imageUrl: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=800&q=80',
+    isAvailable: true,
+    description: 'Spacious all-weather family/group tent with double-wall insulation and blackout fresh technology. Tested against 50 km/h winds and heavy Himalayan rainfall. Includes ground pegs, guy ropes, and setup guide.',
+    features: ['Double-Wall Fresh & Black', 'Waterproof 2000mm', '10 Min Quick Pitch', 'Includes Ground Mat'],
+    carbonSavingsKg: 34,
+    materialSavingsKg: 7.2,
+    lat: 30.3255,
+    lng: 78.0518,
+    owner: {
+      id: 'u-3',
+      name: 'Pooja Varma',
+      location: 'Dalanwala',
+      avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80',
+      rating: 5.0,
+      reviewsCount: 38,
+      isVerified: true,
+      itemsBorrowed: 15,
+      itemsLent: 12,
+      impactSavedAmount: 21000,
+      impactKgKept: 29
+    }
+  },
+  {
+    id: 'item-3',
+    title: 'Trek Dual Sport 2 Hybrid Bicycle',
+    category: 'sports',
+    pricePerDay: 200,
+    rating: 4.7,
+    reviewCount: 24,
+    distanceKm: 2.1,
+    location: 'Chakrata Road, Dehradun',
+    imageUrl: 'https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&w=800&q=80',
+    isAvailable: true,
+    description: 'Go-anywhere hybrid bike that excels on road and trail. Features hydraulic disc brakes for all-weather stopping power, front suspension with lockout, and all-terrain puncture-resistant tires. Medium frame suitable for 5\'6" to 5\'11".',
+    features: ['Hydraulic Disc Brakes', 'Front Lockout Fork', 'Helmet Included', 'Rear Pannier Rack'],
+    carbonSavingsKg: 52,
+    materialSavingsKg: 14.0,
+    lat: 30.3340,
+    lng: 78.0280,
+    owner: {
+      id: 'u-4',
+      name: 'Aditya Mehta',
+      location: 'Chakrata Road',
+      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80',
+      rating: 4.8,
+      reviewsCount: 16,
+      isVerified: true,
+      itemsBorrowed: 4,
+      itemsLent: 9,
+      impactSavedAmount: 18000,
+      impactKgKept: 32
+    }
+  },
+  {
+    id: 'item-4',
+    title: 'Bosch Professional 18V Cordless Drill & Impact Set',
+    category: 'tools',
+    pricePerDay: 150,
+    rating: 4.9,
+    reviewCount: 42,
+    distanceKm: 1.5,
+    location: 'Jakhan, Dehradun',
+    imageUrl: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=800&q=80',
+    isAvailable: true,
+    description: 'Heavy-duty cordless hammer drill and driver kit. Includes 2x 4.0Ah batteries, rapid charger, and 45-piece drill and bit set in an L-BOXX carrying case. Ideal for home furniture assembly, masonry drilling, and woodworking.',
+    features: ['Brushless Motor', '2x 4.0Ah Batteries', '45 Drill Bit Kit', 'L-BOXX Case'],
+    carbonSavingsKg: 19,
+    materialSavingsKg: 4.5,
+    lat: 30.3690,
+    lng: 78.0750,
+    owner: {
+      id: 'u-5',
+      name: 'Vikram Singh',
+      location: 'Jakhan',
+      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&q=80',
+      rating: 4.9,
+      reviewsCount: 52,
+      isVerified: true,
+      itemsBorrowed: 9,
+      itemsLent: 34,
+      impactSavedAmount: 48000,
+      impactKgKept: 68
+    }
+  },
+  {
+    id: 'item-5',
+    title: 'XGIMI Halo+ 1080p Smart Portable Projector',
+    category: 'electronics',
+    pricePerDay: 350,
+    rating: 4.8,
+    reviewCount: 27,
+    distanceKm: 3.4,
+    location: 'Ballupur, Dehradun',
+    imageUrl: 'https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=800&q=80',
+    isAvailable: true,
+    description: 'Ultra-bright 900 ANSI Lumens portable cinema projector with built-in Harman Kardon audio and 2.5-hour integrated battery. Auto-keystone and auto-focus for easy rooftop movie nights or garden gatherings.',
+    features: ['900 ANSI Lumens', 'Harman Kardon Sound', 'Built-in Battery', 'Tripod Included', 'HDMI & Wi-Fi'],
+    carbonSavingsKg: 28,
+    materialSavingsKg: 3.2,
+    lat: 30.3400,
+    lng: 78.0120,
+    owner: {
+      id: 'u-6',
+      name: 'Ananya Roy',
+      location: 'Ballupur',
+      avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80',
+      rating: 4.7,
+      reviewsCount: 21,
+      isVerified: true,
+      itemsBorrowed: 11,
+      itemsLent: 7,
+      impactSavedAmount: 19500,
+      impactKgKept: 22
+    }
+  },
+  {
+    id: 'item-6',
+    title: 'KitchenAid Artisan 4.8L Stand Mixer',
+    category: 'kitchen',
+    pricePerDay: 180,
+    rating: 5.0,
+    reviewCount: 14,
+    distanceKm: 2.8,
+    location: 'Vasant Vihar, Dehradun',
+    imageUrl: 'https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=800&q=80',
+    isAvailable: false,
+    description: 'Iconic pistachio stand mixer for bread doughs, artisanal pastries, and whipping. 10 speeds with planetary mixing action. Includes wire whisk, dough hook, flat beater, and pouring shield.',
+    features: ['10 Speeds', 'Stainless Steel Bowl', 'Full Attachment Set', 'Direct Drive 300W'],
+    carbonSavingsKg: 42,
+    materialSavingsKg: 11.5,
+    lat: 30.3280,
+    lng: 78.0150,
+    owner: {
+      id: 'u-7',
+      name: 'Kavita Chawla',
+      location: 'Vasant Vihar',
+      avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80',
+      rating: 5.0,
+      reviewsCount: 30,
+      isVerified: true,
+      itemsBorrowed: 8,
+      itemsLent: 19,
+      impactSavedAmount: 26000,
+      impactKgKept: 38
+    }
+  }
+];
+
+export const mockTransactions: Transaction[] = [
+  {
+    id: 'tx-101',
+    itemId: 'item-2',
+    item: mockItems[1],
+    borrower: currentUser,
+    startDate: '16 Sept 2026',
+    endDate: '18 Sept 2026',
+    durationDays: 2,
+    totalCost: 500,
+    status: 'approved',
+    type: 'borrowing',
+    pickupMethod: 'locker',
+    lockerNumber: 'Locker A-12',
+    lockerCode: '4827',
+    lockerValidUntil: '18 Sept, 8:00 PM',
+    createdAt: '15 Sept 2026'
+  },
+  {
+    id: 'tx-102',
+    itemId: 'item-1',
+    item: mockItems[0],
+    borrower: currentUser,
+    startDate: '20 Sept 2026',
+    endDate: '23 Sept 2026',
+    durationDays: 3,
+    totalCost: 1350,
+    status: 'pending',
+    type: 'borrowing',
+    pickupMethod: 'person',
+    createdAt: '16 Sept 2026'
+  },
+  {
+    id: 'tx-103',
+    itemId: 'item-4',
+    item: mockItems[3],
+    borrower: mockItems[0].owner,
+    startDate: '10 Sept 2026',
+    endDate: '12 Sept 2026',
+    durationDays: 2,
+    totalCost: 300,
+    status: 'completed',
+    type: 'lending',
+    pickupMethod: 'locker',
+    lockerNumber: 'Locker B-04',
+    lockerCode: '9104',
+    createdAt: '09 Sept 2026'
+  }
+];
+
+export const mockLifeKits: LifeKit[] = [
+  {
+    id: 'kit-camping',
+    title: 'Weekend Camping Kit',
+    scenario: '3-day camping trip with 4 friends',
+    description: 'Everything you need for an unforgettable mountain escape without buying gear that sits in your closet.',
+    totalPricePerDay: 680,
+    items: [
+      { id: 'item-2', name: '4-Person Canvas Tent', pricePerDay: 250, imageUrl: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=400&q=80', distanceKm: 0.8, category: 'Camping' },
+      { id: 'kit-stove', name: 'Portable Camping Stove + Gas', pricePerDay: 120, imageUrl: 'https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=400&q=80', distanceKm: 1.1, category: 'Kitchen' },
+      { id: 'kit-cooler', name: 'Coleman 28L Insulated Cooler', pricePerDay: 130, imageUrl: 'https://images.unsplash.com/photo-1584473457406-6240486418e9?auto=format&fit=crop&w=400&q=80', distanceKm: 1.6, category: 'Camping' },
+      { id: 'kit-lantern', name: 'Black Diamond LED Camp Lantern (x2)', pricePerDay: 90, imageUrl: 'https://images.unsplash.com/photo-1510312305653-8ed496efae75?auto=format&fit=crop&w=400&q=80', distanceKm: 1.4, category: 'Lighting' },
+      { id: 'kit-chairs', name: 'Helinox Ultralight Camp Chairs (x2)', pricePerDay: 90, imageUrl: 'https://images.unsplash.com/photo-1506535772317-9fca71c959c8?auto=format&fit=crop&w=400&q=80', distanceKm: 2.0, category: 'Camping' }
+    ]
+  },
+  {
+    id: 'kit-filmmaker',
+    title: 'Creator & Indie Film Kit',
+    scenario: 'Short documentary shoot or outdoor music video',
+    description: 'Cinematic full-frame body, Ronin stabilizer, and directional audio kit.',
+    totalPricePerDay: 980,
+    items: [
+      { id: 'item-1', name: 'Sony A7 III Body + 2 Batteries', pricePerDay: 450, imageUrl: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=400&q=80', distanceKm: 1.2, category: 'Camera' },
+      { id: 'kit-gimbal', name: 'DJI RS3 Pro Gimbal Stabilizer', pricePerDay: 320, imageUrl: 'https://images.unsplash.com/photo-1589872782756-3c58852e1fce?auto=format&fit=crop&w=400&q=80', distanceKm: 1.8, category: 'Accessories' },
+      { id: 'kit-mic', name: 'Rode Wireless GO II Dual Mic', pricePerDay: 210, imageUrl: 'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=400&q=80', distanceKm: 0.9, category: 'Audio' }
+    ]
+  }
+];
