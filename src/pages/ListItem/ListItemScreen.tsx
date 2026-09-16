@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '../../components/common/Button';
-import { Camera, ImagePlus, CheckCircle, ArrowLeft } from 'lucide-react';
+import { Plus, CheckCircle, ArrowLeft, MapPin } from 'lucide-react';
 import { Item } from '../../types';
 import './ListItemScreen.css';
 
@@ -9,13 +9,20 @@ interface ListItemScreenProps {
   onCancel: () => void;
 }
 
+const samplePhotos = [
+  'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=300&q=80',
+  'https://images.unsplash.com/photo-1510312305653-8ed496efae75?auto=format&fit=crop&w=300&q=80',
+  'https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=300&q=80',
+  'https://images.unsplash.com/photo-1506535772317-9fca71c959c8?auto=format&fit=crop&w=300&q=80'
+];
+
 export const ListItemScreen: React.FC<ListItemScreenProps> = ({ onPublishSuccess, onCancel }) => {
   const [title, setTitle] = useState('');
-  const [category, setCategory] = useState('camping');
+  const [category, setCategory] = useState('');
   const [pricePerDay, setPricePerDay] = useState('');
   const [description, setDescription] = useState('');
-  const [location, setLocation] = useState('Rajpur Road, Dehradun');
-  const [photoAdded, setPhotoAdded] = useState(false);
+  const [location, setLocation] = useState('Use Current Location');
+  const [photos, setPhotos] = useState<string[]>(samplePhotos);
   const [isPublished, setIsPublished] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -23,12 +30,12 @@ export const ListItemScreen: React.FC<ListItemScreenProps> = ({ onPublishSuccess
     setIsPublished(true);
     setTimeout(() => {
       onPublishSuccess({
-        title,
-        category,
-        pricePerDay: Number(pricePerDay) || 200,
-        description,
-        location,
-        imageUrl: 'https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=800&q=80',
+        title: title || 'Quechua Camping Tent',
+        category: category || 'camping',
+        pricePerDay: Number(pricePerDay) || 100,
+        description: description || 'High quality equipment ready for community sharing.',
+        location: 'Rajpur Road, Dehradun',
+        imageUrl: photos[0],
         isAvailable: true
       });
     }, 1200);
@@ -62,81 +69,78 @@ export const ListItemScreen: React.FC<ListItemScreenProps> = ({ onPublishSuccess
         <div className="rewrap-list-item__intro">
           <h1 className="rewrap-list-item__title">List an Item</h1>
           <p className="rewrap-list-item__subtitle">
-            Turn your unused things into new adventures.
+            Turn your unused items into new adventures.
           </p>
         </div>
 
-        {/* Prominent Photo Upload Zone */}
-        <div
-          className={`rewrap-list-photo-zone ${photoAdded ? 'rewrap-list-photo-zone--active' : ''}`}
-          onClick={() => setPhotoAdded(true)}
-        >
-          {photoAdded ? (
-            <div className="rewrap-list-photo-preview">
-              <img
-                src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=800&q=80"
-                alt="Uploaded item"
-              />
-              <span className="rewrap-list-photo-change">Change Photo</span>
+        {/* Photos grid with 4 thumbnails + Add Photos box (matching Screen 6) */}
+        <div className="rewrap-list-photos-row">
+          {photos.map((url, idx) => (
+            <div key={idx} className="rewrap-list-photo-thumb">
+              <img src={url} alt={`Thumb ${idx}`} />
             </div>
-          ) : (
-            <div className="rewrap-list-photo-placeholder">
-              <div className="rewrap-list-photo-icon-wrap">
-                <ImagePlus size={26} />
-              </div>
-              <span className="rewrap-list-photo-text">Add clear photos of your item</span>
-              <span className="rewrap-list-photo-hint">Natural lighting and clean backgrounds work best</span>
-            </div>
-          )}
+          ))}
+          <button
+            type="button"
+            className="rewrap-list-photo-add-box"
+            onClick={() => setPhotos([...photos])}
+          >
+            <Plus size={18} color="var(--color-muted-gray)" />
+            <span>Add Photos</span>
+          </button>
         </div>
 
-        {/* Item Title */}
+        {/* Item Name */}
         <div className="rewrap-form-group">
           <label>Item Name</label>
           <input
             type="text"
-            placeholder="e.g. 2-Burner Camping Stove & Gas Kit"
+            placeholder="e.g. Camping Tent"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
           />
         </div>
 
-        {/* Category & Price Row */}
-        <div className="rewrap-form-row">
-          <div className="rewrap-form-group">
-            <label>Category</label>
-            <select value={category} onChange={(e) => setCategory(e.target.value)}>
-              <option value="camping">Camping</option>
-              <option value="tools">Tools</option>
-              <option value="electronics">Electronics</option>
-              <option value="sports">Sports</option>
-              <option value="kitchen">Kitchen</option>
-              <option value="books">Books</option>
-            </select>
-          </div>
+        {/* Category */}
+        <div className="rewrap-form-group">
+          <label>Category</label>
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            required
+          >
+            <option value="">Select Category</option>
+            <option value="camping">Camping</option>
+            <option value="tools">Tools</option>
+            <option value="electronics">Electronics</option>
+            <option value="sports">Sports</option>
+            <option value="kitchen">Kitchen</option>
+            <option value="books">Books</option>
+          </select>
+        </div>
 
-          <div className="rewrap-form-group">
-            <label>Price / Day</label>
-            <div className="rewrap-price-input-wrap">
-              <span>₹</span>
-              <input
-                type="number"
-                placeholder="200"
-                value={pricePerDay}
-                onChange={(e) => setPricePerDay(e.target.value)}
-                required
-              />
-            </div>
+        {/* Price per Day */}
+        <div className="rewrap-form-group">
+          <label>Price per Day</label>
+          <div className="rewrap-price-input-wrap">
+            <span>₹</span>
+            <input
+              type="number"
+              placeholder="0"
+              value={pricePerDay}
+              onChange={(e) => setPricePerDay(e.target.value)}
+              required
+            />
           </div>
         </div>
 
         {/* Description */}
         <div className="rewrap-form-group">
-          <label>Description & Condition</label>
+          <label>Description</label>
           <textarea
             rows={3}
-            placeholder="Describe condition, accessories included, and helpful usage tips..."
+            placeholder="Tell people about your item..."
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             required
@@ -145,18 +149,21 @@ export const ListItemScreen: React.FC<ListItemScreenProps> = ({ onPublishSuccess
 
         {/* Location */}
         <div className="rewrap-form-group">
-          <label>Pickup Location</label>
-          <input
-            type="text"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            required
-          />
+          <label>Location</label>
+          <div className="rewrap-location-input-wrap">
+            <MapPin size={16} color="var(--color-primary-forest)" />
+            <input
+              type="text"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              required
+            />
+          </div>
         </div>
 
-        {/* Submit */}
+        {/* Submit Button */}
         <div className="rewrap-list-submit-wrap">
-          <Button variant="capsule" fullWidth withArrow type="submit">
+          <Button variant="primary" fullWidth size="lg" type="submit">
             Publish Item
           </Button>
         </div>

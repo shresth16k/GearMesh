@@ -236,22 +236,52 @@ export const mockTransactions: Transaction[] = [
     itemId: 'item-1',
     item: mockItems[0],
     borrower: currentUser,
-    startDate: '20 Sept 2026',
-    endDate: '23 Sept 2026',
+    startDate: '12 Sept 2024',
+    endDate: '15 Sept 2024',
     durationDays: 3,
-    totalCost: 1350,
+    totalCost: 900,
     status: 'pending',
     type: 'borrowing',
     pickupMethod: 'person',
-    createdAt: '16 Sept 2026'
+    createdAt: '12 Sept 2024'
+  },
+  {
+    id: 'tx-104',
+    itemId: 'item-football',
+    item: {
+      id: 'item-football',
+      title: 'Match Pro Football',
+      category: 'sports',
+      pricePerDay: 50,
+      rating: 4.8,
+      reviewCount: 12,
+      distanceKm: 0.5,
+      location: 'Dalanwala, Dehradun',
+      imageUrl: 'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?auto=format&fit=crop&w=400&q=80',
+      isAvailable: true,
+      description: 'FIFA quality pro match football with air pump.',
+      features: ['Official Size 5', 'Hand Stitched', 'Air Pump Included'],
+      carbonSavingsKg: 8,
+      materialSavingsKg: 0.8,
+      owner: mockItems[0].owner
+    },
+    borrower: currentUser,
+    startDate: '01 Sept 2024',
+    endDate: '05 Sept 2024',
+    durationDays: 4,
+    totalCost: 200,
+    status: 'completed',
+    type: 'borrowing',
+    pickupMethod: 'person',
+    createdAt: '01 Sept 2024'
   },
   {
     id: 'tx-103',
     itemId: 'item-4',
     item: mockItems[3],
     borrower: mockItems[0].owner,
-    startDate: '10 Sept 2026',
-    endDate: '12 Sept 2026',
+    startDate: '10 Sept 2024',
+    endDate: '12 Sept 2024',
     durationDays: 2,
     totalCost: 300,
     status: 'completed',
@@ -259,7 +289,7 @@ export const mockTransactions: Transaction[] = [
     pickupMethod: 'locker',
     lockerNumber: 'Locker B-04',
     lockerCode: '9104',
-    createdAt: '09 Sept 2026'
+    createdAt: '09 Sept 2024'
   }
 ];
 

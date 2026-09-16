@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Transaction } from '../../types';
 import { Button } from '../../components/common/Button';
-import { CheckCircle2, MapPin, KeyRound, Clock, ShieldCheck, Copy, Check, ArrowLeft } from 'lucide-react';
+import { Check, Copy, MapPin, Info, ChevronRight, CheckCircle } from 'lucide-react';
 import './LockerApprovalScreen.css';
 
 interface LockerApprovalScreenProps {
@@ -27,105 +27,86 @@ export const LockerApprovalScreen: React.FC<LockerApprovalScreenProps> = ({
 
   return (
     <div className="rewrap-locker-approval">
-      <div className="rewrap-locker-approval__header">
-        <button className="rewrap-locker-approval__back-btn" onClick={onDone} aria-label="Back">
-          <ArrowLeft size={20} />
-        </button>
-        <span className="rewrap-locker-approval__brand-pill">ReWrap Hub</span>
-        <div style={{ width: 36 }} />
-      </div>
-
       <div className="rewrap-locker-approval__body">
-        {/* Success badge */}
+        {/* Checkmark and titles matching Screen 8 */}
         <div className="rewrap-locker-approval__badge-area">
           <div className="rewrap-locker-approval__check-circle">
-            <CheckCircle2 size={32} color="var(--color-primary-forest)" />
+            <Check size={28} color="#FFFFFF" strokeWidth={3} />
           </div>
           <h1 className="rewrap-locker-approval__title">Request Approved!</h1>
           <p className="rewrap-locker-approval__subtitle">
-            Your item is safely secured and ready for pickup.
+            Your item is ready for pickup.
           </p>
         </div>
 
-        {/* Physical Smart Locker Visual representation */}
-        <div className="rewrap-smart-locker">
-          <div className="rewrap-smart-locker__unit">
-            <div className="rewrap-smart-locker__header-bar">
-              <div className="rewrap-smart-locker__led-group">
-                <span className="rewrap-smart-locker__led rewrap-smart-locker__led--active" />
-                <span className="rewrap-smart-locker__led-label">COMPARTMENT UNLOCKED FOR YOU</span>
-              </div>
-              <span className="rewrap-smart-locker__id-tag">{transaction.lockerNumber || 'Locker A-12'}</span>
+        {/* Realistic Physical Locker Cabinet Graphic */}
+        <div className="rewrap-locker-cabinet">
+          <div className="rewrap-locker-cabinet__module">
+            <div className="rewrap-locker-cabinet__door rewrap-locker-cabinet__door--top-left" />
+            <div className="rewrap-locker-cabinet__door rewrap-locker-cabinet__door--top-right" />
+            <div className="rewrap-locker-cabinet__door rewrap-locker-cabinet__door--active">
+              <span className="rewrap-locker-cabinet__door-tag">A-12</span>
+              <span className="rewrap-locker-cabinet__door-light" />
             </div>
+            <div className="rewrap-locker-cabinet__door rewrap-locker-cabinet__door--bottom-right" />
+          </div>
+        </div>
 
-            <div className="rewrap-smart-locker__door">
-              <div className="rewrap-smart-locker__door-handle" />
-              <div className="rewrap-smart-locker__screen">
-                <span className="rewrap-smart-locker__screen-title">ENTER 4-DIGIT PIN</span>
-                <div className="rewrap-smart-locker__pin-boxes">
-                  {pinDigits.map((digit, idx) => (
-                    <div key={idx} className="rewrap-smart-locker__pin-box">
-                      {digit}
-                    </div>
-                  ))}
+        {/* Dark Smart Locker Access Container */}
+        <div className="rewrap-locker-access-card">
+          <div className="rewrap-locker-access-card__header">
+            <span className="rewrap-locker-access-card__label">Smart Locker Access</span>
+            <div className="rewrap-locker-access-card__id-pill">
+              <span>A - 12</span>
+              <small>Spot #12</small>
+            </div>
+          </div>
+
+          <div className="rewrap-locker-access-card__pin-section">
+            <div className="rewrap-locker-access-card__digits">
+              {pinDigits.map((digit, idx) => (
+                <div key={idx} className="rewrap-locker-access-card__digit-box">
+                  {digit}
                 </div>
+              ))}
+            </div>
+            <button
+              type="button"
+              className="rewrap-locker-access-card__copy-btn"
+              onClick={handleCopy}
+              aria-label="Copy PIN"
+            >
+              {copied ? <Check size={18} color="#527A5B" /> : <Copy size={18} />}
+            </button>
+          </div>
+
+          <div className="rewrap-locker-access-card__validity">
+            Valid till {transaction.lockerValidUntil || '18 Sept 2024, 8:00 PM'}
+          </div>
+
+          <div className="rewrap-locker-access-card__links">
+            <div className="rewrap-locker-access-link" onClick={onViewActivity}>
+              <div className="rewrap-locker-access-link__left">
+                <MapPin size={16} />
+                <span>View on Map</span>
               </div>
+              <ChevronRight size={16} />
             </div>
 
-            <div className="rewrap-smart-locker__metal-mesh" />
-          </div>
-
-          {/* Copy PIN action */}
-          <button className="rewrap-locker-copy-btn" onClick={handleCopy}>
-            {copied ? <Check size={14} color="var(--color-success)" /> : <Copy size={14} />}
-            <span>{copied ? 'PIN Copied to Clipboard' : 'Copy Access PIN (4827)'}</span>
-          </button>
-        </div>
-
-        {/* Details Card */}
-        <div className="rewrap-locker-info-card">
-          <div className="rewrap-locker-info-row">
-            <div className="rewrap-locker-info-icon">
-              <MapPin size={16} />
-            </div>
-            <div className="rewrap-locker-info-text">
-              <span className="rewrap-locker-info-label">Pickup Location</span>
-              <span className="rewrap-locker-info-value">Rajpur Community Locker Hub (Station 2)</span>
-              <span className="rewrap-locker-info-sub">0.4 km from your registered address</span>
-            </div>
-          </div>
-
-          <div className="rewrap-locker-info-row">
-            <div className="rewrap-locker-info-icon">
-              <Clock size={16} />
-            </div>
-            <div className="rewrap-locker-info-text">
-              <span className="rewrap-locker-info-label">Access Window</span>
-              <span className="rewrap-locker-info-value">{transaction.lockerValidUntil || '18 Sept, 8:00 PM'}</span>
-              <span className="rewrap-locker-info-sub">Contactless unlock available 24/7</span>
-            </div>
-          </div>
-
-          <div className="rewrap-locker-info-row">
-            <div className="rewrap-locker-info-icon">
-              <ShieldCheck size={16} />
-            </div>
-            <div className="rewrap-locker-info-text">
-              <span className="rewrap-locker-info-label">Security & Condition Check</span>
-              <span className="rewrap-locker-info-sub">
-                Take a quick verification snapshot in the app when opening the locker door.
-              </span>
+            <div className="rewrap-locker-access-link" onClick={onViewActivity}>
+              <div className="rewrap-locker-access-link__left">
+                <Info size={16} />
+                <span>Instructions</span>
+              </div>
+              <ChevronRight size={16} />
             </div>
           </div>
         </div>
 
-        {/* Actions */}
-        <div className="rewrap-locker-actions">
-          <Button variant="capsule" fullWidth onClick={onViewActivity}>
-            View in My Activity
-          </Button>
-          <Button variant="secondary" fullWidth onClick={onDone}>
-            Back to Home
+        {/* Bottom "Got It" Button */}
+        <div className="rewrap-locker-approval__actions">
+          <Button variant="primary" fullWidth size="lg" onClick={onDone}>
+            Got It
           </Button>
         </div>
       </div>

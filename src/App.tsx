@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { setupIonicReact, IonApp } from '@ionic/react';
 import { SplashScreen } from './pages/Splash/SplashScreen';
+import { WhyReWrapModal } from './components/common/WhyReWrapModal';
 import { OnboardingScreen } from './pages/Onboarding/OnboardingScreen';
 import { AuthScreen } from './pages/Auth/AuthScreen';
 import { HomeScreen } from './pages/Home/HomeScreen';
@@ -39,6 +40,7 @@ export const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<NavTab>('home');
   const [selectedItem, setSelectedItem] = useState<Item>(mockItems[0]);
   const [activeTransaction, setActiveTransaction] = useState<Transaction>(mockTransactions[0]);
+  const [showWhyModal, setShowWhyModal] = useState<boolean>(false);
 
   // Tab navigation
   const handleTabChange = (tab: NavTab) => {
@@ -61,6 +63,7 @@ export const App: React.FC = () => {
             <SplashScreen
               onGetStarted={() => setCurrentScreen('onboarding')}
               onLoginClick={() => setCurrentScreen('auth')}
+              onWhyReWrap={() => setShowWhyModal(true)}
             />
           )}
 
@@ -243,6 +246,9 @@ export const App: React.FC = () => {
           {showBottomNav && (
             <BottomNav activeTab={activeTab} onTabChange={handleTabChange} />
           )}
+
+          {/* Why ReWrap Modal */}
+          <WhyReWrapModal isOpen={showWhyModal} onClose={() => setShowWhyModal(false)} />
         </div>
       </div>
     </IonApp>

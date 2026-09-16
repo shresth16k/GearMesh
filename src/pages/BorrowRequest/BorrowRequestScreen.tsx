@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Item, Transaction } from '../../types';
 import { Button } from '../../components/common/Button';
-import { ArrowLeft, Calendar, ShieldCheck, Box, Users, Clock } from 'lucide-react';
+import { ArrowLeft, Calendar, CheckCircle2, Circle } from 'lucide-react';
 import './BorrowRequestScreen.css';
 
 interface BorrowRequestScreenProps {
@@ -15,39 +15,36 @@ export const BorrowRequestScreen: React.FC<BorrowRequestScreenProps> = ({
   onBack,
   onSubmitRequest
 }) => {
-  const [startDate, setStartDate] = useState('2026-09-18');
-  const [endDate, setEndDate] = useState('2026-09-20');
-  const [pickupMethod, setPickupMethod] = useState<'locker' | 'person'>('locker');
-  const [message, setMessage] = useState('Hi! Planning a short Himalayan getaway this weekend. Looking forward to borrowing your gear!');
+  const [startDate, setStartDate] = useState('16 Sept 2024');
+  const [endDate, setEndDate] = useState('18 Sept 2024');
+  const [pickupMethod, setPickupMethod] = useState<'person' | 'locker'>('person');
+  const [message, setMessage] = useState(
+    "Hi! I'd like to borrow this for a camping trip. Looking forward to your approval!"
+  );
 
-  // Calculate days
-  const start = new Date(startDate);
-  const end = new Date(endDate);
-  const diffTime = Math.max(1, end.getTime() - start.getTime());
-  const durationDays = Math.max(1, Math.ceil(diffTime / (1000 * 60 * 60 * 24)));
-  const itemTotal = durationDays * item.pricePerDay;
-  const platformFee = 40; // minimal trust & insurance fee
-  const totalCost = itemTotal + platformFee;
+  const durationDays = 2;
+  const estimatedCost = durationDays * item.pricePerDay;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmitRequest({
       itemId: item.id,
       item,
-      startDate: '18 Sept 2026',
-      endDate: '20 Sept 2026',
+      startDate,
+      endDate,
       durationDays,
-      totalCost,
-      status: 'approved', // for prototype flow, instant approval to demo smart locker
-      pickupMethod,
+      totalCost: estimatedCost,
+      status: 'approved',
+      pickupMethod: pickupMethod,
       lockerNumber: 'Locker A-12',
       lockerCode: '4827',
-      lockerValidUntil: '20 Sept, 8:00 PM'
+      lockerValidUntil: '18 Sept 2024, 8:00 PM'
     });
   };
 
   return (
     <div className="rewrap-borrow-request">
+      {/* Top Bar */}
       <div className="rewrap-borrow-request__header">
         <button className="rewrap-borrow-request__back-btn" onClick={onBack} aria-label="Back">
           <ArrowLeft size={20} />
@@ -57,11 +54,10 @@ export const BorrowRequestScreen: React.FC<BorrowRequestScreenProps> = ({
       </div>
 
       <form className="rewrap-borrow-request__body" onSubmit={handleSubmit}>
-        {/* Item Preview Card */}
+        {/* Item Preview matching Screen 7 */}
         <div className="rewrap-borrow-item-preview">
           <img src={item.imageUrl} alt={item.title} className="rewrap-borrow-item-preview__img" />
           <div className="rewrap-borrow-item-preview__info">
-            <span className="rewrap-borrow-item-preview__cat">{item.category}</span>
             <h4 className="rewrap-borrow-item-preview__title">{item.title}</h4>
             <div className="rewrap-borrow-item-preview__rate">
               ₹{item.pricePerDay} <span className="rewrap-borrow-item-preview__unit">/ day</span>
@@ -69,109 +65,97 @@ export const BorrowRequestScreen: React.FC<BorrowRequestScreenProps> = ({
           </div>
         </div>
 
-        {/* Dates Selection */}
-        <div className="rewrap-borrow-section">
-          <label className="rewrap-borrow-label">Select Rental Duration</label>
-          <div className="rewrap-borrow-dates-row">
-            <div className="rewrap-borrow-date-input">
-              <span className="rewrap-borrow-date-sub">Borrow Date</span>
-              <div className="rewrap-borrow-date-field">
-                <Calendar size={16} />
-                <input
-                  type="date"
-                  value={startDate}
-                  onChange={(e) => setStartDate(e.target.value)}
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="rewrap-borrow-date-input">
-              <span className="rewrap-borrow-date-sub">Return Date</span>
-              <div className="rewrap-borrow-date-field">
-                <Calendar size={16} />
-                <input
-                  type="date"
-                  value={endDate}
-                  onChange={(e) => setEndDate(e.target.value)}
-                  required
-                />
-              </div>
+        {/* Date Boxes */}
+        <div className="rewrap-borrow-dates-grid">
+          <div className="rewrap-borrow-date-box">
+            <span className="rewrap-borrow-date-lbl">From</span>
+            <div className="rewrap-borrow-date-val">
+              <input
+                type="text"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+              />
+              <Calendar size={15} color="var(--color-muted-gray)" />
             </div>
           </div>
 
-          <div className="rewrap-borrow-duration-pill">
-            <Clock size={14} color="var(--color-primary-forest)" />
-            <span>Total Duration: <strong>{durationDays} {durationDays === 1 ? 'day' : 'days'}</strong></span>
+          <div className="rewrap-borrow-date-box">
+            <span className="rewrap-borrow-date-lbl">To</span>
+            <div className="rewrap-borrow-date-val">
+              <input
+                type="text"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+              />
+              <Calendar size={15} color="var(--color-muted-gray)" />
+            </div>
           </div>
         </div>
 
-        {/* Pickup Method */}
-        <div className="rewrap-borrow-section">
-          <label className="rewrap-borrow-label">Choose Pickup Method</label>
-          <div className="rewrap-borrow-pickup-grid">
-            <div
-              className={`rewrap-borrow-pickup-card ${pickupMethod === 'locker' ? 'rewrap-borrow-pickup-card--active' : ''}`}
-              onClick={() => setPickupMethod('locker')}
-            >
-              <div className="rewrap-borrow-pickup-icon">
-                <Box size={20} />
-              </div>
-              <div className="rewrap-borrow-pickup-title">Smart Locker</div>
-              <div className="rewrap-borrow-pickup-desc">Contactless 24/7 PIN pickup at nearby Hub</div>
-            </div>
+        {/* Duration & Estimated Cost Pills */}
+        <div className="rewrap-borrow-summary-row">
+          <div className="rewrap-borrow-summary-box">
+            <span className="rewrap-borrow-summary-lbl">Duration</span>
+            <span className="rewrap-borrow-summary-val">{durationDays} Days</span>
+          </div>
 
-            <div
-              className={`rewrap-borrow-pickup-card ${pickupMethod === 'person' ? 'rewrap-borrow-pickup-card--active' : ''}`}
-              onClick={() => setPickupMethod('person')}
-            >
-              <div className="rewrap-borrow-pickup-icon">
-                <Users size={20} />
-              </div>
-              <div className="rewrap-borrow-pickup-title">Meet in Person</div>
-              <div className="rewrap-borrow-pickup-desc">Meet owner locally in Dehradun</div>
-            </div>
+          <div className="rewrap-borrow-summary-box">
+            <span className="rewrap-borrow-summary-lbl">Estimated Cost</span>
+            <span className="rewrap-borrow-summary-val">₹{estimatedCost}</span>
           </div>
         </div>
 
         {/* Message to Owner */}
         <div className="rewrap-borrow-section">
-          <label className="rewrap-borrow-label">Note for {item.owner.name.split(' ')[0]}</label>
+          <label className="rewrap-borrow-label">Message to Owner</label>
           <textarea
             className="rewrap-borrow-textarea"
             rows={3}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            placeholder="Tell the owner why you need the item and coordinate pickup details..."
           />
         </div>
 
-        {/* Estimated Cost Breakdown */}
-        <div className="rewrap-borrow-cost-card">
-          <h4 className="rewrap-borrow-cost-title">Cost Estimation</h4>
-          <div className="rewrap-borrow-cost-row">
-            <span>₹{item.pricePerDay} × {durationDays} days</span>
-            <span>₹{itemTotal}</span>
-          </div>
-          <div className="rewrap-borrow-cost-row">
-            <span>ReWrap Community & Guarantee Care</span>
-            <span>₹{platformFee}</span>
-          </div>
-          <hr className="rewrap-borrow-cost-hr" />
-          <div className="rewrap-borrow-cost-row rewrap-borrow-cost-row--total">
-            <span>Total Estimated</span>
-            <span>₹{totalCost}</span>
-          </div>
-          <div className="rewrap-borrow-cost-note">
-            <ShieldCheck size={14} color="var(--color-success)" />
-            <span>Protected by ReWrap Community Replacement Guarantee</span>
+        {/* Pickup Method Radios matching Screen 7 */}
+        <div className="rewrap-borrow-section">
+          <label className="rewrap-borrow-label">Pickup Method</label>
+          <div className="rewrap-borrow-pickup-radios">
+            <div
+              className={`rewrap-borrow-radio-row ${pickupMethod === 'person' ? 'rewrap-borrow-radio-row--active' : ''}`}
+              onClick={() => setPickupMethod('person')}
+            >
+              {pickupMethod === 'person' ? (
+                <CheckCircle2 size={18} color="var(--color-primary-forest)" />
+              ) : (
+                <Circle size={18} color="var(--color-muted-gray)" />
+              )}
+              <div className="rewrap-borrow-radio-text">
+                <span className="rewrap-borrow-radio-title">Meet in Person</span>
+                <span className="rewrap-borrow-radio-sub">Direct handover</span>
+              </div>
+            </div>
+
+            <div
+              className={`rewrap-borrow-radio-row ${pickupMethod === 'locker' ? 'rewrap-borrow-radio-row--active' : ''}`}
+              onClick={() => setPickupMethod('locker')}
+            >
+              {pickupMethod === 'locker' ? (
+                <CheckCircle2 size={18} color="var(--color-primary-forest)" />
+              ) : (
+                <Circle size={18} color="var(--color-muted-gray)" />
+              )}
+              <div className="rewrap-borrow-radio-text">
+                <span className="rewrap-borrow-radio-title">Smart Locker</span>
+                <span className="rewrap-borrow-radio-sub">24/7 access</span>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Submit */}
         <div className="rewrap-borrow-submit-wrap">
-          <Button variant="capsule" fullWidth withArrow type="submit">
-            Send Borrow Request
+          <Button variant="primary" fullWidth size="lg" type="submit">
+            Send Request
           </Button>
         </div>
       </form>
