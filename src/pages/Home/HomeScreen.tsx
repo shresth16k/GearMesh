@@ -101,24 +101,40 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           </div>
         </section>
 
-        {/* Trending Near You */}
+        {/* Trending Near You / Community Gear Grid */}
         <section className="rewrap-home__section">
           <div className="rewrap-home__section-header">
             <div>
-              <h3 className="rewrap-home__section-title">Trending Near You</h3>
-              <p className="rewrap-home__section-subtitle">Readily available in your neighborhood</p>
+              <h3 className="rewrap-home__section-title">
+                {selectedCategory ? `${selectedCategory.toUpperCase()} Items` : 'Trending In Your Neighborhood'}
+              </h3>
+              <p className="rewrap-home__section-subtitle">
+                {filteredItems.length} items readily available near Rajpur Road
+              </p>
             </div>
             <button className="rewrap-home__see-all-btn" onClick={onExploreClick}>
-              See All
+              Explore Map →
             </button>
           </div>
 
-          <div className="rewrap-home__horizontal-list">
-            {filteredItems.map((item) => (
+          {/* Mobile Horizontal Carousel */}
+          <div className="rewrap-home__horizontal-list rewrap-home__mobile-only">
+            {filteredItems.slice(0, 8).map((item) => (
               <ItemCard
                 key={item.id}
                 item={item}
                 variant="horizontal"
+                onClick={() => onSelectItem(item)}
+              />
+            ))}
+          </div>
+
+          {/* Desktop Multi-Column Responsive Grid */}
+          <div className="rewrap-home__desktop-grid">
+            {filteredItems.map((item) => (
+              <ItemCard
+                key={item.id}
+                item={item}
                 onClick={() => onSelectItem(item)}
               />
             ))}
@@ -134,7 +150,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
 
           <div className="rewrap-home__life-kit-header">
             <div>
-              <h3 className="rewrap-home__life-kit-title">Planning something?</h3>
+              <h3 className="rewrap-home__life-kit-title">Planning an adventure?</h3>
               <p className="rewrap-home__life-kit-scenario">"{featuredLifeKit.title}"</p>
             </div>
             <div className="rewrap-home__life-kit-price">
@@ -148,13 +164,12 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           </p>
 
           <div className="rewrap-home__life-kit-thumbnails">
-            {featuredLifeKit.items.slice(0, 4).map((ki) => (
+            {featuredLifeKit.items.slice(0, 5).map((ki) => (
               <div key={ki.id} className="rewrap-home__kit-thumb-item">
                 <img src={ki.imageUrl} alt={ki.name} />
                 <span>{ki.name.split(' ')[0]}</span>
               </div>
             ))}
-            <div className="rewrap-home__kit-thumb-more">+1 more</div>
           </div>
 
           <button className="rewrap-home__kit-cta-btn" onClick={onOpenLifeKit}>
@@ -163,7 +178,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           </button>
         </section>
 
-        <div style={{ height: 90 }} />
+        <div className="rewrap-home__bottom-clearance" />
       </div>
     </div>
   );

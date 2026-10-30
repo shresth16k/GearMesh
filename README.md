@@ -92,12 +92,19 @@ npm run build
 
 To compile and run the native Java REST server:
 ```bash
-# Compile Java classes
-javac -d backend/target/classes backend/src/main/java/com/rewrap/model/*.java backend/src/main/java/com/rewrap/ReWrapServer.java
+# Download dependencies and compile the backend
+cd backend
+mvn clean package
 
-# Run the server on port 8080
-java -cp backend/target/classes com.rewrap.ReWrapServer
+# Run the server on port 8080 (from the backend directory)
+java -jar target/rewrap-backend-1.0.0.jar
 ```
+The backend creates `backend/rewrap.db` on first start. User passwords are stored as salted PBKDF2 hashes, never as plain text.
+
+Authentication endpoints:
+- `POST http://localhost:8080/api/auth/register` with `{ "name", "email", "password" }`
+- `POST http://localhost:8080/api/auth/login` with `{ "email", "password" }`
+
 Endpoints:
 - `GET http://localhost:8080/api/health`
 - `GET http://localhost:8080/api/items`

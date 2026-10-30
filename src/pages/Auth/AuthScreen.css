@@ -108,6 +108,17 @@
   gap: 14px;
 }
 
+.rewrap-auth__error {
+  color: #a33a2b;
+  background: #f8dfd8;
+  border: 1px solid #e8b8ad;
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  margin: -8px 0 12px;
+  font-size: 12.5px;
+  line-height: 1.4;
+}
+
 .rewrap-auth__field {
   display: flex;
   flex-direction: column;

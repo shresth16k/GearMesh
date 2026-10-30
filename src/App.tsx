@@ -14,8 +14,9 @@ import { ListItemScreen } from './pages/ListItem/ListItemScreen';
 import { ProfileScreen } from './pages/Profile/ProfileScreen';
 import { LifeKitScreen } from './pages/LifeKit/LifeKitScreen';
 import { BottomNav, NavTab } from './components/common/BottomNav';
+import { DesktopNav } from './components/common/DesktopNav';
 import { Item, Transaction, LifeKit } from './types';
-import { mockItems, mockTransactions } from './data/mockData';
+import { currentUser as defaultUser, mockItems, mockTransactions } from './data/mockData';
 
 setupIonicReact({
   mode: 'ios'
@@ -41,6 +42,7 @@ export const App: React.FC = () => {
   const [selectedItem, setSelectedItem] = useState<Item>(mockItems[0]);
   const [activeTransaction, setActiveTransaction] = useState<Transaction>(mockTransactions[0]);
   const [showWhyModal, setShowWhyModal] = useState<boolean>(false);
+  const [signedInUser, setSignedInUser] = useState({ ...defaultUser, email: '' });
 
   // Tab navigation
   const handleTabChange = (tab: NavTab) => {
@@ -53,10 +55,26 @@ export const App: React.FC = () => {
   };
 
   const showBottomNav = ['home', 'explore', 'activity', 'profile'].includes(currentScreen);
+  const showDesktopNav = !['splash', 'onboarding', 'auth'].includes(currentScreen);
 
   return (
     <IonApp>
       <div className="app-container">
+        {showDesktopNav && (
+          <DesktopNav
+            activeTab={currentScreen === 'lifeKit' ? 'lifeKit' : activeTab}
+            onTabChange={handleTabChange}
+            onOpenLifeKit={() => setCurrentScreen('lifeKit')}
+            onProfileClick={() => {
+              setActiveTab('profile');
+              setCurrentScreen('profile');
+            }}
+            onListClick={() => {
+              setActiveTab('list');
+              setCurrentScreen('listItem');
+            }}
+          />
+        )}
         <div className="mobile-frame">
           {/* Splash Screen */}
           {currentScreen === 'splash' && (
@@ -78,7 +96,10 @@ export const App: React.FC = () => {
           {/* Auth */}
           {currentScreen === 'auth' && (
             <AuthScreen
-              onSuccess={() => setCurrentScreen('home')}
+              onSuccess={(user) => {
+                setSignedInUser((currentUser) => ({ ...currentUser, ...user }));
+                setCurrentScreen('home');
+              }}
               onBack={() => setCurrentScreen('splash')}
             />
           )}
@@ -219,7 +240,12 @@ export const App: React.FC = () => {
           {/* Profile */}
           {currentScreen === 'profile' && (
             <ProfileScreen
-              onLogout={() => setCurrentScreen('splash')}
+              user={signedInUser}
+              onLogout={() => {
+                localStorage.removeItem('rewrap-user');
+                setSignedInUser({ ...defaultUser, email: '' });
+                setCurrentScreen('splash');
+              }}
               onNavigateActivity={() => {
                 setActiveTab('activity');
                 setCurrentScreen('activity');

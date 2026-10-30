@@ -74,39 +74,53 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Mobile viewport simulator container for larger screens */
+/* App responsive container */
 .app-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
   min-height: 100vh;
-  background: #E8E3DA;
+  width: 100%;
+  background-color: var(--color-warm-cream);
 }
 
 .mobile-frame {
   width: 100%;
-  max-width: 430px;
-  height: 100vh;
-  max-height: 932px;
+  max-width: 100%;
+  min-height: 100vh;
   background-color: var(--color-warm-cream);
   position: relative;
-  overflow: hidden;
-  box-shadow: 0 25px 60px rgba(16, 41, 31, 0.18);
   display: flex;
   flex-direction: column;
+  flex: 1;
 }
 
-@media (max-width: 480px) {
-  .app-container {
-    background: var(--color-warm-cream);
-  }
+/* Mobile-specific constraints */
+@media (max-width: 767px) {
   .mobile-frame {
-    max-width: 100%;
     height: 100vh;
     max-height: 100vh;
-    box-shadow: none;
-    border-radius: 0;
+    overflow: hidden;
   }
+}
+
+/* Desktop layout rules */
+@media (min-width: 768px) {
+  .rewrap-bottom-nav {
+    display: none !important;
+  }
+  
+  .mobile-frame {
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+  }
+}
+
+.rewrap-desktop-container {
+  max-width: 1320px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
 /* Scrollbar styling */

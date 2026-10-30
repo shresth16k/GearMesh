@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
 
 /**
  * ReWrap Native Java REST API Server
@@ -17,7 +18,8 @@ import java.nio.charset.StandardCharsets;
 public class ReWrapServer {
     private static final int PORT = 8080;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, SQLException {
+        AuthDatabase authDatabase = new AuthDatabase();
         HttpServer server = HttpServer.create(new InetSocketAddress(PORT), 0);
 
         // CORS and Options pre-flight handler wrapper
@@ -26,6 +28,8 @@ public class ReWrapServer {
         server.createContext("/api/transactions", new TransactionsHandler());
         server.createContext("/api/user/profile", new ProfileHandler());
         server.createContext("/api/borrow", new BorrowHandler());
+        server.createContext("/api/auth/register", new AuthHandler(authDatabase, true));
+        server.createContext("/api/auth/login", new AuthHandler(authDatabase, false));
 
         server.setExecutor(null);
         System.out.println("=================================================");
@@ -39,7 +43,7 @@ public class ReWrapServer {
         server.start();
     }
 
-    private static void sendJsonResponse(HttpExchange exchange, int statusCode, String response) throws IOException {
+    static void sendJsonResponse(HttpExchange exchange, int statusCode, String response) throws IOException {
         // Add CORS headers
         exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
         exchange.getResponseHeaders().set("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
