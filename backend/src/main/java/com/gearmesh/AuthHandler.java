@@ -1,4 +1,4 @@
-package com.rewrap;
+package com.gearmesh;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -19,7 +19,7 @@ final class AuthHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         if (!"POST".equalsIgnoreCase(exchange.getRequestMethod())) {
-            ReWrapServer.sendJsonResponse(exchange, 405, "{\"error\":\"Method not allowed\"}");
+            GearMeshServer.sendJsonResponse(exchange, 405, "{\"error\":\"Method not allowed\"}");
             return;
         }
         try {
@@ -28,21 +28,21 @@ final class AuthHandler implements HttpHandler {
             String password = jsonValue(body, "password");
             String name = registration ? jsonValue(body, "name") : "";
             if (email.isBlank() || password.length() < 8 || (registration && name.isBlank())) {
-                ReWrapServer.sendJsonResponse(exchange, 400, "{\"error\":\"Enter a valid name, email, and password of at least 8 characters.\"}");
+                GearMeshServer.sendJsonResponse(exchange, 400, "{\"error\":\"Enter a valid name, email, and password of at least 8 characters.\"}");
                 return;
             }
 
             AuthDatabase.AuthResult user = registration ? database.register(name, email, password) : database.login(email, password);
             if (user == null) {
-                ReWrapServer.sendJsonResponse(exchange, 401, "{\"error\":\"Invalid email or password.\"}");
+                GearMeshServer.sendJsonResponse(exchange, 401, "{\"error\":\"Invalid email or password.\"}");
                 return;
             }
-            ReWrapServer.sendJsonResponse(exchange, 200, "{\"user\":" + userJson(user) + "}");
+            GearMeshServer.sendJsonResponse(exchange, 200, "{\"user\":" + userJson(user) + "}");
         } catch (AuthDatabase.DuplicateEmailException exception) {
-            ReWrapServer.sendJsonResponse(exchange, 409, "{\"error\":\"An account with this email already exists.\"}");
+            GearMeshServer.sendJsonResponse(exchange, 409, "{\"error\":\"An account with this email already exists.\"}");
         } catch (SQLException exception) {
             exception.printStackTrace();
-            ReWrapServer.sendJsonResponse(exchange, 500, "{\"error\":\"The authentication service is unavailable.\"}");
+            GearMeshServer.sendJsonResponse(exchange, 500, "{\"error\":\"The authentication service is unavailable.\"}");
         }
     }
 

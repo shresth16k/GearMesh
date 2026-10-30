@@ -1,4 +1,4 @@
-.rewrap-item-card {
+.gearmesh-item-card {
   background: var(--color-soft-ivory);
   border: 1px solid var(--color-soft-border);
   border-radius: var(--radius-lg);
@@ -10,12 +10,12 @@
   flex-direction: column;
 }
 
-.rewrap-item-card:hover {
+.gearmesh-item-card:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-subtle);
 }
 
-.rewrap-item-card__image-wrap {
+.gearmesh-item-card__image-wrap {
   position: relative;
   width: 100%;
   padding-top: 65%; /* cinematic 16:10 aspect */
@@ -23,7 +23,7 @@
   background: #EAE6DE;
 }
 
-.rewrap-item-card__image {
+.gearmesh-item-card__image {
   position: absolute;
   top: 0;
   left: 0;
@@ -33,11 +33,11 @@
   transition: transform 0.35s ease;
 }
 
-.rewrap-item-card:hover .rewrap-item-card__image {
+.gearmesh-item-card:hover .gearmesh-item-card__image {
   transform: scale(1.03);
 }
 
-.rewrap-item-card__badge {
+.gearmesh-item-card__badge {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -49,19 +49,19 @@
   letter-spacing: -0.01em;
 }
 
-.rewrap-item-card__badge--avail {
+.gearmesh-item-card__badge--avail {
   background: rgba(220, 229, 216, 0.92);
   color: var(--color-deep-forest);
   border: 1px solid rgba(168, 184, 163, 0.6);
 }
 
-.rewrap-item-card__badge--busy {
+.gearmesh-item-card__badge--busy {
   background: rgba(240, 236, 228, 0.92);
   color: var(--color-muted-gray);
   border: 1px solid var(--color-soft-border);
 }
 
-.rewrap-item-card__content {
+.gearmesh-item-card__content {
   padding: 14px 16px 16px;
   display: flex;
   flex-direction: column;
@@ -69,14 +69,14 @@
   flex: 1;
 }
 
-.rewrap-item-card__header {
+.gearmesh-item-card__header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: 8px;
 }
 
-.rewrap-item-card__title {
+.gearmesh-item-card__title {
   margin: 0;
   font-size: 15px;
   font-weight: 600;
@@ -88,7 +88,7 @@
   overflow: hidden;
 }
 
-.rewrap-item-card__meta {
+.gearmesh-item-card__meta {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -96,21 +96,21 @@
   color: var(--color-muted-gray);
 }
 
-.rewrap-item-card__distance {
+.gearmesh-item-card__distance {
   display: flex;
   align-items: center;
   gap: 3px;
 }
 
-.rewrap-item-card__dot {
+.gearmesh-item-card__dot {
   font-size: 10px;
 }
 
-.rewrap-item-card__category {
+.gearmesh-item-card__category {
   text-transform: capitalize;
 }
 
-.rewrap-item-card__footer {
+.gearmesh-item-card__footer {
   margin-top: 4px;
   display: flex;
   justify-content: space-between;
@@ -119,38 +119,38 @@
   border-top: 1px solid rgba(222, 220, 212, 0.5);
 }
 
-.rewrap-item-card__price {
+.gearmesh-item-card__price {
   font-weight: 700;
   color: var(--color-deep-forest);
   display: flex;
   align-items: baseline;
 }
 
-.rewrap-item-card__currency {
+.gearmesh-item-card__currency {
   font-size: 14px;
   font-weight: 600;
 }
 
-.rewrap-item-card__amount {
+.gearmesh-item-card__amount {
   font-size: 18px;
   letter-spacing: -0.02em;
 }
 
-.rewrap-item-card__period {
+.gearmesh-item-card__period {
   font-size: 13px;
   font-weight: 400;
   color: var(--color-muted-gray);
   margin-left: 2px;
 }
 
-.rewrap-item-card__action {
+.gearmesh-item-card__action {
   font-size: 13px;
   font-weight: 600;
   color: var(--color-primary-forest);
 }
 
 /* Horizontal variant for Trending Near You */
-.rewrap-item-card--horizontal {
+.gearmesh-item-card--horizontal {
   min-width: 250px;
   max-width: 260px;
   flex-shrink: 0;

@@ -45,80 +45,80 @@ export const LifeKitScreen: React.FC<LifeKitScreenProps> = ({ onBack, onKitBooke
   const currentTotalPerDay = activeItems.reduce((acc, it) => acc + it.pricePerDay, 0);
 
   return (
-    <div className="rewrap-life-kit">
+    <div className="gearmesh-life-kit">
       {/* Header */}
-      <div className="rewrap-life-kit__header">
-        <button className="rewrap-life-kit__back-btn" onClick={onBack} aria-label="Back">
+      <div className="gearmesh-life-kit__header">
+        <button className="gearmesh-life-kit__back-btn" onClick={onBack} aria-label="Back">
           <ArrowLeft size={20} />
         </button>
-        <div className="rewrap-life-kit__header-badge">
+        <div className="gearmesh-life-kit__header-badge">
           <Sparkles size={14} />
           <span>AI Concierge</span>
         </div>
         <div style={{ width: 36 }} />
       </div>
 
-      <div className="rewrap-life-kit__body">
-        <div className="rewrap-life-kit__intro">
-          <h1 className="rewrap-life-kit__title">Smart Life Kit</h1>
-          <p className="rewrap-life-kit__subtitle">
+      <div className="gearmesh-life-kit__body">
+        <div className="gearmesh-life-kit__intro">
+          <h1 className="gearmesh-life-kit__title">Smart Life Kit</h1>
+          <p className="gearmesh-life-kit__subtitle">
             Describe your upcoming plan or adventure. We bundle nearby community gear intelligently.
           </p>
         </div>
 
         {/* Input prompt box */}
-        <form className="rewrap-life-kit__input-card" onSubmit={handleGenerate}>
-          <div className="rewrap-life-kit__prompt-label">
+        <form className="gearmesh-life-kit__input-card" onSubmit={handleGenerate}>
+          <div className="gearmesh-life-kit__prompt-label">
             <span>What are you planning?</span>
           </div>
           <textarea
-            className="rewrap-life-kit__textarea"
+            className="gearmesh-life-kit__textarea"
             rows={2}
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             placeholder="e.g. 3-day camping trip with 4 friends..."
           />
-          <div className="rewrap-life-kit__input-footer">
-            <div className="rewrap-life-kit__suggestions">
+          <div className="gearmesh-life-kit__input-footer">
+            <div className="gearmesh-life-kit__suggestions">
               <span onClick={() => setPrompt('Weekend camping trip with 4 friends')}>🏕️ Camping</span>
               <span onClick={() => setPrompt('Short documentary video shoot with full camera setup')}>🎥 Video Shoot</span>
             </div>
-            <button type="submit" className="rewrap-life-kit__generate-btn" disabled={isGenerating}>
-              {isGenerating ? <RefreshCw size={14} className="rewrap-spin" /> : <Sparkles size={14} />}
+            <button type="submit" className="gearmesh-life-kit__generate-btn" disabled={isGenerating}>
+              {isGenerating ? <RefreshCw size={14} className="gearmesh-spin" /> : <Sparkles size={14} />}
               <span>{isGenerating ? 'Curating...' : 'Update Kit'}</span>
             </button>
           </div>
         </form>
 
         {/* Generated Kit Results */}
-        <div className="rewrap-life-kit__results">
-          <div className="rewrap-life-kit__results-header">
+        <div className="gearmesh-life-kit__results">
+          <div className="gearmesh-life-kit__results-header">
             <div>
-              <span className="rewrap-life-kit__results-tag">HERE'S YOUR PERSONALIZED KIT</span>
-              <h3 className="rewrap-life-kit__kit-name">{activeKit.title}</h3>
-              <p className="rewrap-life-kit__kit-desc">{activeKit.description}</p>
+              <span className="gearmesh-life-kit__results-tag">HERE'S YOUR PERSONALIZED KIT</span>
+              <h3 className="gearmesh-life-kit__kit-name">{activeKit.title}</h3>
+              <p className="gearmesh-life-kit__kit-desc">{activeKit.description}</p>
             </div>
           </div>
 
           {/* Bundle Items List */}
-          <div className="rewrap-life-kit__items-list">
+          <div className="gearmesh-life-kit__items-list">
             {activeKit.items.map((item) => {
               const isSelected = selectedItemIds.includes(item.id);
               return (
                 <div
                   key={item.id}
-                  className={`rewrap-kit-item-row ${isSelected ? 'rewrap-kit-item-row--selected' : ''}`}
+                  className={`gearmesh-kit-item-row ${isSelected ? 'gearmesh-kit-item-row--selected' : ''}`}
                   onClick={() => toggleItem(item.id)}
                 >
-                  <div className="rewrap-kit-item-row__check">
+                  <div className="gearmesh-kit-item-row__check">
                     {isSelected ? <Check size={14} color="#FFFFFF" /> : <Plus size={14} />}
                   </div>
 
-                  <img src={item.imageUrl} alt={item.name} className="rewrap-kit-item-row__img" />
+                  <img src={item.imageUrl} alt={item.name} className="gearmesh-kit-item-row__img" />
 
-                  <div className="rewrap-kit-item-row__details">
-                    <span className="rewrap-kit-item-row__name">{item.name}</span>
-                    <div className="rewrap-kit-item-row__meta">
+                  <div className="gearmesh-kit-item-row__details">
+                    <span className="gearmesh-kit-item-row__name">{item.name}</span>
+                    <div className="gearmesh-kit-item-row__meta">
                       <MapPin size={12} />
                       <span>{item.distanceKm} km away</span>
                       <span>•</span>
@@ -126,9 +126,9 @@ export const LifeKitScreen: React.FC<LifeKitScreenProps> = ({ onBack, onKitBooke
                     </div>
                   </div>
 
-                  <div className="rewrap-kit-item-row__price">
-                    <span className="rewrap-kit-item-row__amount">₹{item.pricePerDay}</span>
-                    <span className="rewrap-kit-item-row__unit">/day</span>
+                  <div className="gearmesh-kit-item-row__price">
+                    <span className="gearmesh-kit-item-row__amount">₹{item.pricePerDay}</span>
+                    <span className="gearmesh-kit-item-row__unit">/day</span>
                   </div>
                 </div>
               );
@@ -136,15 +136,15 @@ export const LifeKitScreen: React.FC<LifeKitScreenProps> = ({ onBack, onKitBooke
           </div>
 
           {/* Summary Box */}
-          <div className="rewrap-life-kit__total-card">
-            <div className="rewrap-life-kit__total-info">
-              <span className="rewrap-life-kit__total-label">
+          <div className="gearmesh-life-kit__total-card">
+            <div className="gearmesh-life-kit__total-info">
+              <span className="gearmesh-life-kit__total-label">
                 Kit Total ({selectedItemIds.length} items selected)
               </span>
-              <div className="rewrap-life-kit__total-price">
-                <span className="rewrap-life-kit__total-currency">₹</span>
-                <span className="rewrap-life-kit__total-number">{currentTotalPerDay}</span>
-                <span className="rewrap-life-kit__total-period">/ day</span>
+              <div className="gearmesh-life-kit__total-price">
+                <span className="gearmesh-life-kit__total-currency">₹</span>
+                <span className="gearmesh-life-kit__total-number">{currentTotalPerDay}</span>
+                <span className="gearmesh-life-kit__total-period">/ day</span>
               </div>
             </div>
             <Button

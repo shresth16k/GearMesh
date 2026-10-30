@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { setupIonicReact, IonApp } from '@ionic/react';
 import { SplashScreen } from './pages/Splash/SplashScreen';
-import { WhyReWrapModal } from './components/common/WhyReWrapModal';
+import { WhyGearMeshModal } from './components/common/WhyGearMeshModal';
 import { OnboardingScreen } from './pages/Onboarding/OnboardingScreen';
 import { AuthScreen } from './pages/Auth/AuthScreen';
 import { HomeScreen } from './pages/Home/HomeScreen';
@@ -18,9 +17,6 @@ import { DesktopNav } from './components/common/DesktopNav';
 import { Item, Transaction, LifeKit } from './types';
 import { currentUser as defaultUser, mockItems, mockTransactions } from './data/mockData';
 
-setupIonicReact({
-  mode: 'ios'
-});
 
 export type ScreenId =
   | 'splash'
@@ -58,7 +54,7 @@ export const App: React.FC = () => {
   const showDesktopNav = !['splash', 'onboarding', 'auth'].includes(currentScreen);
 
   return (
-    <IonApp>
+    <div className="gearmesh-root">
       <div className="app-container">
         {showDesktopNav && (
           <DesktopNav
@@ -79,9 +75,17 @@ export const App: React.FC = () => {
           {/* Splash Screen */}
           {currentScreen === 'splash' && (
             <SplashScreen
-              onGetStarted={() => setCurrentScreen('onboarding')}
+              onGetStarted={() => setCurrentScreen('home')}
+              onExploreClick={() => {
+                setActiveTab('explore');
+                setCurrentScreen('explore');
+              }}
+              onSelectItem={(item) => {
+                setSelectedItem(item);
+                setCurrentScreen('itemDetails');
+              }}
               onLoginClick={() => setCurrentScreen('auth')}
-              onWhyReWrap={() => setShowWhyModal(true)}
+              onWhyGearMesh={() => setShowWhyModal(true)}
             />
           )}
 
@@ -242,7 +246,7 @@ export const App: React.FC = () => {
             <ProfileScreen
               user={signedInUser}
               onLogout={() => {
-                localStorage.removeItem('rewrap-user');
+                localStorage.removeItem('gearmesh-user');
                 setSignedInUser({ ...defaultUser, email: '' });
                 setCurrentScreen('splash');
               }}
@@ -273,11 +277,11 @@ export const App: React.FC = () => {
             <BottomNav activeTab={activeTab} onTabChange={handleTabChange} />
           )}
 
-          {/* Why ReWrap Modal */}
-          <WhyReWrapModal isOpen={showWhyModal} onClose={() => setShowWhyModal(false)} />
+          {/* Why GearMesh Modal */}
+          <WhyGearMeshModal isOpen={showWhyModal} onClose={() => setShowWhyModal(false)} />
         </div>
       </div>
-    </IonApp>
+    </div>
   );
 };
 

@@ -1,4 +1,4 @@
-package com.rewrap.model;
+package com.gearmesh.model;
 
 public class User {
     private String id;
@@ -63,3 +63,4 @@ public class User {
     public double getImpactKgKept() { return impactKgKept; }
     public void setImpactKgKept(double impactKgKept) { this.impactKgKept = impactKgKept; }
 }
+

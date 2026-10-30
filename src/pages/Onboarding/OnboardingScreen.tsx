@@ -42,52 +42,52 @@ export const OnboardingScreen: React.FC<OnboardingScreenProps> = ({ onComplete, 
   const slide = slides[currentSlide];
 
   return (
-    <div className="rewrap-onboarding">
-      <div className="rewrap-onboarding__top-bar">
-        <div className="rewrap-onboarding__brand">
-          <img src="/leaf.svg" alt="ReWrap" className="rewrap-onboarding__logo" />
-          <span className="rewrap-onboarding__brand-text">ReWrap</span>
+    <div className="gearmesh-onboarding">
+      <div className="gearmesh-onboarding__top-bar">
+        <div className="gearmesh-onboarding__brand">
+          <img src="/leaf.svg" alt="GearMesh" className="gearmesh-onboarding__logo" />
+          <span className="gearmesh-onboarding__brand-text">GearMesh</span>
         </div>
         {currentSlide < slides.length - 1 && (
-          <button className="rewrap-onboarding__skip-btn" onClick={onSkip}>
+          <button className="gearmesh-onboarding__skip-btn" onClick={onSkip}>
             Skip
           </button>
         )}
       </div>
 
-      <div className="rewrap-onboarding__image-wrap">
+      <div className="gearmesh-onboarding__image-wrap">
         <img
           src={slide.image}
           alt={slide.title}
-          className="rewrap-onboarding__image"
+          className="gearmesh-onboarding__image"
           key={slide.image}
         />
-        <div className="rewrap-onboarding__gradient" />
+        <div className="gearmesh-onboarding__gradient" />
       </div>
 
-      <div className="rewrap-onboarding__content">
-        <span className="rewrap-onboarding__tag">{slide.tag}</span>
-        <h2 className="rewrap-onboarding__title">{slide.title}</h2>
-        <p className="rewrap-onboarding__desc">{slide.description}</p>
+      <div className="gearmesh-onboarding__content">
+        <span className="gearmesh-onboarding__tag">{slide.tag}</span>
+        <h2 className="gearmesh-onboarding__title">{slide.title}</h2>
+        <p className="gearmesh-onboarding__desc">{slide.description}</p>
 
-        <div className="rewrap-onboarding__dots">
+        <div className="gearmesh-onboarding__dots">
           {slides.map((_, idx) => (
             <span
               key={idx}
-              className={`rewrap-onboarding__dot ${idx === currentSlide ? 'rewrap-onboarding__dot--active' : ''}`}
+              className={`gearmesh-onboarding__dot ${idx === currentSlide ? 'gearmesh-onboarding__dot--active' : ''}`}
               onClick={() => setCurrentSlide(idx)}
             />
           ))}
         </div>
 
-        <div className="rewrap-onboarding__actions">
+        <div className="gearmesh-onboarding__actions">
           <Button
             variant="capsule"
             fullWidth
             withArrow
             onClick={handleNext}
           >
-            {currentSlide === slides.length - 1 ? 'Enter ReWrap' : 'Continue'}
+            {currentSlide === slides.length - 1 ? 'Enter GearMesh' : 'Continue'}
           </Button>
         </div>
       </div>

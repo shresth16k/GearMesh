@@ -1,14 +1,27 @@
-.rewrap-item-details {
+.gearmesh-item-details {
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   background: var(--color-warm-cream);
   position: relative;
-  overflow: hidden;
 }
 
-.rewrap-item-details__top-bar {
+@media (max-width: 767px) {
+  .gearmesh-item-details {
+    height: 100%;
+    overflow: hidden;
+  }
+}
+
+@media (min-width: 768px) {
+  .gearmesh-item-details {
+    height: auto;
+    min-height: calc(100vh - 66px);
+    overflow: visible;
+  }
+}
+
+.gearmesh-item-details__top-bar {
   position: absolute;
   top: 0;
   left: 0;
@@ -20,12 +33,12 @@
   z-index: 30;
 }
 
-.rewrap-item-details__top-actions {
+.gearmesh-item-details__top-actions {
   display: flex;
   gap: 10px;
 }
 
-.rewrap-item-details__icon-btn {
+.gearmesh-item-details__icon-btn {
   width: 38px;
   height: 38px;
   border-radius: 50%;
@@ -41,29 +54,31 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-.rewrap-item-details__icon-btn:hover {
+.gearmesh-item-details__icon-btn:hover {
   transform: scale(1.05);
 }
 
-.rewrap-item-details__scroll-body {
+.gearmesh-item-details__scroll-body {
   flex: 1;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 80px;
 }
 
-.rewrap-item-details__hero-image-wrap {
+.gearmesh-item-details__hero-image-wrap {
   position: relative;
   width: 100%;
   height: 340px;
   background: #E0DDD4;
 }
 
-.rewrap-item-details__hero-image {
+.gearmesh-item-details__hero-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.rewrap-item-details__img-counter {
+.gearmesh-item-details__img-counter {
   position: absolute;
   bottom: 24px;
   right: 20px;
@@ -77,7 +92,7 @@
   letter-spacing: 0.02em;
 }
 
-.rewrap-item-details__content {
+.gearmesh-item-details__content {
   padding: 22px 20px;
   display: flex;
   flex-direction: column;
@@ -90,7 +105,7 @@
   z-index: 10;
 }
 
-.rewrap-item-details__title {
+.gearmesh-item-details__title {
   margin: 0;
   font-size: 22px;
   font-weight: 700;
@@ -99,37 +114,37 @@
   letter-spacing: -0.02em;
 }
 
-.rewrap-item-details__sub-row {
+.gearmesh-item-details__sub-row {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
 }
 
-.rewrap-item-details__price-display {
+.gearmesh-item-details__price-display {
   display: flex;
   align-items: baseline;
   color: var(--color-deep-forest);
 }
 
-.rewrap-item-details__currency {
+.gearmesh-item-details__currency {
   font-size: 16px;
   font-weight: 700;
 }
 
-.rewrap-item-details__amount {
+.gearmesh-item-details__amount {
   font-size: 24px;
   font-weight: 800;
   letter-spacing: -0.02em;
 }
 
-.rewrap-item-details__period {
+.gearmesh-item-details__period {
   font-size: 13.5px;
   color: var(--color-muted-gray);
   margin-left: 4px;
 }
 
 /* Owner Card */
-.rewrap-item-details__owner-card {
+.gearmesh-item-details__owner-card {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -139,18 +154,18 @@
   border-radius: var(--radius-md);
 }
 
-.rewrap-item-details__owner-avatar-wrap {
+.gearmesh-item-details__owner-avatar-wrap {
   position: relative;
 }
 
-.rewrap-item-details__owner-avatar {
+.gearmesh-item-details__owner-avatar {
   width: 44px;
   height: 44px;
   border-radius: 50%;
   object-fit: cover;
 }
 
-.rewrap-item-details__owner-vmark {
+.gearmesh-item-details__owner-vmark {
   position: absolute;
   bottom: 0;
   right: 0;
@@ -164,25 +179,25 @@
   border: 1.5px solid #FFFFFF;
 }
 
-.rewrap-item-details__owner-info {
+.gearmesh-item-details__owner-info {
   display: flex;
   flex-direction: column;
   gap: 2px;
   flex: 1;
 }
 
-.rewrap-item-details__owner-name {
+.gearmesh-item-details__owner-name {
   font-size: 14.5px;
   font-weight: 700;
   color: var(--color-deep-forest);
 }
 
-.rewrap-item-details__owner-sub {
+.gearmesh-item-details__owner-sub {
   font-size: 12px;
   color: var(--color-muted-gray);
 }
 
-.rewrap-item-details__view-profile-btn {
+.gearmesh-item-details__view-profile-btn {
   background: transparent;
   border: 1px solid var(--color-soft-border);
   color: var(--color-deep-forest);
@@ -195,19 +210,19 @@
   transition: all 0.2s ease;
 }
 
-.rewrap-item-details__view-profile-btn:hover {
+.gearmesh-item-details__view-profile-btn:hover {
   background: var(--color-pale-sage);
   border-color: var(--color-muted-sage);
 }
 
 /* 3 Info Chips in a row */
-.rewrap-item-details__chips-row {
+.gearmesh-item-details__chips-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
 }
 
-.rewrap-item-details__chip {
+.gearmesh-item-details__chip {
   background: var(--color-soft-ivory);
   border: 1px solid var(--color-soft-border);
   border-radius: var(--radius-md);
@@ -219,13 +234,13 @@
   gap: 6px;
 }
 
-.rewrap-item-details__chip-text {
+.gearmesh-item-details__chip-text {
   display: flex;
   flex-direction: column;
   gap: 1px;
 }
 
-.rewrap-item-details__chip-lbl {
+.gearmesh-item-details__chip-lbl {
   font-size: 10.5px;
   color: var(--color-muted-gray);
   text-transform: uppercase;
@@ -233,26 +248,26 @@
   font-weight: 600;
 }
 
-.rewrap-item-details__chip-val {
+.gearmesh-item-details__chip-val {
   font-size: 12px;
   font-weight: 600;
   color: var(--color-deep-forest);
 }
 
-.rewrap-item-details__section {
+.gearmesh-item-details__section {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.rewrap-item-details__section-title {
+.gearmesh-item-details__section-title {
   margin: 0;
   font-size: 15px;
   font-weight: 700;
   color: var(--color-deep-forest);
 }
 
-.rewrap-item-details__description {
+.gearmesh-item-details__description {
   margin: 0;
   font-size: 14px;
   line-height: 1.55;
@@ -260,13 +275,13 @@
   opacity: 0.9;
 }
 
-.rewrap-item-details__features-grid {
+.gearmesh-item-details__features-grid {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
 
-.rewrap-item-details__feature-pill {
+.gearmesh-item-details__feature-pill {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -280,7 +295,7 @@
 }
 
 /* Sticky Footer CTA */
-.rewrap-item-details__sticky-footer {
+.gearmesh-item-details__sticky-footer {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -295,7 +310,7 @@
   box-shadow: 0 -4px 16px rgba(16, 41, 31, 0.05);
 }
 
-.rewrap-item-details__chat-btn {
+.gearmesh-item-details__chat-btn {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -312,7 +327,66 @@
   transition: all 0.2s ease;
 }
 
-.rewrap-item-details__chat-btn:hover {
+.gearmesh-item-details__chat-btn:hover {
   background: #FFFFFF;
   border-color: var(--color-primary-forest);
 }
+
+@media (min-width: 768px) {
+  .gearmesh-item-details {
+    height: auto;
+    min-height: calc(100vh - 65px);
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 24px 32px 60px;
+    overflow: visible;
+  }
+
+  .gearmesh-item-details__top-bar {
+    position: relative;
+    padding: 0 0 20px 0;
+  }
+
+  .gearmesh-item-details__scroll-body {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 44px;
+    align-items: start;
+    overflow: visible;
+  }
+
+  .gearmesh-item-details__hero-image-wrap {
+    height: 520px;
+    border-radius: var(--radius-hero);
+    overflow: hidden;
+    box-shadow: 0 16px 40px rgba(16, 41, 31, 0.12);
+    position: sticky;
+    top: 85px;
+  }
+
+  .gearmesh-item-details__content {
+    margin-top: 0;
+    border-radius: 0;
+    padding: 0;
+    background: transparent;
+  }
+
+  .gearmesh-item-details__title {
+    font-size: 32px;
+  }
+
+  .gearmesh-item-details__description {
+    font-size: 15.5px;
+    line-height: 1.6;
+  }
+
+  .gearmesh-item-details__sticky-footer {
+    position: static;
+    background: transparent;
+    border-top: 1px solid var(--color-soft-border);
+    padding: 24px 0 0 0;
+    box-shadow: none;
+    margin-top: 12px;
+  }
+}
+

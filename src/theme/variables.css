@@ -1,21 +1,10 @@
-/* Core CSS required for Ionic components to work properly */
-@import '@ionic/react/css/core.css';
-
-/* Basic CSS for apps built with Ionic */
-@import '@ionic/react/css/normalize.css';
-@import '@ionic/react/css/structure.css';
-@import '@ionic/react/css/typography.css';
-
-/* Optional CSS utils that can be commented out */
-@import '@ionic/react/css/padding.css';
-@import '@ionic/react/css/float-elements.css';
-@import '@ionic/react/css/text-alignment.css';
-@import '@ionic/react/css/text-transformation.css';
-@import '@ionic/react/css/flex-utils.css';
-@import '@ionic/react/css/display.css';
+/* =============================================
+   GEARMESH GLOBAL DESIGN SYSTEM & VARIABLES
+   Clean standard CSS without Ionic scroll lock
+   ============================================= */
 
 :root {
-  /* ReWrap Color System */
+  /* GearMesh Color System */
   --color-primary-forest: #183A2B;
   --color-deep-forest: #10291F;
   --color-warm-cream: #F5F0E7;
@@ -30,22 +19,11 @@
   --color-warning: #B9823A;
   --color-success: #527A5B;
 
-  /* Ionic Overrides */
+  /* Theme tokens */
   --ion-background-color: var(--color-warm-cream);
   --ion-text-color: var(--color-charcoal);
   --ion-font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --ion-color-primary: var(--color-primary-forest);
-  --ion-color-primary-rgb: 24, 58, 43;
-  --ion-color-primary-contrast: #FFFFFF;
-  --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #153326;
-  --ion-color-primary-tint: #2f4e40;
-
-  --ion-toolbar-background: var(--color-warm-cream);
-  --ion-toolbar-color: var(--color-charcoal);
-  --ion-tab-bar-background: #FFFFFF;
-  --ion-tab-bar-border-color: var(--color-soft-border);
-  --ion-card-background: var(--color-soft-ivory);
 
   /* Radius & Shadows */
   --radius-sm: 8px;
@@ -60,13 +38,28 @@
 }
 
 /* Global resets & typography */
-* {
+*, *::before, *::after {
   box-sizing: border-box;
 }
 
-body {
+html {
+  width: 100%;
+  min-height: 100%;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
+  overflow-y: auto !important;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: auto !important;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   background-color: var(--color-warm-cream);
   color: var(--color-charcoal);
@@ -74,64 +67,71 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* App responsive container */
-.app-container {
+#root, .gearmesh-root {
+  width: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  position: relative;
+}
+
+/* App container */
+.app-container {
   width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   background-color: var(--color-warm-cream);
 }
 
 .mobile-frame {
   width: 100%;
-  max-width: 100%;
-  min-height: 100vh;
-  background-color: var(--color-warm-cream);
-  position: relative;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  flex: 1;
+  background-color: var(--color-warm-cream);
+  position: relative;
 }
 
-/* Mobile-specific constraints */
+/* ==============================
+   MOBILE LAYOUT (< 768px)
+   ============================== */
 @media (max-width: 767px) {
-  .mobile-frame {
-    height: 100vh;
-    max-height: 100vh;
-    overflow: hidden;
-  }
-}
-
-/* Desktop layout rules */
-@media (min-width: 768px) {
-  .rewrap-bottom-nav {
+  .gearmesh-desktop-nav {
     display: none !important;
   }
-  
-  .mobile-frame {
-    height: auto;
-    min-height: 100vh;
-    overflow: visible;
-  }
 }
 
-.rewrap-desktop-container {
-  max-width: 1320px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 24px;
+/* ==============================
+   DESKTOP LAYOUT (≥ 768px)
+   ============================== */
+@media (min-width: 768px) {
+  /* Hide mobile bottom nav on desktop */
+  .gearmesh-bottom-nav {
+    display: none !important;
+  }
+
+  .gearmesh-desktop-container {
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
 }
 
 /* Scrollbar styling */
 ::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--color-warm-cream);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(115, 119, 111, 0.2);
+  background: rgba(24, 58, 43, 0.25);
   border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(24, 58, 43, 0.45);
 }

@@ -1,4 +1,4 @@
-package com.rewrap.model;
+package com.gearmesh.model;
 
 import java.util.List;
 
@@ -87,3 +87,4 @@ public class Item {
     public double getMaterialSavingsKg() { return materialSavingsKg; }
     public void setMaterialSavingsKg(double materialSavingsKg) { this.materialSavingsKg = materialSavingsKg; }
 }
+

@@ -1,4 +1,4 @@
-.rewrap-bottom-nav {
+.gearmesh-bottom-nav {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -14,7 +14,7 @@
   box-shadow: 0 -4px 20px rgba(16, 41, 31, 0.04);
 }
 
-.rewrap-bottom-nav__item {
+.gearmesh-bottom-nav__item {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,25 +34,25 @@
   flex: 1;
 }
 
-.rewrap-bottom-nav__item:active {
+.gearmesh-bottom-nav__item:active {
   transform: scale(0.95);
 }
 
-.rewrap-bottom-nav__item--active {
+.gearmesh-bottom-nav__item--active {
   color: var(--color-primary-forest);
 }
 
-.rewrap-bottom-nav__item--active span {
+.gearmesh-bottom-nav__item--active span {
   font-weight: 600;
 }
 
 /* Center Add button */
-.rewrap-bottom-nav__item--add {
+.gearmesh-bottom-nav__item--add {
   position: relative;
   top: -12px;
 }
 
-.rewrap-bottom-nav__add-circle {
+.gearmesh-bottom-nav__add-circle {
   width: 44px;
   height: 44px;
   border-radius: 50%;
@@ -64,11 +64,11 @@
   transition: transform 0.2s ease, background 0.2s ease;
 }
 
-.rewrap-bottom-nav__item--add:hover .rewrap-bottom-nav__add-circle {
+.gearmesh-bottom-nav__item--add:hover .gearmesh-bottom-nav__add-circle {
   transform: scale(1.05);
   background: var(--color-deep-forest);
 }
 
-.rewrap-bottom-nav__item--add span {
+.gearmesh-bottom-nav__item--add span {
   margin-top: 2px;
 }

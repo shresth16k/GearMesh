@@ -1,4 +1,4 @@
-package com.rewrap;
+package com.gearmesh;
 
 import com.sun.net.httpserver.HttpServer;
 import com.sun.net.httpserver.HttpHandler;
@@ -11,11 +11,11 @@ import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
 /**
- * ReWrap Native Java REST API Server
+ * GearMesh Native Java REST API Server
  * Built with standard JDK 17 com.sun.net.httpserver
  * Provides instant live endpoints with zero external dependencies.
  */
-public class ReWrapServer {
+public class GearMeshServer {
     private static final int PORT = 8080;
 
     public static void main(String[] args) throws IOException, SQLException {
@@ -33,7 +33,7 @@ public class ReWrapServer {
 
         server.setExecutor(null);
         System.out.println("=================================================");
-        System.out.println("  ReWrap Java Backend Server Started on Port " + PORT);
+        System.out.println("  GearMesh Java Backend Server Started on Port " + PORT);
         System.out.println("  Philosophy: Things move. People connect. A greener tomorrow.");
         System.out.println("  Endpoints: http://localhost:8080/api/health");
         System.out.println("             http://localhost:8080/api/items");
@@ -68,7 +68,7 @@ public class ReWrapServer {
             String json = """
                 {
                     "status": "UP",
-                    "service": "ReWrap Java Backend",
+                    "service": "GearMesh Java Backend",
                     "version": "1.0.0",
                     "philosophy": "Things move. People connect. A greener tomorrow.",
                     "region": "Dehradun, India"
@@ -160,6 +160,174 @@ public class ReWrapServer {
                         "isAvailable": true,
                         "carbonSavingsKg": 19,
                         "materialSavingsKg": 4.5
+                    },
+                    {
+                        "id": "item-5",
+                        "title": "XGIMI Halo+ 1080p Smart Portable Projector",
+                        "category": "electronics",
+                        "pricePerDay": 350,
+                        "rating": 4.8,
+                        "reviewCount": 27,
+                        "distanceKm": 3.4,
+                        "location": "Ballupur, Dehradun",
+                        "imageUrl": "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=800&q=80",
+                        "isAvailable": true,
+                        "carbonSavingsKg": 28,
+                        "materialSavingsKg": 3.2
+                    },
+                    {
+                        "id": "item-6",
+                        "title": "KitchenAid Artisan 4.8L Stand Mixer",
+                        "category": "kitchen",
+                        "pricePerDay": 180,
+                        "rating": 5.0,
+                        "reviewCount": 14,
+                        "distanceKm": 2.8,
+                        "location": "Vasant Vihar, Dehradun",
+                        "imageUrl": "https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?auto=format&fit=crop&w=800&q=80",
+                        "isAvailable": false,
+                        "carbonSavingsKg": 42,
+                        "materialSavingsKg": 11.5
+                    },
+                    {
+                        "id": "item-7",
+                        "title": "DJI Mini 3 Pro 4K HDR Lightweight Drone",
+                        "category": "electronics",
+                        "pricePerDay": 550,
+                        "rating": 4.9,
+                        "reviewCount": 38,
+                        "distanceKm": 1.8,
+                        "location": "Rajpur Road, Dehradun",
+                        "imageUrl": "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?auto=format&fit=crop&w=800&q=80",
+                        "isAvailable": true,
+                        "carbonSavingsKg": 31,
+                        "materialSavingsKg": 2.8
+                    },
+                    {
+                        "id": "item-8",
+                        "title": "Coleman 54-Quart Steel-Belted Cooler & Dual Stove",
+                        "category": "camping",
+                        "pricePerDay": 220,
+                        "rating": 4.8,
+                        "reviewCount": 22,
+                        "distanceKm": 2.4,
+                        "location": "Dharampur, Dehradun",
+                        "imageUrl": "https://images.unsplash.com/photo-1584473457406-6240486418e9?auto=format&fit=crop&w=800&q=80",
+                        "isAvailable": true,
+                        "carbonSavingsKg": 39,
+                        "materialSavingsKg": 9.8
+                    },
+                    {
+                        "id": "item-9",
+                        "title": "Marshall Kilburn II Portable Bluetooth Speaker",
+                        "category": "events",
+                        "pricePerDay": 280,
+                        "rating": 5.0,
+                        "reviewCount": 46,
+                        "distanceKm": 0.9,
+                        "location": "Race Course, Dehradun",
+                        "imageUrl": "https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=800&q=80",
+                        "isAvailable": true,
+                        "carbonSavingsKg": 22,
+                        "materialSavingsKg": 3.5
+                    },
+                    {
+                        "id": "item-10",
+                        "title": "Kärcher K4 Power Control High-Pressure Washer",
+                        "category": "tools",
+                        "pricePerDay": 190,
+                        "rating": 4.8,
+                        "reviewCount": 31,
+                        "distanceKm": 2.7,
+                        "location": "Saharanpur Road, Dehradun",
+                        "imageUrl": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80",
+                        "isAvailable": true,
+                        "carbonSavingsKg": 44,
+                        "materialSavingsKg": 12.0
+                    },
+                    {
+                        "id": "item-11",
+                        "title": "Nintendo Switch OLED + 4 Controllers & Party Games",
+                        "category": "events",
+                        "pricePerDay": 320,
+                        "rating": 4.9,
+                        "reviewCount": 54,
+                        "distanceKm": 1.4,
+                        "location": "EC Road, Dehradun",
+                        "imageUrl": "https://images.unsplash.com/photo-1578303512597-8be9246dd4d3?auto=format&fit=crop&w=800&q=80",
+                        "isAvailable": true,
+                        "carbonSavingsKg": 18,
+                        "materialSavingsKg": 1.9
+                    },
+                    {
+                        "id": "item-12",
+                        "title": "Patagonia Black Hole 70L Weatherproof Duffel Pack",
+                        "category": "sports",
+                        "pricePerDay": 140,
+                        "rating": 4.9,
+                        "reviewCount": 18,
+                        "distanceKm": 1.9,
+                        "location": "Kishanpur, Dehradun",
+                        "imageUrl": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80",
+                        "isAvailable": true,
+                        "carbonSavingsKg": 16,
+                        "materialSavingsKg": 3.1
+                    },
+                    {
+                        "id": "item-13",
+                        "title": "Celestron AstroMaster 130EQ Reflector Telescope",
+                        "category": "electronics",
+                        "pricePerDay": 300,
+                        "rating": 5.0,
+                        "reviewCount": 16,
+                        "distanceKm": 3.1,
+                        "location": "Mussoorie Diversion, Dehradun",
+                        "imageUrl": "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=800&q=80",
+                        "isAvailable": true,
+                        "carbonSavingsKg": 35,
+                        "materialSavingsKg": 8.5
+                    },
+                    {
+                        "id": "item-14",
+                        "title": "Weber Go-Anywhere Portable Charcoal Barbecue Grill",
+                        "category": "kitchen",
+                        "pricePerDay": 160,
+                        "rating": 4.7,
+                        "reviewCount": 25,
+                        "distanceKm": 2.2,
+                        "location": "Subhash Nagar, Dehradun",
+                        "imageUrl": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80",
+                        "isAvailable": true,
+                        "carbonSavingsKg": 24,
+                        "materialSavingsKg": 6.8
+                    },
+                    {
+                        "id": "item-15",
+                        "title": "Fender FA-125 Dreadnought Acoustic Guitar",
+                        "category": "events",
+                        "pricePerDay": 150,
+                        "rating": 4.8,
+                        "reviewCount": 20,
+                        "distanceKm": 1.1,
+                        "location": "Subhash Road, Dehradun",
+                        "imageUrl": "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=800&q=80",
+                        "isAvailable": true,
+                        "carbonSavingsKg": 20,
+                        "materialSavingsKg": 4.2
+                    },
+                    {
+                        "id": "item-16",
+                        "title": "Thule Apex XT 4-Bike Hitch Mount Carrier",
+                        "category": "sports",
+                        "pricePerDay": 230,
+                        "rating": 4.9,
+                        "reviewCount": 17,
+                        "distanceKm": 2.6,
+                        "location": "Jakhan, Dehradun",
+                        "imageUrl": "https://images.unsplash.com/photo-1502744688674-c619d1586c9e?auto=format&fit=crop&w=800&q=80",
+                        "isAvailable": true,
+                        "carbonSavingsKg": 48,
+                        "materialSavingsKg": 13.5
                     }
                 ]
                 """;
@@ -209,3 +377,4 @@ public class ReWrapServer {
         }
     }
 }
+

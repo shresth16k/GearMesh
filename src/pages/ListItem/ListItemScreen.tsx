@@ -43,12 +43,12 @@ export const ListItemScreen: React.FC<ListItemScreenProps> = ({ onPublishSuccess
 
   if (isPublished) {
     return (
-      <div className="rewrap-list-item-success">
-        <div className="rewrap-list-item-success__icon">
+      <div className="gearmesh-list-item-success">
+        <div className="gearmesh-list-item-success__icon">
           <CheckCircle size={48} color="var(--color-primary-forest)" />
         </div>
-        <h2 className="rewrap-list-item-success__title">Item Published to ReWrap!</h2>
-        <p className="rewrap-list-item-success__desc">
+        <h2 className="gearmesh-list-item-success__title">Item Published to GearMesh!</h2>
+        <p className="gearmesh-list-item-success__desc">
           Your gear is now visible to people across Dehradun. You will receive an instant notification when someone sends a borrow request.
         </p>
       </div>
@@ -56,33 +56,33 @@ export const ListItemScreen: React.FC<ListItemScreenProps> = ({ onPublishSuccess
   }
 
   return (
-    <div className="rewrap-list-item">
-      <div className="rewrap-list-item__header">
-        <button className="rewrap-list-item__back-btn" onClick={onCancel} aria-label="Cancel">
+    <div className="gearmesh-list-item">
+      <div className="gearmesh-list-item__header">
+        <button className="gearmesh-list-item__back-btn" onClick={onCancel} aria-label="Cancel">
           <ArrowLeft size={20} />
         </button>
-        <span className="rewrap-list-item__tag">Community Share</span>
+        <span className="gearmesh-list-item__tag">Community Share</span>
         <div style={{ width: 36 }} />
       </div>
 
-      <form className="rewrap-list-item__form" onSubmit={handleSubmit}>
-        <div className="rewrap-list-item__intro">
-          <h1 className="rewrap-list-item__title">List an Item</h1>
-          <p className="rewrap-list-item__subtitle">
+      <form className="gearmesh-list-item__form" onSubmit={handleSubmit}>
+        <div className="gearmesh-list-item__intro">
+          <h1 className="gearmesh-list-item__title">List an Item</h1>
+          <p className="gearmesh-list-item__subtitle">
             Turn your unused items into new adventures.
           </p>
         </div>
 
         {/* Photos grid with 4 thumbnails + Add Photos box (matching Screen 6) */}
-        <div className="rewrap-list-photos-row">
+        <div className="gearmesh-list-photos-row">
           {photos.map((url, idx) => (
-            <div key={idx} className="rewrap-list-photo-thumb">
+            <div key={idx} className="gearmesh-list-photo-thumb">
               <img src={url} alt={`Thumb ${idx}`} />
             </div>
           ))}
           <button
             type="button"
-            className="rewrap-list-photo-add-box"
+            className="gearmesh-list-photo-add-box"
             onClick={() => setPhotos([...photos])}
           >
             <Plus size={18} color="var(--color-muted-gray)" />
@@ -91,7 +91,7 @@ export const ListItemScreen: React.FC<ListItemScreenProps> = ({ onPublishSuccess
         </div>
 
         {/* Item Name */}
-        <div className="rewrap-form-group">
+        <div className="gearmesh-form-group">
           <label>Item Name</label>
           <input
             type="text"
@@ -103,7 +103,7 @@ export const ListItemScreen: React.FC<ListItemScreenProps> = ({ onPublishSuccess
         </div>
 
         {/* Category */}
-        <div className="rewrap-form-group">
+        <div className="gearmesh-form-group">
           <label>Category</label>
           <select
             value={category}
@@ -121,9 +121,9 @@ export const ListItemScreen: React.FC<ListItemScreenProps> = ({ onPublishSuccess
         </div>
 
         {/* Price per Day */}
-        <div className="rewrap-form-group">
+        <div className="gearmesh-form-group">
           <label>Price per Day</label>
-          <div className="rewrap-price-input-wrap">
+          <div className="gearmesh-price-input-wrap">
             <span>₹</span>
             <input
               type="number"
@@ -136,7 +136,7 @@ export const ListItemScreen: React.FC<ListItemScreenProps> = ({ onPublishSuccess
         </div>
 
         {/* Description */}
-        <div className="rewrap-form-group">
+        <div className="gearmesh-form-group">
           <label>Description</label>
           <textarea
             rows={3}
@@ -148,9 +148,9 @@ export const ListItemScreen: React.FC<ListItemScreenProps> = ({ onPublishSuccess
         </div>
 
         {/* Location */}
-        <div className="rewrap-form-group">
+        <div className="gearmesh-form-group">
           <label>Location</label>
-          <div className="rewrap-location-input-wrap">
+          <div className="gearmesh-location-input-wrap">
             <MapPin size={16} color="var(--color-primary-forest)" />
             <input
               type="text"
@@ -162,7 +162,7 @@ export const ListItemScreen: React.FC<ListItemScreenProps> = ({ onPublishSuccess
         </div>
 
         {/* Submit Button */}
-        <div className="rewrap-list-submit-wrap">
+        <div className="gearmesh-list-submit-wrap">
           <Button variant="primary" fullWidth size="lg" type="submit">
             Publish Item
           </Button>

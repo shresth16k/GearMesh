@@ -43,33 +43,33 @@ export const BorrowRequestScreen: React.FC<BorrowRequestScreenProps> = ({
   };
 
   return (
-    <div className="rewrap-borrow-request">
+    <div className="gearmesh-borrow-request">
       {/* Top Bar */}
-      <div className="rewrap-borrow-request__header">
-        <button className="rewrap-borrow-request__back-btn" onClick={onBack} aria-label="Back">
+      <div className="gearmesh-borrow-request__header">
+        <button className="gearmesh-borrow-request__back-btn" onClick={onBack} aria-label="Back">
           <ArrowLeft size={20} />
         </button>
-        <h2 className="rewrap-borrow-request__header-title">Borrow Request</h2>
+        <h2 className="gearmesh-borrow-request__header-title">Borrow Request</h2>
         <div style={{ width: 36 }} />
       </div>
 
-      <form className="rewrap-borrow-request__body" onSubmit={handleSubmit}>
+      <form className="gearmesh-borrow-request__body" onSubmit={handleSubmit}>
         {/* Item Preview matching Screen 7 */}
-        <div className="rewrap-borrow-item-preview">
-          <img src={item.imageUrl} alt={item.title} className="rewrap-borrow-item-preview__img" />
-          <div className="rewrap-borrow-item-preview__info">
-            <h4 className="rewrap-borrow-item-preview__title">{item.title}</h4>
-            <div className="rewrap-borrow-item-preview__rate">
-              ₹{item.pricePerDay} <span className="rewrap-borrow-item-preview__unit">/ day</span>
+        <div className="gearmesh-borrow-item-preview">
+          <img src={item.imageUrl} alt={item.title} className="gearmesh-borrow-item-preview__img" />
+          <div className="gearmesh-borrow-item-preview__info">
+            <h4 className="gearmesh-borrow-item-preview__title">{item.title}</h4>
+            <div className="gearmesh-borrow-item-preview__rate">
+              ₹{item.pricePerDay} <span className="gearmesh-borrow-item-preview__unit">/ day</span>
             </div>
           </div>
         </div>
 
         {/* Date Boxes */}
-        <div className="rewrap-borrow-dates-grid">
-          <div className="rewrap-borrow-date-box">
-            <span className="rewrap-borrow-date-lbl">From</span>
-            <div className="rewrap-borrow-date-val">
+        <div className="gearmesh-borrow-dates-grid">
+          <div className="gearmesh-borrow-date-box">
+            <span className="gearmesh-borrow-date-lbl">From</span>
+            <div className="gearmesh-borrow-date-val">
               <input
                 type="text"
                 value={startDate}
@@ -79,9 +79,9 @@ export const BorrowRequestScreen: React.FC<BorrowRequestScreenProps> = ({
             </div>
           </div>
 
-          <div className="rewrap-borrow-date-box">
-            <span className="rewrap-borrow-date-lbl">To</span>
-            <div className="rewrap-borrow-date-val">
+          <div className="gearmesh-borrow-date-box">
+            <span className="gearmesh-borrow-date-lbl">To</span>
+            <div className="gearmesh-borrow-date-val">
               <input
                 type="text"
                 value={endDate}
@@ -93,23 +93,23 @@ export const BorrowRequestScreen: React.FC<BorrowRequestScreenProps> = ({
         </div>
 
         {/* Duration & Estimated Cost Pills */}
-        <div className="rewrap-borrow-summary-row">
-          <div className="rewrap-borrow-summary-box">
-            <span className="rewrap-borrow-summary-lbl">Duration</span>
-            <span className="rewrap-borrow-summary-val">{durationDays} Days</span>
+        <div className="gearmesh-borrow-summary-row">
+          <div className="gearmesh-borrow-summary-box">
+            <span className="gearmesh-borrow-summary-lbl">Duration</span>
+            <span className="gearmesh-borrow-summary-val">{durationDays} Days</span>
           </div>
 
-          <div className="rewrap-borrow-summary-box">
-            <span className="rewrap-borrow-summary-lbl">Estimated Cost</span>
-            <span className="rewrap-borrow-summary-val">₹{estimatedCost}</span>
+          <div className="gearmesh-borrow-summary-box">
+            <span className="gearmesh-borrow-summary-lbl">Estimated Cost</span>
+            <span className="gearmesh-borrow-summary-val">₹{estimatedCost}</span>
           </div>
         </div>
 
         {/* Message to Owner */}
-        <div className="rewrap-borrow-section">
-          <label className="rewrap-borrow-label">Message to Owner</label>
+        <div className="gearmesh-borrow-section">
+          <label className="gearmesh-borrow-label">Message to Owner</label>
           <textarea
-            className="rewrap-borrow-textarea"
+            className="gearmesh-borrow-textarea"
             rows={3}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
@@ -117,11 +117,11 @@ export const BorrowRequestScreen: React.FC<BorrowRequestScreenProps> = ({
         </div>
 
         {/* Pickup Method Radios matching Screen 7 */}
-        <div className="rewrap-borrow-section">
-          <label className="rewrap-borrow-label">Pickup Method</label>
-          <div className="rewrap-borrow-pickup-radios">
+        <div className="gearmesh-borrow-section">
+          <label className="gearmesh-borrow-label">Pickup Method</label>
+          <div className="gearmesh-borrow-pickup-radios">
             <div
-              className={`rewrap-borrow-radio-row ${pickupMethod === 'person' ? 'rewrap-borrow-radio-row--active' : ''}`}
+              className={`gearmesh-borrow-radio-row ${pickupMethod === 'person' ? 'gearmesh-borrow-radio-row--active' : ''}`}
               onClick={() => setPickupMethod('person')}
             >
               {pickupMethod === 'person' ? (
@@ -129,14 +129,14 @@ export const BorrowRequestScreen: React.FC<BorrowRequestScreenProps> = ({
               ) : (
                 <Circle size={18} color="var(--color-muted-gray)" />
               )}
-              <div className="rewrap-borrow-radio-text">
-                <span className="rewrap-borrow-radio-title">Meet in Person</span>
-                <span className="rewrap-borrow-radio-sub">Direct handover</span>
+              <div className="gearmesh-borrow-radio-text">
+                <span className="gearmesh-borrow-radio-title">Meet in Person</span>
+                <span className="gearmesh-borrow-radio-sub">Direct handover</span>
               </div>
             </div>
 
             <div
-              className={`rewrap-borrow-radio-row ${pickupMethod === 'locker' ? 'rewrap-borrow-radio-row--active' : ''}`}
+              className={`gearmesh-borrow-radio-row ${pickupMethod === 'locker' ? 'gearmesh-borrow-radio-row--active' : ''}`}
               onClick={() => setPickupMethod('locker')}
             >
               {pickupMethod === 'locker' ? (
@@ -144,16 +144,16 @@ export const BorrowRequestScreen: React.FC<BorrowRequestScreenProps> = ({
               ) : (
                 <Circle size={18} color="var(--color-muted-gray)" />
               )}
-              <div className="rewrap-borrow-radio-text">
-                <span className="rewrap-borrow-radio-title">Smart Locker</span>
-                <span className="rewrap-borrow-radio-sub">24/7 access</span>
+              <div className="gearmesh-borrow-radio-text">
+                <span className="gearmesh-borrow-radio-title">Smart Locker</span>
+                <span className="gearmesh-borrow-radio-sub">24/7 access</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Submit */}
-        <div className="rewrap-borrow-submit-wrap">
+        <div className="gearmesh-borrow-submit-wrap">
           <Button variant="primary" fullWidth size="lg" type="submit">
             Send Request
           </Button>

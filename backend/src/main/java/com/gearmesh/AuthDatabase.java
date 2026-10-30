@@ -1,4 +1,4 @@
-package com.rewrap;
+package com.gearmesh;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -13,7 +13,7 @@ import java.util.Base64;
 import java.util.UUID;
 
 final class AuthDatabase {
-    private static final String JDBC_URL = "jdbc:sqlite:rewrap.db";
+    private static final String JDBC_URL = "jdbc:sqlite:GearMesh.db";
     private static final int ITERATIONS = 120_000;
     private static final int KEY_LENGTH = 256;
     private static final SecureRandom RANDOM = new SecureRandom();

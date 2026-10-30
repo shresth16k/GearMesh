@@ -1,6 +1,5 @@
-.rewrap-auth-screen {
+.gearmesh-auth-screen {
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   background: var(--color-warm-cream);
@@ -8,14 +7,32 @@
   overflow-y: auto;
 }
 
-.rewrap-auth__header {
+@media (max-width: 767px) {
+  .gearmesh-auth-screen {
+    height: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .gearmesh-auth-screen {
+    min-height: 100vh;
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 32px 40px 48px;
+    border-left: 1px solid var(--color-soft-border);
+    border-right: 1px solid var(--color-soft-border);
+    box-shadow: 0 0 60px rgba(24, 58, 43, 0.08);
+  }
+}
+
+.gearmesh-auth__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
 }
 
-.rewrap-auth__back-btn {
+.gearmesh-auth__back-btn {
   background: none;
   border: none;
   color: var(--color-charcoal);
@@ -27,7 +44,7 @@
   cursor: pointer;
 }
 
-.rewrap-auth__brand {
+.gearmesh-auth__brand {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -36,12 +53,12 @@
   color: var(--color-deep-forest);
 }
 
-.rewrap-auth__logo {
+.gearmesh-auth__logo {
   width: 22px;
   height: 22px;
 }
 
-.rewrap-auth__body {
+.gearmesh-auth__body {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -51,7 +68,7 @@
   width: 100%;
 }
 
-.rewrap-auth__title {
+.gearmesh-auth__title {
   font-size: 26px;
   font-weight: 700;
   color: var(--color-deep-forest);
@@ -59,7 +76,7 @@
   letter-spacing: -0.02em;
 }
 
-.rewrap-auth__subtitle {
+.gearmesh-auth__subtitle {
   font-size: 13.5px;
   color: var(--color-muted-gray);
   margin: 0 0 20px 0;
@@ -67,13 +84,13 @@
 }
 
 /* Tabs: Sign In | Sign Up */
-.rewrap-auth__tabs {
+.gearmesh-auth__tabs {
   display: flex;
   border-bottom: 1.5px solid var(--color-soft-border);
   margin-bottom: 20px;
 }
 
-.rewrap-auth__tab {
+.gearmesh-auth__tab {
   flex: 1;
   background: none;
   border: none;
@@ -87,11 +104,11 @@
   transition: color 0.2s ease;
 }
 
-.rewrap-auth__tab--active {
+.gearmesh-auth__tab--active {
   color: var(--color-deep-forest);
 }
 
-.rewrap-auth__tab--active::after {
+.gearmesh-auth__tab--active::after {
   content: '';
   position: absolute;
   bottom: -1.5px;
@@ -102,13 +119,13 @@
   border-radius: 2px;
 }
 
-.rewrap-auth__form {
+.gearmesh-auth__form {
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
 
-.rewrap-auth__error {
+.gearmesh-auth__error {
   color: #a33a2b;
   background: #f8dfd8;
   border: 1px solid #e8b8ad;
@@ -119,19 +136,19 @@
   line-height: 1.4;
 }
 
-.rewrap-auth__field {
+.gearmesh-auth__field {
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
 
-.rewrap-auth__field label {
+.gearmesh-auth__field label {
   font-size: 13px;
   font-weight: 600;
   color: var(--color-charcoal);
 }
 
-.rewrap-auth__input-wrap {
+.gearmesh-auth__input-wrap {
   display: flex;
   align-items: center;
   background: var(--color-soft-ivory);
@@ -142,16 +159,16 @@
   transition: border-color 0.2s ease;
 }
 
-.rewrap-auth__input-wrap:focus-within {
+.gearmesh-auth__input-wrap:focus-within {
   border-color: var(--color-primary-forest);
 }
 
-.rewrap-auth__icon {
+.gearmesh-auth__icon {
   color: var(--color-muted-gray);
   margin-right: 10px;
 }
 
-.rewrap-auth__input-wrap input {
+.gearmesh-auth__input-wrap input {
   border: none;
   background: transparent;
   width: 100%;
@@ -161,7 +178,7 @@
   outline: none;
 }
 
-.rewrap-auth__eye-btn {
+.gearmesh-auth__eye-btn {
   background: none;
   border: none;
   color: var(--color-muted-gray);
@@ -172,7 +189,7 @@
 }
 
 /* Options row: remember me and forgot password */
-.rewrap-auth__options-row {
+.gearmesh-auth__options-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -180,7 +197,7 @@
   margin-top: 2px;
 }
 
-.rewrap-auth__checkbox-label {
+.gearmesh-auth__checkbox-label {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -189,14 +206,14 @@
   user-select: none;
 }
 
-.rewrap-auth__checkbox-label input {
+.gearmesh-auth__checkbox-label input {
   accent-color: var(--color-primary-forest);
   width: 15px;
   height: 15px;
   cursor: pointer;
 }
 
-.rewrap-auth__link-btn {
+.gearmesh-auth__link-btn {
   background: none;
   border: none;
   font-family: inherit;
@@ -206,16 +223,16 @@
   padding: 0;
 }
 
-.rewrap-auth__link-btn:hover {
+.gearmesh-auth__link-btn:hover {
   color: var(--color-deep-forest);
 }
 
-.rewrap-auth__submit {
+.gearmesh-auth__submit {
   margin-top: 10px;
 }
 
 /* Divider */
-.rewrap-auth__divider {
+.gearmesh-auth__divider {
   display: flex;
   align-items: center;
   text-align: center;
@@ -224,25 +241,25 @@
   font-size: 12px;
 }
 
-.rewrap-auth__divider::before,
-.rewrap-auth__divider::after {
+.gearmesh-auth__divider::before,
+.gearmesh-auth__divider::after {
   content: '';
   flex: 1;
   border-bottom: 1px solid var(--color-soft-border);
 }
 
-.rewrap-auth__divider span {
+.gearmesh-auth__divider span {
   padding: 0 10px;
 }
 
 /* Social buttons row */
-.rewrap-auth__socials {
+.gearmesh-auth__socials {
   display: flex;
   justify-content: center;
   gap: 16px;
 }
 
-.rewrap-auth__social-btn {
+.gearmesh-auth__social-btn {
   width: 48px;
   height: 48px;
   border-radius: var(--radius-md);
@@ -256,12 +273,12 @@
   color: var(--color-charcoal);
 }
 
-.rewrap-auth__social-btn:hover {
+.gearmesh-auth__social-btn:hover {
   background: #FFFFFF;
   border-color: var(--color-muted-sage);
 }
 
-.rewrap-auth__terms {
+.gearmesh-auth__terms {
   text-align: center;
   font-size: 11.5px;
   color: var(--color-muted-gray);
@@ -269,7 +286,7 @@
   line-height: 1.4;
 }
 
-.rewrap-auth__terms a {
+.gearmesh-auth__terms a {
   color: var(--color-primary-forest);
   text-decoration: underline;
 }

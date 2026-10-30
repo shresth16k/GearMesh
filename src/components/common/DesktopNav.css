@@ -1,210 +1,249 @@
-.rewrap-desktop-nav {
+.gearmesh-desktop-nav {
   display: none;
   width: 100%;
-  background: rgba(252, 250, 245, 0.94);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--color-soft-border);
+  height: 66px;
+  background: rgba(252, 250, 245, 0.97);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(222, 220, 212, 0.7);
   position: sticky;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 4px 20px rgba(16, 41, 31, 0.05);
+  box-shadow: 0 2px 12px rgba(16, 41, 31, 0.05);
 }
 
 @media (min-width: 768px) {
-  .rewrap-desktop-nav {
-    display: block;
+  .gearmesh-desktop-nav {
+    display: flex;
+    align-items: center;
   }
 }
 
-.rewrap-desktop-nav__container {
-  max-width: 1320px;
+.gearmesh-desktop-nav__container {
+  max-width: 1400px;
+  width: 100%;
+  height: 100%;
   margin: 0 auto;
-  padding: 12px 28px;
+  padding: 0 28px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
+  gap: 20px;
 }
 
 /* Brand */
-.rewrap-desktop-nav__brand {
+.gearmesh-desktop-nav__brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   cursor: pointer;
   user-select: none;
-  transition: opacity 0.2s ease;
+  flex-shrink: 0;
+  transition: opacity 0.15s ease;
 }
 
-.rewrap-desktop-nav__brand:hover {
-  opacity: 0.9;
+.gearmesh-desktop-nav__brand:hover {
+  opacity: 0.88;
 }
 
-.rewrap-desktop-nav__logo-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 12px;
+.gearmesh-desktop-nav__logo-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
   background: var(--color-deep-forest);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(16, 41, 31, 0.25);
+  box-shadow: 0 3px 10px rgba(16, 41, 31, 0.22);
+  flex-shrink: 0;
 }
 
-.rewrap-desktop-nav__brand-text {
+.gearmesh-desktop-nav__brand-text {
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
-.rewrap-desktop-nav__title {
-  font-size: 20px;
+.gearmesh-desktop-nav__title {
+  font-size: 18px;
   font-weight: 800;
   letter-spacing: -0.03em;
   color: var(--color-deep-forest);
   line-height: 1.1;
 }
 
-.rewrap-desktop-nav__tagline {
-  font-size: 11px;
+.gearmesh-desktop-nav__tagline {
+  font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.04em;
-  text-transform: uppercase;
   color: var(--color-muted-gray);
+  white-space: nowrap;
 }
 
-/* Navigation Links */
-.rewrap-desktop-nav__links {
+/* Navigation Links — centered, uniform height, no wrap */
+.gearmesh-desktop-nav__links {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 2px;
+  flex: 1;
+  justify-content: center;
 }
 
-.rewrap-desktop-nav__link {
-  display: flex;
+.gearmesh-desktop-nav__link {
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
+  justify-content: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 12px;
   border-radius: 9999px;
   background: transparent;
   border: none;
   font-family: inherit;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   color: var(--color-charcoal);
   cursor: pointer;
-  transition: all 0.2s ease;
-  position: relative;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.18s ease;
+  line-height: 1;
 }
 
-.rewrap-desktop-nav__link:hover {
-  background: rgba(24, 58, 43, 0.06);
+.gearmesh-desktop-nav__link:hover {
+  background: rgba(24, 58, 43, 0.07);
   color: var(--color-primary-forest);
 }
 
-.rewrap-desktop-nav__link--active {
-  background: var(--color-deep-forest);
+.gearmesh-desktop-nav__link--active {
+  background: var(--color-deep-forest) !important;
   color: #FFFFFF !important;
   font-weight: 600;
-  box-shadow: 0 4px 12px rgba(16, 41, 31, 0.2);
+  box-shadow: 0 3px 10px rgba(16, 41, 31, 0.18);
 }
 
-.rewrap-desktop-nav__pill-badge {
+.gearmesh-desktop-nav__link--active:hover {
+  background: var(--color-deep-forest) !important;
+  color: #FFFFFF !important;
+}
+
+.gearmesh-desktop-nav__pill-badge {
   font-size: 10px;
   font-weight: 700;
-  padding: 1px 6px;
+  padding: 2px 6px;
   border-radius: 999px;
   background: #E8B97D;
   color: #4A3205;
-  margin-left: 2px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.rewrap-desktop-nav__link--active .rewrap-desktop-nav__pill-badge {
-  background: #FFFFFF;
-  color: var(--color-deep-forest);
+.gearmesh-desktop-nav__link--active .gearmesh-desktop-nav__pill-badge {
+  background: rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
 }
 
 /* Right Section */
-.rewrap-desktop-nav__right {
+.gearmesh-desktop-nav__right {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
-.rewrap-desktop-nav__location {
-  display: flex;
+/* Location Chip */
+.gearmesh-desktop-nav__location {
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--color-muted-gray);
-  padding: 6px 12px;
-  background: rgba(168, 184, 163, 0.2);
+  gap: 5px;
+  height: 34px;
+  padding: 0 11px;
+  background: var(--color-soft-ivory);
+  border: 1px solid var(--color-soft-border);
   border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-charcoal);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
-.rewrap-desktop-nav__list-btn {
-  display: flex;
+/* List Button */
+.gearmesh-desktop-nav__list-btn {
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
-  padding: 8px 18px;
+  height: 36px;
+  padding: 0 14px;
   background: var(--color-primary-forest);
   color: #FFFFFF;
   border: none;
   border-radius: 9999px;
   font-family: inherit;
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.18s ease;
   box-shadow: 0 2px 8px rgba(24, 58, 43, 0.2);
+  line-height: 1;
 }
 
-.rewrap-desktop-nav__list-btn:hover {
+.gearmesh-desktop-nav__list-btn:hover {
   background: var(--color-deep-forest);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(24, 58, 43, 0.3);
+  box-shadow: 0 4px 12px rgba(24, 58, 43, 0.28);
 }
 
-/* Profile Pill */
-.rewrap-desktop-nav__user-pill {
-  display: flex;
+/* User Profile Pill */
+.gearmesh-desktop-nav__user-pill {
+  display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 4px 12px 4px 4px;
+  gap: 8px;
+  height: 36px;
+  padding: 3px 10px 3px 3px;
   background: #FFFFFF;
   border: 1px solid var(--color-soft-border);
   border-radius: 9999px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.18s ease;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
 }
 
-.rewrap-desktop-nav__user-pill:hover,
-.rewrap-desktop-nav__user-pill--active {
+.gearmesh-desktop-nav__user-pill:hover,
+.gearmesh-desktop-nav__user-pill--active {
   border-color: var(--color-primary-forest);
-  box-shadow: 0 4px 12px rgba(24, 58, 43, 0.12);
   background: var(--color-soft-ivory);
+  box-shadow: 0 4px 12px rgba(24, 58, 43, 0.12);
 }
 
-.rewrap-desktop-nav__avatar-wrap {
+.gearmesh-desktop-nav__avatar-wrap {
   position: relative;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
 }
 
-.rewrap-desktop-nav__avatar {
-  width: 34px;
-  height: 34px;
+.gearmesh-desktop-nav__avatar {
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   object-fit: cover;
   display: block;
 }
 
-.rewrap-desktop-nav__verified-dot {
+.gearmesh-desktop-nav__verified-dot {
   position: absolute;
-  bottom: -2px;
-  right: -2px;
-  width: 14px;
-  height: 14px;
+  bottom: -1px;
+  right: -1px;
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
   background: var(--color-success);
   border: 1.5px solid #FFFFFF;
@@ -213,20 +252,48 @@
   justify-content: center;
 }
 
-.rewrap-desktop-nav__user-meta {
+.gearmesh-desktop-nav__user-meta {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  line-height: 1;
 }
 
-.rewrap-desktop-nav__user-name {
-  font-size: 13px;
+.gearmesh-desktop-nav__user-name {
+  font-size: 12px;
   font-weight: 600;
   color: var(--color-deep-forest);
   line-height: 1.2;
+  white-space: nowrap;
 }
 
-.rewrap-desktop-nav__user-rating {
-  font-size: 11px;
+.gearmesh-desktop-nav__user-rating {
+  font-size: 10px;
   font-weight: 600;
   color: #B58434;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+/* Responsive: hide location chip on medium screens to prevent overflow */
+@media (max-width: 1100px) {
+  .gearmesh-desktop-nav__location {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .gearmesh-desktop-nav__container {
+    padding: 0 16px;
+    gap: 12px;
+  }
+
+  .gearmesh-desktop-nav__link {
+    padding: 0 9px;
+    font-size: 12px;
+  }
+
+  .gearmesh-desktop-nav__tagline {
+    display: none;
+  }
 }

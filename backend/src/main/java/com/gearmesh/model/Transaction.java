@@ -1,4 +1,4 @@
-package com.rewrap.model;
+package com.gearmesh.model;
 
 public class Transaction {
     private String id;
@@ -85,3 +85,4 @@ public class Transaction {
     public String getCreatedAt() { return createdAt; }
     public void setCreatedAt(String createdAt) { this.createdAt = createdAt; }
 }
+

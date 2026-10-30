@@ -344,7 +344,7 @@ export const mockItems: Item[] = [
     reviewCount: 54,
     distanceKm: 1.4,
     location: 'EC Road, Dehradun',
-    imageUrl: 'https://images.unsplash.com/photo-1578303512597-8be9246dd4d3?auto=format&fit=crop&w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1600080972464-8e5f35f63d08?auto=format&fit=crop&w=800&q=80',
     isAvailable: true,
     description: 'Vibrant 7-inch OLED model console with enhanced audio, TV dock, HDMI cable, and 4 wireless Joy-Cons with wheel grips. Preloaded with Mario Kart 8 Deluxe, Super Smash Bros Ultimate, and Overcooked 2 for instant group entertainment.',
     features: ['7-inch OLED Screen', '4 Wireless Joy-Cons Included', 'Mario Kart 8 Deluxe', 'Overcooked 2', 'TV Dock & HDMI Cable'],

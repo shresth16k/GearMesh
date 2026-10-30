@@ -25,28 +25,28 @@ export const ExploreScreen: React.FC<ExploreScreenProps> = ({ onSelectItem }) =>
   });
 
   return (
-    <div className="rewrap-explore">
+    <div className="gearmesh-explore">
       {/* Header */}
-      <div className="rewrap-explore__header">
+      <div className="gearmesh-explore__header">
         <div>
-          <h1 className="rewrap-explore__title">Find Around You</h1>
-          <p className="rewrap-explore__subtitle">Real people. Real things. Real impact.</p>
+          <h1 className="gearmesh-explore__title">Find Around You</h1>
+          <p className="gearmesh-explore__subtitle">Real people. Real things. Real impact.</p>
         </div>
 
-        <div className="rewrap-explore__header-right">
-          <button className="rewrap-explore__send-btn" aria-label="Share location">
+        <div className="gearmesh-explore__header-right">
+          <button className="gearmesh-explore__send-btn" aria-label="Share location">
             <Send size={16} color="var(--color-primary-forest)" />
           </button>
-          <div className="rewrap-explore__toggle-wrap">
+          <div className="gearmesh-explore__toggle-wrap">
             <button
-              className={`rewrap-explore__toggle-btn ${viewMode === 'map' ? 'rewrap-explore__toggle-btn--active' : ''}`}
+              className={`gearmesh-explore__toggle-btn ${viewMode === 'map' ? 'gearmesh-explore__toggle-btn--active' : ''}`}
               onClick={() => setViewMode('map')}
               aria-label="Map view"
             >
               <Map size={15} />
             </button>
             <button
-              className={`rewrap-explore__toggle-btn ${viewMode === 'list' ? 'rewrap-explore__toggle-btn--active' : ''}`}
+              className={`gearmesh-explore__toggle-btn ${viewMode === 'list' ? 'gearmesh-explore__toggle-btn--active' : ''}`}
               onClick={() => setViewMode('list')}
               aria-label="List view"
             >
@@ -57,7 +57,7 @@ export const ExploreScreen: React.FC<ExploreScreenProps> = ({ onSelectItem }) =>
       </div>
 
       {/* Search & Filter Bar */}
-      <div className="rewrap-explore__search-area">
+      <div className="gearmesh-explore__search-area">
         <SearchBar
           value={search}
           onChange={setSearch}
@@ -67,22 +67,22 @@ export const ExploreScreen: React.FC<ExploreScreenProps> = ({ onSelectItem }) =>
 
       {/* Main Content: Map or List */}
       {viewMode === 'map' ? (
-        <div className="rewrap-explore__map-container">
-          <div className="rewrap-radar-map">
+        <div className="gearmesh-explore__map-container">
+          <div className="gearmesh-radar-map">
             {/* Concentric Soft Radar Distance Rings */}
-            <div className="rewrap-radar-ring rewrap-radar-ring--3" />
-            <div className="rewrap-radar-ring rewrap-radar-ring--2" />
-            <div className="rewrap-radar-ring rewrap-radar-ring--1" />
+            <div className="gearmesh-radar-ring gearmesh-radar-ring--3" />
+            <div className="gearmesh-radar-ring gearmesh-radar-ring--2" />
+            <div className="gearmesh-radar-ring gearmesh-radar-ring--1" />
 
             {/* Center "Your location" indicator */}
-            <div className="rewrap-radar-center">
-              <div className="rewrap-radar-center__dot" />
-              <span className="rewrap-radar-center__label">Your location</span>
+            <div className="gearmesh-radar-center">
+              <div className="gearmesh-radar-center__dot" />
+              <span className="gearmesh-radar-center__label">Your location</span>
             </div>
 
             {/* Circular Item Pins placed around radar rings */}
             <div
-              className={`rewrap-radar-item-pin ${activeMapItem?.id === mockItems[0].id ? 'rewrap-radar-item-pin--selected' : ''}`}
+              className={`gearmesh-radar-item-pin ${activeMapItem?.id === mockItems[0].id ? 'gearmesh-radar-item-pin--selected' : ''}`}
               style={{ top: '22%', left: '22%' }}
               onClick={() => setActiveMapItem(mockItems[0])}
             >
@@ -90,7 +90,7 @@ export const ExploreScreen: React.FC<ExploreScreenProps> = ({ onSelectItem }) =>
             </div>
 
             <div
-              className={`rewrap-radar-item-pin ${activeMapItem?.id === mockItems[1].id ? 'rewrap-radar-item-pin--selected' : ''}`}
+              className={`gearmesh-radar-item-pin ${activeMapItem?.id === mockItems[1].id ? 'gearmesh-radar-item-pin--selected' : ''}`}
               style={{ top: '20%', right: '22%' }}
               onClick={() => setActiveMapItem(mockItems[1])}
             >
@@ -98,7 +98,7 @@ export const ExploreScreen: React.FC<ExploreScreenProps> = ({ onSelectItem }) =>
             </div>
 
             <div
-              className={`rewrap-radar-item-pin ${activeMapItem?.id === mockItems[2].id ? 'rewrap-radar-item-pin--selected' : ''}`}
+              className={`gearmesh-radar-item-pin ${activeMapItem?.id === mockItems[2].id ? 'gearmesh-radar-item-pin--selected' : ''}`}
               style={{ bottom: '38%', right: '25%' }}
               onClick={() => setActiveMapItem(mockItems[2])}
             >
@@ -106,7 +106,7 @@ export const ExploreScreen: React.FC<ExploreScreenProps> = ({ onSelectItem }) =>
             </div>
 
             <div
-              className={`rewrap-radar-item-pin ${activeMapItem?.id === mockItems[3].id ? 'rewrap-radar-item-pin--selected' : ''}`}
+              className={`gearmesh-radar-item-pin ${activeMapItem?.id === mockItems[3].id ? 'gearmesh-radar-item-pin--selected' : ''}`}
               style={{ bottom: '42%', left: '20%' }}
               onClick={() => setActiveMapItem(mockItems[3])}
             >
@@ -116,17 +116,17 @@ export const ExploreScreen: React.FC<ExploreScreenProps> = ({ onSelectItem }) =>
 
           {/* Bottom Floating Item Preview Card (matching Screen 5 in showcase) */}
           {activeMapItem && (
-            <div className="rewrap-explore__floating-card" onClick={() => onSelectItem(activeMapItem)}>
-              <div className="rewrap-explore__floating-img-wrap">
+            <div className="gearmesh-explore__floating-card" onClick={() => onSelectItem(activeMapItem)}>
+              <div className="gearmesh-explore__floating-img-wrap">
                 <img src={activeMapItem.imageUrl} alt={activeMapItem.title} />
               </div>
 
-              <div className="rewrap-explore__floating-info">
-                <div className="rewrap-explore__floating-title-row">
-                  <h4 className="rewrap-explore__floating-title">{activeMapItem.title}</h4>
+              <div className="gearmesh-explore__floating-info">
+                <div className="gearmesh-explore__floating-title-row">
+                  <h4 className="gearmesh-explore__floating-title">{activeMapItem.title}</h4>
                   <button
                     type="button"
-                    className="rewrap-explore__floating-heart"
+                    className="gearmesh-explore__floating-heart"
                     onClick={(e) => {
                       e.stopPropagation();
                       setIsLiked(!isLiked);
@@ -136,15 +136,15 @@ export const ExploreScreen: React.FC<ExploreScreenProps> = ({ onSelectItem }) =>
                   </button>
                 </div>
 
-                <div className="rewrap-explore__floating-rate-row">
-                  <span className="rewrap-explore__floating-price">₹{activeMapItem.pricePerDay}/day</span>
-                  <div className="rewrap-explore__floating-rating">
+                <div className="gearmesh-explore__floating-rate-row">
+                  <span className="gearmesh-explore__floating-price">₹{activeMapItem.pricePerDay}/day</span>
+                  <div className="gearmesh-explore__floating-rating">
                     <Star size={12} fill="var(--color-sand)" stroke="var(--color-sand)" />
                     <span>{activeMapItem.rating}</span>
                   </div>
                 </div>
 
-                <div className="rewrap-explore__floating-distance">
+                <div className="gearmesh-explore__floating-distance">
                   <MapPin size={12} />
                   <span>{activeMapItem.distanceKm * 1000} m away</span>
                 </div>
@@ -153,11 +153,11 @@ export const ExploreScreen: React.FC<ExploreScreenProps> = ({ onSelectItem }) =>
           )}
         </div>
       ) : (
-        <div className="rewrap-explore__list-scroll">
-          <div className="rewrap-explore__results-count">
+        <div className="gearmesh-explore__list-scroll">
+          <div className="gearmesh-explore__results-count">
             <span>{filteredItems.length} items available nearby</span>
           </div>
-          <div className="rewrap-explore__grid">
+          <div className="gearmesh-explore__grid">
             {filteredItems.map((item) => (
               <ItemCard key={item.id} item={item} onClick={() => onSelectItem(item)} />
             ))}

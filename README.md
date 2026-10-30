@@ -1,9 +1,9 @@
-# ReWrap / GearMesh 🌿
+# GearMesh / GearMesh 🌿
 
 > **Things move. People connect. A greener tomorrow.**  
 > *Same things. New stories. Borrow. Share. Belong.*
 
-ReWrap (GearMesh) is a premium mobile-first resource-sharing platform where community members borrow, lend, and share underused physical items instead of purchasing things they only need occasionally.
+GearMesh (GearMesh) is a premium mobile-first resource-sharing platform where community members borrow, lend, and share underused physical items instead of purchasing things they only need occasionally.
 
 Built with an editorial aesthetic: **Warm Cream background (`#F5F0E7`) + Deep Forest Green signature (`#10291F` / `#183A2B`) + authentic photography + restrained cards + subtle sage accents**.
 
@@ -47,7 +47,7 @@ Built with an editorial aesthetic: **Warm Cream background (`#F5F0E7`) + Deep Fo
 7. **Borrow Request Screen**:
    - Interactive date range selector with automatic duration calculation
    - Pickup selector: **Smart Locker** vs **Meet in Person**
-   - Cost estimation with ReWrap Community Replacement Guarantee
+   - Cost estimation with GearMesh Community Replacement Guarantee
 8. **Smart Locker / Request Approved Screen**:
    - Realistic physical smart locker unit visual
    - Assigned compartment: **Locker A-12**
@@ -97,9 +97,9 @@ cd backend
 mvn clean package
 
 # Run the server on port 8080 (from the backend directory)
-java -jar target/rewrap-backend-1.0.0.jar
+java -jar target/gearmesh-backend-1.0.0.jar
 ```
-The backend creates `backend/rewrap.db` on first start. User passwords are stored as salted PBKDF2 hashes, never as plain text.
+The backend creates `backend/gearmesh.db` on first start. User passwords are stored as salted PBKDF2 hashes, never as plain text.
 
 Authentication endpoints:
 - `POST http://localhost:8080/api/auth/register` with `{ "name", "email", "password" }`

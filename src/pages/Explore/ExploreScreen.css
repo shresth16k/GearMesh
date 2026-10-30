@@ -1,20 +1,33 @@
-.rewrap-explore {
+.gearmesh-explore {
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   background-color: var(--color-warm-cream);
-  overflow: hidden;
 }
 
-.rewrap-explore__header {
+@media (max-width: 767px) {
+  .gearmesh-explore {
+    height: 100%;
+    overflow: hidden;
+  }
+}
+
+@media (min-width: 768px) {
+  .gearmesh-explore {
+    height: auto;
+    min-height: calc(100vh - 66px);
+    overflow: visible;
+  }
+}
+
+.gearmesh-explore__header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   padding: 18px 20px 10px;
 }
 
-.rewrap-explore__title {
+.gearmesh-explore__title {
   margin: 0;
   font-size: 22px;
   font-weight: 700;
@@ -22,19 +35,19 @@
   letter-spacing: -0.02em;
 }
 
-.rewrap-explore__subtitle {
+.gearmesh-explore__subtitle {
   margin: 2px 0 0 0;
   font-size: 12.5px;
   color: var(--color-muted-gray);
 }
 
-.rewrap-explore__header-right {
+.gearmesh-explore__header-right {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.rewrap-explore__send-btn {
+.gearmesh-explore__send-btn {
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -46,7 +59,7 @@
   cursor: pointer;
 }
 
-.rewrap-explore__toggle-wrap {
+.gearmesh-explore__toggle-wrap {
   display: flex;
   background: var(--color-soft-ivory);
   border: 1px solid var(--color-soft-border);
@@ -54,7 +67,7 @@
   padding: 2px;
 }
 
-.rewrap-explore__toggle-btn {
+.gearmesh-explore__toggle-btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -68,24 +81,24 @@
   transition: all 0.2s ease;
 }
 
-.rewrap-explore__toggle-btn--active {
+.gearmesh-explore__toggle-btn--active {
   background: var(--color-primary-forest);
   color: #FFFFFF;
 }
 
-.rewrap-explore__search-area {
+.gearmesh-explore__search-area {
   padding: 4px 20px 12px;
 }
 
 /* Radar Map Container */
-.rewrap-explore__map-container {
+.gearmesh-explore__map-container {
   flex: 1;
   position: relative;
   overflow: hidden;
   background: #EDE8DE;
 }
 
-.rewrap-radar-map {
+.gearmesh-radar-map {
   width: 100%;
   height: 100%;
   position: relative;
@@ -96,7 +109,7 @@
 }
 
 /* Radar rings */
-.rewrap-radar-ring {
+.gearmesh-radar-ring {
   position: absolute;
   border-radius: 50%;
   border: 1px solid rgba(168, 184, 163, 0.4);
@@ -104,24 +117,24 @@
   pointer-events: none;
 }
 
-.rewrap-radar-ring--1 {
+.gearmesh-radar-ring--1 {
   width: 140px;
   height: 140px;
   background: rgba(220, 229, 216, 0.35);
 }
 
-.rewrap-radar-ring--2 {
+.gearmesh-radar-ring--2 {
   width: 260px;
   height: 260px;
 }
 
-.rewrap-radar-ring--3 {
+.gearmesh-radar-ring--3 {
   width: 380px;
   height: 380px;
 }
 
 /* Center user dot */
-.rewrap-radar-center {
+.gearmesh-radar-center {
   position: relative;
   z-index: 10;
   display: flex;
@@ -130,7 +143,7 @@
   gap: 4px;
 }
 
-.rewrap-radar-center__dot {
+.gearmesh-radar-center__dot {
   width: 14px;
   height: 14px;
   border-radius: 50%;
@@ -139,7 +152,7 @@
   box-shadow: 0 0 0 6px rgba(59, 113, 247, 0.2);
 }
 
-.rewrap-radar-center__label {
+.gearmesh-radar-center__label {
   font-size: 11px;
   font-weight: 600;
   color: var(--color-charcoal);
@@ -150,7 +163,7 @@
 }
 
 /* Circular item pin */
-.rewrap-radar-item-pin {
+.gearmesh-radar-item-pin {
   position: absolute;
   width: 48px;
   height: 48px;
@@ -164,24 +177,24 @@
   z-index: 15;
 }
 
-.rewrap-radar-item-pin:hover {
+.gearmesh-radar-item-pin:hover {
   transform: scale(1.12);
 }
 
-.rewrap-radar-item-pin--selected {
+.gearmesh-radar-item-pin--selected {
   border-color: var(--color-primary-forest);
   transform: scale(1.15);
   box-shadow: 0 6px 18px rgba(24, 58, 43, 0.3);
 }
 
-.rewrap-radar-item-pin img {
+.gearmesh-radar-item-pin img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
 /* Bottom Floating Item Card */
-.rewrap-explore__floating-card {
+.gearmesh-explore__floating-card {
   position: absolute;
   bottom: 84px;
   left: 20px;
@@ -203,7 +216,7 @@
   to { transform: translateY(0); opacity: 1; }
 }
 
-.rewrap-explore__floating-img-wrap {
+.gearmesh-explore__floating-img-wrap {
   width: 76px;
   height: 76px;
   border-radius: var(--radius-md);
@@ -211,26 +224,26 @@
   flex-shrink: 0;
 }
 
-.rewrap-explore__floating-img-wrap img {
+.gearmesh-explore__floating-img-wrap img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.rewrap-explore__floating-info {
+.gearmesh-explore__floating-info {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.rewrap-explore__floating-title-row {
+.gearmesh-explore__floating-title-row {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
 }
 
-.rewrap-explore__floating-title {
+.gearmesh-explore__floating-title {
   margin: 0;
   font-size: 14.5px;
   font-weight: 700;
@@ -238,7 +251,7 @@
   line-height: 1.3;
 }
 
-.rewrap-explore__floating-heart {
+.gearmesh-explore__floating-heart {
   background: none;
   border: none;
   cursor: pointer;
@@ -247,19 +260,19 @@
   align-items: center;
 }
 
-.rewrap-explore__floating-rate-row {
+.gearmesh-explore__floating-rate-row {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.rewrap-explore__floating-price {
+.gearmesh-explore__floating-price {
   font-size: 13.5px;
   font-weight: 700;
   color: var(--color-deep-forest);
 }
 
-.rewrap-explore__floating-rating {
+.gearmesh-explore__floating-rating {
   display: flex;
   align-items: center;
   gap: 3px;
@@ -268,7 +281,7 @@
   color: var(--color-charcoal);
 }
 
-.rewrap-explore__floating-distance {
+.gearmesh-explore__floating-distance {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -277,23 +290,79 @@
 }
 
 /* List view */
-.rewrap-explore__list-scroll {
+.gearmesh-explore__list-scroll {
   flex: 1;
   overflow-y: auto;
-  padding: 4px 20px;
+  padding: 4px 20px 100px;
   display: flex;
   flex-direction: column;
   gap: 14px;
+  -webkit-overflow-scrolling: touch;
 }
 
-.rewrap-explore__results-count {
-  font-size: 12px;
+.gearmesh-explore__results-count {
+  font-size: 13px;
   font-weight: 600;
   color: var(--color-muted-gray);
 }
 
-.rewrap-explore__grid {
+.gearmesh-explore__grid {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
+
+@media (min-width: 768px) {
+  .gearmesh-explore {
+    height: auto;
+    min-height: calc(100vh - 65px);
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 24px 28px 40px;
+    overflow: visible;
+  }
+
+  .gearmesh-explore__header {
+    padding: 0 0 16px 0;
+  }
+
+  .gearmesh-explore__title {
+    font-size: 30px;
+  }
+
+  .gearmesh-explore__subtitle {
+    font-size: 14px;
+  }
+
+  .gearmesh-explore__search-area {
+    padding: 0 0 20px 0;
+    max-width: 600px;
+  }
+
+  .gearmesh-explore__map-container {
+    min-height: 600px;
+    border-radius: var(--radius-hero);
+    border: 1px solid var(--color-soft-border);
+    box-shadow: var(--shadow-card);
+  }
+
+  .gearmesh-explore__floating-card {
+    max-width: 440px;
+    left: 28px;
+    right: auto;
+    bottom: 28px;
+    box-shadow: 0 12px 32px rgba(16, 41, 31, 0.18);
+  }
+
+  .gearmesh-explore__list-scroll {
+    padding: 0;
+    overflow: visible;
+  }
+
+  .gearmesh-explore__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 22px;
+  }
+}
+

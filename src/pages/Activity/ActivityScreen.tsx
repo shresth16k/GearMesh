@@ -19,21 +19,21 @@ export const ActivityScreen: React.FC<ActivityScreenProps> = ({
   const transactions = mockTransactions.filter((t) => t.type === activeTab);
 
   return (
-    <div className="rewrap-activity">
+    <div className="gearmesh-activity">
       {/* Header */}
-      <div className="rewrap-activity__header">
-        <h1 className="rewrap-activity__title">My Activity</h1>
+      <div className="gearmesh-activity__header">
+        <h1 className="gearmesh-activity__title">My Activity</h1>
 
         {/* Segmented Tabs */}
-        <div className="rewrap-activity__tabs">
+        <div className="gearmesh-activity__tabs">
           <button
-            className={`rewrap-activity__tab ${activeTab === 'borrowing' ? 'rewrap-activity__tab--active' : ''}`}
+            className={`gearmesh-activity__tab ${activeTab === 'borrowing' ? 'gearmesh-activity__tab--active' : ''}`}
             onClick={() => setActiveTab('borrowing')}
           >
             Borrowing
           </button>
           <button
-            className={`rewrap-activity__tab ${activeTab === 'lending' ? 'rewrap-activity__tab--active' : ''}`}
+            className={`gearmesh-activity__tab ${activeTab === 'lending' ? 'gearmesh-activity__tab--active' : ''}`}
             onClick={() => setActiveTab('lending')}
           >
             Lending
@@ -42,16 +42,16 @@ export const ActivityScreen: React.FC<ActivityScreenProps> = ({
       </div>
 
       {/* Transactions List */}
-      <div className="rewrap-activity__list">
+      <div className="gearmesh-activity__list">
         {transactions.length === 0 ? (
-          <div className="rewrap-activity__empty">
-            <h3 className="rewrap-activity__empty-title">Nothing here yet.</h3>
-            <p className="rewrap-activity__empty-desc">
+          <div className="gearmesh-activity__empty">
+            <h3 className="gearmesh-activity__empty-title">Nothing here yet.</h3>
+            <p className="gearmesh-activity__empty-desc">
               {activeTab === 'borrowing'
                 ? 'Your next useful item might already be nearby in your community.'
                 : 'Turn your unused equipment into new neighborhood adventures.'}
             </p>
-            <button className="rewrap-activity__empty-cta" onClick={onExploreClick}>
+            <button className="gearmesh-activity__empty-cta" onClick={onExploreClick}>
               Explore Items
             </button>
           </div>
@@ -59,38 +59,38 @@ export const ActivityScreen: React.FC<ActivityScreenProps> = ({
           transactions.map((tx) => (
             <div
               key={tx.id}
-              className="rewrap-activity-card"
+              className="gearmesh-activity-card"
               onClick={() => {
                 if (tx.status === 'approved' && tx.pickupMethod === 'locker') {
                   onOpenLocker(tx);
                 }
               }}
             >
-              <img src={tx.item.imageUrl} alt={tx.item.title} className="rewrap-activity-card__img" />
-              <div className="rewrap-activity-card__info">
-                <h3 className="rewrap-activity-card__item-title">{tx.item.title}</h3>
-                <div className="rewrap-activity-card__badge-row">
+              <img src={tx.item.imageUrl} alt={tx.item.title} className="gearmesh-activity-card__img" />
+              <div className="gearmesh-activity-card__info">
+                <h3 className="gearmesh-activity-card__item-title">{tx.item.title}</h3>
+                <div className="gearmesh-activity-card__badge-row">
                   <StatusBadge status={tx.status} />
                 </div>
-                <div className="rewrap-activity-card__date-subtitle">
+                <div className="gearmesh-activity-card__date-subtitle">
                   {tx.status === 'approved' && `Return by ${tx.endDate}`}
                   {tx.status === 'pending' && `Requested on ${tx.createdAt}`}
                   {tx.status === 'completed' && `Returned on ${tx.endDate}`}
                 </div>
               </div>
-              <ChevronRight size={18} className="rewrap-activity-card__chevron" />
+              <ChevronRight size={18} className="gearmesh-activity-card__chevron" />
             </div>
           ))
         )}
 
         {/* Bottom Sustainability Plant Card (matching Screen 9) */}
-        <div className="rewrap-activity__savings-card">
-          <div className="rewrap-activity__savings-text">
-            <span className="rewrap-activity__savings-sub">You've saved</span>
-            <span className="rewrap-activity__savings-amount">₹1,200</span>
-            <span className="rewrap-activity__savings-co2">and reduced ~12 kg CO₂</span>
+        <div className="gearmesh-activity__savings-card">
+          <div className="gearmesh-activity__savings-text">
+            <span className="gearmesh-activity__savings-sub">You've saved</span>
+            <span className="gearmesh-activity__savings-amount">₹1,200</span>
+            <span className="gearmesh-activity__savings-co2">and reduced ~12 kg CO₂</span>
           </div>
-          <div className="rewrap-activity__savings-plant">
+          <div className="gearmesh-activity__savings-plant">
             <Sprout size={36} color="#527A5B" strokeWidth={1.8} />
           </div>
         </div>

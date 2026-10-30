@@ -16,12 +16,12 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   onFilterClick
 }) => {
   return (
-    <div className="rewrap-search-bar">
-      <div className="rewrap-search-bar__input-wrap">
-        <Search size={18} className="rewrap-search-bar__icon" />
+    <div className="gearmesh-search-bar">
+      <div className="gearmesh-search-bar__input-wrap">
+        <Search size={18} className="gearmesh-search-bar__icon" />
         <input
           type="text"
-          className="rewrap-search-bar__input"
+          className="gearmesh-search-bar__input"
           placeholder={placeholder}
           value={value}
           onChange={(e) => onChange(e.target.value)}
@@ -30,7 +30,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
       {onFilterClick && (
         <button
           type="button"
-          className="rewrap-search-bar__filter-btn"
+          className="gearmesh-search-bar__filter-btn"
           onClick={onFilterClick}
           aria-label="Filter"
         >

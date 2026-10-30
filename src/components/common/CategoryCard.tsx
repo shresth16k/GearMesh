@@ -28,13 +28,13 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({
 
   return (
     <button
-      className={`rewrap-category-pill ${isSelected ? 'rewrap-category-pill--selected' : ''}`}
+      className={`gearmesh-category-pill ${isSelected ? 'gearmesh-category-pill--selected' : ''}`}
       onClick={() => onSelect && onSelect(category.id)}
     >
-      <div className="rewrap-category-pill__icon-wrap">
+      <div className="gearmesh-category-pill__icon-wrap">
         <IconComponent size={16} strokeWidth={isSelected ? 2.2 : 1.8} />
       </div>
-      <span className="rewrap-category-pill__label">{category.name}</span>
+      <span className="gearmesh-category-pill__label">{category.name}</span>
     </button>
   );
 };

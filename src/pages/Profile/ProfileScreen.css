@@ -1,181 +1,483 @@
-.rewrap-profile {
+.gearmesh-profile {
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   background-color: var(--color-warm-cream);
-  overflow: hidden;
 }
 
-.rewrap-profile__header {
+/* Mobile: fixed height, internal scroll */
+@media (max-width: 767px) {
+  .gearmesh-profile {
+    height: 100%;
+    overflow: hidden;
+  }
+}
+
+/* Desktop: natural document flow */
+@media (min-width: 768px) {
+  .gearmesh-profile {
+    height: auto;
+    min-height: calc(100vh - 66px);
+    overflow: visible;
+  }
+}
+
+/* Scroll container */
+.gearmesh-profile__scroll-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 767px) {
+  .gearmesh-profile__scroll-container {
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-bottom: 90px;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (min-width: 768px) {
+  .gearmesh-profile__scroll-container {
+    max-width: 1320px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 32px 28px 60px;
+    overflow: visible;
+  }
+}
+
+/* Header */
+.gearmesh-profile__header {
   padding: 20px 20px 14px;
   background: var(--color-warm-cream);
+  flex-shrink: 0;
 }
 
-.rewrap-profile__page-title {
-  margin: 0 0 14px 0;
+@media (min-width: 768px) {
+  .gearmesh-profile__header {
+    padding: 0 0 24px 0;
+  }
+}
+
+.gearmesh-profile__header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 16px;
+}
+
+.gearmesh-profile__page-title {
+  margin: 0;
   font-size: 24px;
   font-weight: 700;
   color: var(--color-deep-forest);
   letter-spacing: -0.02em;
 }
 
-.rewrap-profile__user-card {
+@media (min-width: 768px) {
+  .gearmesh-profile__page-title {
+    font-size: 32px;
+  }
+}
+
+.gearmesh-profile__member-since {
+  font-size: 13px;
+  color: var(--color-muted-gray);
+  font-weight: 500;
+}
+
+/* User Card */
+.gearmesh-profile__user-card {
+  background: var(--color-soft-ivory);
+  border: 1px solid var(--color-soft-border);
+  border-radius: var(--radius-lg);
+  padding: 22px 20px 18px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .gearmesh-profile__user-card {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 36px;
+  }
+}
+
+.gearmesh-profile__user-card-main {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  background: var(--color-soft-ivory);
-  border: 1px solid var(--color-soft-border);
-  border-radius: var(--radius-lg);
-  padding: 22px 16px 18px;
-  box-shadow: var(--shadow-card);
+  gap: 12px;
 }
 
-.rewrap-profile__avatar-container {
+@media (min-width: 768px) {
+  .gearmesh-profile__user-card-main {
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    gap: 20px;
+  }
+}
+
+.gearmesh-profile__avatar-container {
   position: relative;
-  margin-bottom: 8px;
 }
 
-.rewrap-profile__avatar {
-  width: 72px;
-  height: 72px;
+.gearmesh-profile__avatar {
+  width: 76px;
+  height: 76px;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid #FFFFFF;
-  box-shadow: 0 4px 12px rgba(24, 58, 43, 0.12);
+  box-shadow: 0 4px 14px rgba(24, 58, 43, 0.15);
 }
 
-.rewrap-profile__name {
+@media (min-width: 768px) {
+  .gearmesh-profile__avatar {
+    width: 88px;
+    height: 88px;
+  }
+}
+
+.gearmesh-profile__verified-badge {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-primary-forest);
+  border: 2px solid #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gearmesh-profile__identity {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.gearmesh-profile__name-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+@media (min-width: 768px) {
+  .gearmesh-profile__name-row {
+    justify-content: flex-start;
+  }
+}
+
+.gearmesh-profile__name {
   margin: 0;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   color: var(--color-deep-forest);
 }
 
-.rewrap-profile__username {
-  font-size: 12.5px;
-  color: var(--color-muted-gray);
-  margin-top: 2px;
+.gearmesh-profile__verified-pill {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-primary-forest);
+  background: var(--color-pale-sage);
+  padding: 2px 8px;
+  border-radius: 9999px;
+  white-space: nowrap;
 }
 
-.rewrap-profile__metrics-row {
+.gearmesh-profile__username {
+  font-size: 13px;
+  color: var(--color-muted-gray);
+}
+
+.gearmesh-profile__metrics-row {
   display: flex;
   align-items: center;
   justify-content: space-around;
   width: 100%;
-  margin-top: 16px;
   padding-top: 14px;
   border-top: 1px solid var(--color-soft-border);
 }
 
-.rewrap-profile__metric {
+@media (min-width: 768px) {
+  .gearmesh-profile__metrics-row {
+    width: auto;
+    padding-top: 0;
+    border-top: none;
+    gap: 32px;
+  }
+}
+
+.gearmesh-profile__metric {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2px;
 }
 
-.rewrap-profile__metric-val {
+.gearmesh-profile__metric-val {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-deep-forest);
+}
+
+.gearmesh-profile__metric-lbl {
+  font-size: 12px;
+  color: var(--color-muted-gray);
+}
+
+.gearmesh-profile__metric-divider {
+  width: 1px;
+  height: 28px;
+  background: var(--color-soft-border);
+}
+
+/* Dashboard Grid for Desktop / Flow for Mobile */
+.gearmesh-profile__dashboard-grid {
+  padding: 4px 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .gearmesh-profile__dashboard-grid {
+    padding: 24px 0 0 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    align-items: start;
+  }
+}
+
+.gearmesh-profile__grid-col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.gearmesh-profile__section-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-deep-forest);
+  letter-spacing: -0.01em;
+  padding-left: 2px;
+}
+
+/* Impact Card */
+.gearmesh-profile__impact-card {
+  background: var(--color-soft-ivory);
+  border: 1px solid var(--color-soft-border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.gearmesh-profile__impact-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.gearmesh-profile__impact-title {
+  margin: 0;
   font-size: 16px;
   font-weight: 700;
   color: var(--color-deep-forest);
 }
 
-.rewrap-profile__metric-lbl {
+.gearmesh-profile__impact-subtitle {
+  margin: 2px 0 0 0;
   font-size: 12px;
   color: var(--color-muted-gray);
 }
 
-.rewrap-profile__metric-divider {
-  width: 1px;
-  height: 24px;
-  background: var(--color-soft-border);
+.gearmesh-profile__impact-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  background: rgba(168, 184, 163, 0.25);
+  color: var(--color-deep-forest);
+  padding: 3px 8px;
+  border-radius: 9999px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
-.rewrap-profile__body {
-  flex: 1;
-  overflow-y: auto;
-  padding: 4px 20px 24px;
+.gearmesh-profile__impact-stats {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 10px;
 }
 
-.rewrap-profile__menu-group {
+.gearmesh-profile__impact-stat-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: #FFFFFF;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(222, 220, 212, 0.5);
+}
+
+.gearmesh-profile__impact-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.gearmesh-profile__impact-icon--green {
+  background: var(--color-pale-sage);
+  color: var(--color-primary-forest);
+}
+
+.gearmesh-profile__impact-icon--gold {
+  background: #FDF3E5;
+  color: #B58434;
+}
+
+.gearmesh-profile__impact-icon--sage {
+  background: rgba(168, 184, 163, 0.2);
+  color: var(--color-deep-forest);
+}
+
+.gearmesh-profile__impact-stat-num {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-deep-forest);
+  line-height: 1.2;
+}
+
+.gearmesh-profile__impact-stat-label {
+  display: block;
+  font-size: 11.5px;
+  color: var(--color-muted-gray);
+}
+
+/* Menu Group */
+.gearmesh-profile__menu-group {
   background: var(--color-soft-ivory);
   border: 1px solid var(--color-soft-border);
   border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
 }
 
-.rewrap-profile__menu-item {
+.gearmesh-profile__menu-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 13px 16px;
+  padding: 14px 16px;
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition: all 0.15s ease;
   border-bottom: 1px solid rgba(222, 220, 212, 0.4);
+  min-height: 52px;
 }
 
-.rewrap-profile__menu-item:last-child {
+.gearmesh-profile__menu-item:last-child {
   border-bottom: none;
 }
 
-.rewrap-profile__menu-item:hover {
+.gearmesh-profile__menu-item:hover {
   background: #FFFFFF;
 }
 
-.rewrap-profile__menu-left {
+.gearmesh-profile__menu-left {
   display: flex;
   align-items: center;
   gap: 12px;
   color: var(--color-charcoal);
+  flex: 1;
+  min-width: 0;
 }
 
-.rewrap-profile__icon {
-  color: var(--color-charcoal);
+.gearmesh-profile__icon {
+  color: var(--color-primary-forest);
+  flex-shrink: 0;
 }
 
-.rewrap-profile__menu-title {
+.gearmesh-profile__menu-title {
   font-size: 13.5px;
   font-weight: 500;
   color: var(--color-charcoal);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.rewrap-profile__menu-right {
+.gearmesh-profile__menu-right {
   display: flex;
   align-items: center;
   gap: 6px;
+  flex-shrink: 0;
+  margin-left: 8px;
 }
 
-.rewrap-profile__count-badge {
+.gearmesh-profile__count-badge {
   font-size: 12px;
   color: var(--color-muted-gray);
+  white-space: nowrap;
 }
 
-.rewrap-profile__new-badge {
-  font-size: 10.5px;
+.gearmesh-profile__new-badge {
+  font-size: 11px;
   font-weight: 700;
   background: #E8B97D;
   color: #5E3F00;
   padding: 2px 7px;
   border-radius: 9999px;
   letter-spacing: 0.02em;
+  white-space: nowrap;
 }
 
-.rewrap-profile__chevron {
+.gearmesh-profile__chevron {
   color: var(--color-muted-gray);
   opacity: 0.5;
 }
 
-.rewrap-profile__menu-item--danger .rewrap-profile__menu-left {
+.gearmesh-profile__menu-item--danger .gearmesh-profile__menu-left {
   color: var(--color-error);
 }
 
-.rewrap-profile__menu-item--danger .rewrap-profile__menu-title {
+.gearmesh-profile__menu-item--danger .gearmesh-profile__menu-title {
   color: var(--color-error);
   font-weight: 600;
+}
+
+.gearmesh-profile__menu-item--danger:hover {
+  background: #FFF5F5;
+}
+
+/* No more bottom clearance div needed — padding-bottom on scroll-container handles it */
+.gearmesh-profile__bottom-clearance {
+  height: 0;
 }

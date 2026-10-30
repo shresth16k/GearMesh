@@ -1,4 +1,4 @@
-.rewrap-category-pill {
+.gearmesh-category-pill {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -16,12 +16,12 @@
   box-shadow: 0 1px 4px rgba(24, 58, 43, 0.03);
 }
 
-.rewrap-category-pill:hover {
+.gearmesh-category-pill:hover {
   border-color: var(--color-muted-sage);
   background: #FFFFFF;
 }
 
-.rewrap-category-pill__icon-wrap {
+.gearmesh-category-pill__icon-wrap {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -29,13 +29,13 @@
   transition: color 0.2s ease;
 }
 
-.rewrap-category-pill--selected {
+.gearmesh-category-pill--selected {
   background: var(--color-primary-forest);
   border-color: var(--color-primary-forest);
   color: #FFFFFF;
   box-shadow: 0 4px 12px rgba(24, 58, 43, 0.18);
 }
 
-.rewrap-category-pill--selected .rewrap-category-pill__icon-wrap {
+.gearmesh-category-pill--selected .gearmesh-category-pill__icon-wrap {
   color: #FFFFFF;
 }

@@ -1,4 +1,4 @@
-.rewrap-impact-card {
+.gearmesh-impact-card {
   background: linear-gradient(135deg, var(--color-pale-sage) 0%, #E7EFE4 100%);
   border: 1px solid var(--color-muted-sage);
   border-radius: var(--radius-lg);
@@ -10,7 +10,7 @@
   overflow: hidden;
 }
 
-.rewrap-impact-card::after {
+.gearmesh-impact-card::after {
   content: '';
   position: absolute;
   bottom: -20px;
@@ -23,19 +23,19 @@
   pointer-events: none;
 }
 
-.rewrap-impact-card__header {
+.gearmesh-impact-card__header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
 }
 
-.rewrap-impact-card__title-row {
+.gearmesh-impact-card__title-row {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.rewrap-impact-card__icon-badge {
+.gearmesh-impact-card__icon-badge {
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -46,7 +46,7 @@
   justify-content: center;
 }
 
-.rewrap-impact-card__title {
+.gearmesh-impact-card__title {
   margin: 0;
   font-size: 15px;
   font-weight: 600;
@@ -54,14 +54,14 @@
   line-height: 1.2;
 }
 
-.rewrap-impact-card__subtitle {
+.gearmesh-impact-card__subtitle {
   margin: 2px 0 0 0;
   font-size: 12.5px;
   color: var(--color-charcoal);
   opacity: 0.75;
 }
 
-.rewrap-impact-card__grid {
+.gearmesh-impact-card__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
@@ -72,27 +72,27 @@
   border: 1px solid rgba(168, 184, 163, 0.3);
 }
 
-.rewrap-impact-stat {
+.gearmesh-impact-stat {
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
 
-.rewrap-impact-stat__value {
+.gearmesh-impact-stat__value {
   font-size: 16px;
   font-weight: 700;
   color: var(--color-deep-forest);
   letter-spacing: -0.02em;
 }
 
-.rewrap-impact-stat__label {
+.gearmesh-impact-stat__label {
   font-size: 11px;
   color: var(--color-charcoal);
   line-height: 1.25;
   opacity: 0.8;
 }
 
-.rewrap-impact-card__footer {
+.gearmesh-impact-card__footer {
   display: flex;
   align-items: center;
   gap: 6px;

@@ -26,20 +26,20 @@ export const Button: React.FC<ButtonProps> = ({
 
   const buttonElement = (
     <button
-      className={`rewrap-btn rewrap-btn--${variant} rewrap-btn--${size} ${fullWidth ? 'rewrap-btn--full' : ''} ${className}`}
+      className={`gearmesh-btn gearmesh-btn--${variant} gearmesh-btn--${size} ${fullWidth ? 'gearmesh-btn--full' : ''} ${className}`}
       disabled={disabled}
       {...props}
     >
-      <span className="rewrap-btn__text">{children}</span>
-      {withArrow && <ArrowRight className="rewrap-btn__arrow" size={isCapsule ? 18 : 16} />}
+      <span className="gearmesh-btn__text">{children}</span>
+      {withArrow && <ArrowRight className="gearmesh-btn__arrow" size={isCapsule ? 18 : 16} />}
     </button>
   );
 
   if (caption) {
     return (
-      <div className={`rewrap-btn-wrapper ${fullWidth ? 'rewrap-btn-wrapper--full' : ''}`}>
+      <div className={`gearmesh-btn-wrapper ${fullWidth ? 'gearmesh-btn-wrapper--full' : ''}`}>
         {buttonElement}
-        <p className="rewrap-btn__caption">{caption}</p>
+        <p className="gearmesh-btn__caption">{caption}</p>
       </div>
     );
   }
