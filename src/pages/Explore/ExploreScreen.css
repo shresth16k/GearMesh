@@ -1,3 +1,5 @@
+/* ── ExploreScreen.css ── */
+
 .gearmesh-explore {
   width: 100%;
   display: flex;
@@ -20,6 +22,7 @@
   }
 }
 
+/* ── Header ── */
 .gearmesh-explore__header {
   display: flex;
   justify-content: space-between;
@@ -47,6 +50,7 @@
   gap: 8px;
 }
 
+/* Filter / action button */
 .gearmesh-explore__send-btn {
   width: 32px;
   height: 32px;
@@ -57,8 +61,15 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
 }
 
+.gearmesh-explore__send-btn--active {
+  background: var(--color-primary-forest);
+  border-color: var(--color-primary-forest);
+}
+
+/* Map / List toggle pill */
 .gearmesh-explore__toggle-wrap {
   display: flex;
   background: var(--color-soft-ivory);
@@ -86,210 +97,59 @@
   color: #FFFFFF;
 }
 
+/* ── Search bar area ── */
 .gearmesh-explore__search-area {
-  padding: 4px 20px 12px;
+  padding: 4px 20px 10px;
 }
 
-/* Radar Map Container */
+/* ── Category filter chips ── */
+.gearmesh-explore__cats {
+  display: flex;
+  gap: 8px;
+  padding: 0 20px 12px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.gearmesh-explore__cats::-webkit-scrollbar {
+  display: none;
+}
+
+.gearmesh-explore__cat-chip {
+  flex-shrink: 0;
+  padding: 5px 14px;
+  border-radius: 9999px;
+  border: 1.5px solid var(--color-soft-border);
+  background: var(--color-soft-ivory);
+  color: var(--color-charcoal);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+
+.gearmesh-explore__cat-chip:hover {
+  border-color: var(--color-primary-forest);
+  color: var(--color-primary-forest);
+}
+
+.gearmesh-explore__cat-chip--active {
+  background: var(--color-primary-forest);
+  border-color: var(--color-primary-forest);
+  color: #FFFFFF;
+}
+
+/* ── Map container ── */
 .gearmesh-explore__map-container {
   flex: 1;
   position: relative;
   overflow: hidden;
-  background: #EDE8DE;
+  min-height: 400px;
 }
 
-.gearmesh-radar-map {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-/* Radar rings */
-.gearmesh-radar-ring {
-  position: absolute;
-  border-radius: 50%;
-  border: 1px solid rgba(168, 184, 163, 0.4);
-  background: rgba(220, 229, 216, 0.2);
-  pointer-events: none;
-}
-
-.gearmesh-radar-ring--1 {
-  width: 140px;
-  height: 140px;
-  background: rgba(220, 229, 216, 0.35);
-}
-
-.gearmesh-radar-ring--2 {
-  width: 260px;
-  height: 260px;
-}
-
-.gearmesh-radar-ring--3 {
-  width: 380px;
-  height: 380px;
-}
-
-/* Center user dot */
-.gearmesh-radar-center {
-  position: relative;
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-}
-
-.gearmesh-radar-center__dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: #3B71F7;
-  border: 3px solid #FFFFFF;
-  box-shadow: 0 0 0 6px rgba(59, 113, 247, 0.2);
-}
-
-.gearmesh-radar-center__label {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--color-charcoal);
-  background: rgba(255, 255, 255, 0.9);
-  padding: 2px 6px;
-  border-radius: 4px;
-  white-space: nowrap;
-}
-
-/* Circular item pin */
-.gearmesh-radar-item-pin {
-  position: absolute;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: #FFFFFF;
-  border: 2.5px solid #FFFFFF;
-  box-shadow: 0 4px 14px rgba(16, 41, 31, 0.18);
-  overflow: hidden;
-  cursor: pointer;
-  transition: transform 0.2s ease, border-color 0.2s ease;
-  z-index: 15;
-}
-
-.gearmesh-radar-item-pin:hover {
-  transform: scale(1.12);
-}
-
-.gearmesh-radar-item-pin--selected {
-  border-color: var(--color-primary-forest);
-  transform: scale(1.15);
-  box-shadow: 0 6px 18px rgba(24, 58, 43, 0.3);
-}
-
-.gearmesh-radar-item-pin img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Bottom Floating Item Card */
-.gearmesh-explore__floating-card {
-  position: absolute;
-  bottom: 84px;
-  left: 20px;
-  right: 20px;
-  background: var(--color-soft-ivory);
-  border: 1px solid var(--color-soft-border);
-  border-radius: var(--radius-lg);
-  padding: 12px;
-  display: flex;
-  gap: 12px;
-  box-shadow: 0 8px 24px rgba(16, 41, 31, 0.12);
-  cursor: pointer;
-  z-index: 30;
-  animation: slideUp 0.25s ease;
-}
-
-@keyframes slideUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-.gearmesh-explore__floating-img-wrap {
-  width: 76px;
-  height: 76px;
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  flex-shrink: 0;
-}
-
-.gearmesh-explore__floating-img-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.gearmesh-explore__floating-info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.gearmesh-explore__floating-title-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.gearmesh-explore__floating-title {
-  margin: 0;
-  font-size: 14.5px;
-  font-weight: 700;
-  color: var(--color-deep-forest);
-  line-height: 1.3;
-}
-
-.gearmesh-explore__floating-heart {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  display: flex;
-  align-items: center;
-}
-
-.gearmesh-explore__floating-rate-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.gearmesh-explore__floating-price {
-  font-size: 13.5px;
-  font-weight: 700;
-  color: var(--color-deep-forest);
-}
-
-.gearmesh-explore__floating-rating {
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--color-charcoal);
-}
-
-.gearmesh-explore__floating-distance {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 11.5px;
-  color: var(--color-muted-gray);
-}
-
-/* List view */
+/* ── List view ── */
 .gearmesh-explore__list-scroll {
   flex: 1;
   overflow-y: auto;
@@ -312,6 +172,7 @@
   gap: 16px;
 }
 
+/* ── Desktop overrides ── */
 @media (min-width: 768px) {
   .gearmesh-explore {
     height: auto;
@@ -335,8 +196,12 @@
   }
 
   .gearmesh-explore__search-area {
-    padding: 0 0 20px 0;
+    padding: 0 0 12px 0;
     max-width: 600px;
+  }
+
+  .gearmesh-explore__cats {
+    padding: 0 0 16px 0;
   }
 
   .gearmesh-explore__map-container {
@@ -344,14 +209,6 @@
     border-radius: var(--radius-hero);
     border: 1px solid var(--color-soft-border);
     box-shadow: var(--shadow-card);
-  }
-
-  .gearmesh-explore__floating-card {
-    max-width: 440px;
-    left: 28px;
-    right: auto;
-    bottom: 28px;
-    box-shadow: 0 12px 32px rgba(16, 41, 31, 0.18);
   }
 
   .gearmesh-explore__list-scroll {
@@ -365,4 +222,3 @@
     gap: 22px;
   }
 }
-
