@@ -225,7 +225,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess, onBack, onAdm
         <div className="gearmesh-auth__hero-content">
           <div className="gearmesh-auth__hero-brand">
             <div className="gearmesh-auth__hero-logo-box">
-              <img src="/leaf.svg" alt="GearMesh" className="gearmesh-auth__hero-logo" />
+              <img src="/gearmesh-logo.png" alt="GearMesh" className="gearmesh-auth__hero-logo" />
             </div>
             <span className="gearmesh-auth__hero-brand-name">GearMesh</span>
           </div>
@@ -291,7 +291,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess, onBack, onAdm
             <div style={{ width: 36 }} />
           )}
           <div className="gearmesh-auth__brand">
-            <img src="/leaf.svg" alt="GearMesh" className="gearmesh-auth__logo" />
+            <img src="/gearmesh-logo.png" alt="GearMesh" className="gearmesh-auth__logo" />
             <span>GearMesh</span>
           </div>
           <div style={{ width: 36 }} />

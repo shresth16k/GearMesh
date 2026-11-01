@@ -334,9 +334,7 @@ export const AdminScreen: React.FC<AdminScreenProps> = ({ onBackToApp }) => {
       <aside className="gearmesh-admin-sidebar">
         <div className="gearmesh-admin-sidebar-top">
           <div className="gearmesh-admin-sidebar-brand" onClick={() => setActiveTab('overview')}>
-            <div className="gearmesh-admin-sidebar-logo">
-              <Layers size={22} color="#FFFFFF" strokeWidth={2.5} />
-            </div>
+            <img src="/gearmesh-logo.png" alt="GearMesh" className="gearmesh-admin-sidebar-logo" />
             <div className="gearmesh-admin-sidebar-brand-text">
               <span className="gearmesh-admin-brand-name">GearMesh</span>
               <span className="gearmesh-admin-brand-tag">Admin Console</span>

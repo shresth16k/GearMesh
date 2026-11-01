@@ -47,14 +47,10 @@
 }
 
 .gearmesh-desktop-nav__logo-icon {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: 10px;
-  background: var(--color-deep-forest);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 3px 10px rgba(16, 41, 31, 0.22);
+  object-fit: contain;
   flex-shrink: 0;
 }
 

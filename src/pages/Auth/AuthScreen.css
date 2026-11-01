@@ -102,19 +102,15 @@
   }
 
   .gearmesh-auth__hero-logo-box {
-    width: 42px;
-    height: 42px;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.12);
     display: flex;
     align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(8px);
   }
 
   .gearmesh-auth__hero-logo {
-    width: 24px;
-    height: 24px;
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    border-radius: 10px;
   }
 
   .gearmesh-auth__hero-brand-name {
@@ -278,8 +274,10 @@
 }
 
 .gearmesh-auth__logo {
-  width: 22px;
-  height: 22px;
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  border-radius: 6px;
 }
 
 /* Form Body */

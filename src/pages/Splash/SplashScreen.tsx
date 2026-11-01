@@ -87,7 +87,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({
           ======================================================== */}
       <header className="gearmesh-splash__mobile-header">
         <div className="gearmesh-splash__top-logo-row">
-          <img src="/leaf.svg" alt="GearMesh" className="gearmesh-splash__top-leaf" />
+          <img src="/gearmesh-logo.png" alt="GearMesh" className="gearmesh-splash__top-leaf" />
           <span className="gearmesh-splash__top-title">GearMesh</span>
         </div>
         <span className="gearmesh-splash__top-tagline">Borrow. Share. Belong.</span>
@@ -415,7 +415,7 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({
         <div className="gearmesh-splash__footer-inner">
           <div className="gearmesh-splash__footer-brand">
             <div className="gearmesh-splash__top-logo-row">
-              <img src="/leaf.svg" alt="GearMesh" className="gearmesh-splash__top-leaf" />
+              <img src="/gearmesh-logo.png" alt="GearMesh" className="gearmesh-splash__top-leaf" />
               <span className="gearmesh-splash__top-title">GearMesh</span>
             </div>
             <p className="gearmesh-splash__footer-tagline">

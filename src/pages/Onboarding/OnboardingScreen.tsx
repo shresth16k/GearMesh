@@ -51,7 +51,7 @@ export const OnboardingScreen: React.FC<OnboardingScreenProps> = ({ onComplete, 
     <div className="gearmesh-onboarding">
       <div className="gearmesh-onboarding__top-bar">
         <div className="gearmesh-onboarding__brand">
-          <img src="/leaf.svg" alt="GearMesh" className="gearmesh-onboarding__logo" />
+          <img src="/gearmesh-logo.png" alt="GearMesh" className="gearmesh-onboarding__logo" />
           <span className="gearmesh-onboarding__brand-text">GearMesh</span>
         </div>
         {currentSlide < slides.length - 1 && (

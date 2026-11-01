@@ -32,9 +32,7 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
       <div className="gearmesh-desktop-nav__container">
         {/* Brand Logo & Mission */}
         <div className="gearmesh-desktop-nav__brand" onClick={() => onTabChange('home')} role="button" tabIndex={0}>
-          <div className="gearmesh-desktop-nav__logo-icon">
-            <Layers size={20} color="#FFFFFF" strokeWidth={2.4} />
-          </div>
+          <img src="/gearmesh-logo.png" alt="GearMesh" className="gearmesh-desktop-nav__logo-icon" />
           <div className="gearmesh-desktop-nav__brand-text">
             <span className="gearmesh-desktop-nav__title">GearMesh</span>
             <span className="gearmesh-desktop-nav__tagline">Borrow • Share • Belong</span>
