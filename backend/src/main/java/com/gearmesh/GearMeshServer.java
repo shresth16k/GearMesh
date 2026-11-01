@@ -30,6 +30,12 @@ public class GearMeshServer {
         server.createContext("/api/borrow", new BorrowHandler());
         server.createContext("/api/auth/register", new AuthHandler(authDatabase, true));
         server.createContext("/api/auth/login", new AuthHandler(authDatabase, false));
+        server.createContext("/api/auth/send-otp", new SendOtpHandler(authDatabase));
+        server.createContext("/api/auth/verify-otp", new OtpVerifyHandler(authDatabase));
+        server.createContext("/api/auth/resend-otp", new OtpResendHandler(authDatabase));
+        server.createContext("/api/admin/login", new AdminLoginHandler(authDatabase));
+        server.createContext("/api/admin/users", new AdminUsersHandler(authDatabase));
+        server.createContext("/api/admin/stats", new AdminStatsHandler(authDatabase));
 
         server.setExecutor(null);
         System.out.println("=================================================");
@@ -39,6 +45,8 @@ public class GearMeshServer {
         System.out.println("             http://localhost:8080/api/items");
         System.out.println("             http://localhost:8080/api/transactions");
         System.out.println("             http://localhost:8080/api/user/profile");
+        System.out.println("             http://localhost:8080/api/admin/users");
+        System.out.println("             http://localhost:8080/api/admin/stats");
         System.out.println("=================================================");
         server.start();
     }
@@ -374,6 +382,113 @@ public class GearMeshServer {
                 }
                 """;
             sendJsonResponse(exchange, 200, json);
+        }
+    }
+
+    static class AdminUsersHandler implements HttpHandler {
+        private final AuthDatabase database;
+
+        AdminUsersHandler(AuthDatabase database) {
+            this.database = database;
+        }
+
+        @Override
+        public void handle(HttpExchange exchange) throws IOException {
+            if ("OPTIONS".equalsIgnoreCase(exchange.getRequestMethod())) {
+                sendJsonResponse(exchange, 204, "");
+                return;
+            }
+            if (!"GET".equalsIgnoreCase(exchange.getRequestMethod())) {
+                sendJsonResponse(exchange, 405, "{\"error\":\"Method not allowed\"}");
+                return;
+            }
+            try {
+                var users = database.getAllUsers();
+                StringBuilder json = new StringBuilder("[");
+                for (int i = 0; i < users.size(); i++) {
+                    var u = users.get(i);
+                    json.append("{\"id\":\"").append(AuthHandler.escape(u.id()))
+                        .append("\",\"name\":\"").append(AuthHandler.escape(u.name()))
+                        .append("\",\"email\":\"").append(AuthHandler.escape(u.email()))
+                        .append("\",\"createdAt\":\"").append(AuthHandler.escape(u.createdAt()))
+                        .append("\"}");
+                    if (i < users.size() - 1) json.append(",");
+                }
+                json.append("]");
+                sendJsonResponse(exchange, 200, json.toString());
+            } catch (SQLException e) {
+                e.printStackTrace();
+                sendJsonResponse(exchange, 500, "{\"error\":\"Database query failed\"}");
+            }
+        }
+    }
+
+    static class AdminLoginHandler implements HttpHandler {
+        private final AuthDatabase database;
+
+        AdminLoginHandler(AuthDatabase database) {
+            this.database = database;
+        }
+
+        @Override
+        public void handle(HttpExchange exchange) throws IOException {
+            if ("OPTIONS".equalsIgnoreCase(exchange.getRequestMethod())) {
+                sendJsonResponse(exchange, 204, "");
+                return;
+            }
+            if (!"POST".equalsIgnoreCase(exchange.getRequestMethod())) {
+                sendJsonResponse(exchange, 405, "{\"error\":\"Method not allowed\"}");
+                return;
+            }
+            String body = new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
+            String adminId = AuthHandler.jsonValue(body, "adminId");
+            if (adminId.isBlank()) adminId = AuthHandler.jsonValue(body, "email");
+            if (adminId.isBlank()) adminId = AuthHandler.jsonValue(body, "username");
+            String password = AuthHandler.jsonValue(body, "password");
+
+            if (database.checkAdmin(adminId, password)) {
+                String token = "adm-" + Long.toHexString(System.currentTimeMillis());
+                String response = "{\"success\":true,\"token\":\"" + token + "\",\"admin\":{\"id\":\"admin\",\"name\":\"GearMesh Root Admin\",\"role\":\"SUPER_ADMIN\"}}";
+                sendJsonResponse(exchange, 200, response);
+            } else {
+                sendJsonResponse(exchange, 401, "{\"error\":\"Invalid Admin ID or Password. Default is admin / admin123\"}");
+            }
+        }
+    }
+
+    static class AdminStatsHandler implements HttpHandler {
+        private final AuthDatabase database;
+
+        AdminStatsHandler(AuthDatabase database) {
+            this.database = database;
+        }
+
+        @Override
+        public void handle(HttpExchange exchange) throws IOException {
+            if ("OPTIONS".equalsIgnoreCase(exchange.getRequestMethod())) {
+                sendJsonResponse(exchange, 204, "");
+                return;
+            }
+            try {
+                int userCount = database.getAllUsers().size();
+                String json = """
+                    {
+                        "totalUsers": %d,
+                        "totalListings": 16,
+                        "activeBorrows": 4,
+                        "totalLockers": 8,
+                        "activeLockers": 3,
+                        "co2AvoidedKg": 642,
+                        "materialKeptKg": 184.5,
+                        "communitySavings": 84200,
+                        "dbStatus": "CONNECTED",
+                        "serverVersion": "1.0.0"
+                    }
+                    """.formatted(userCount);
+                sendJsonResponse(exchange, 200, json);
+            } catch (SQLException e) {
+                sendJsonResponse(exchange, 500, "{\"error\":\"Failed to load stats\"}");
+            }
         }
     }
 }

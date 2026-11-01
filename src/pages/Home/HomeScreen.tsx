@@ -8,6 +8,7 @@ import { Item } from '../../types';
 import './HomeScreen.css';
 
 interface HomeScreenProps {
+  user?: { name: string; email?: string; avatar?: string; location?: string };
   onSelectItem: (item: Item) => void;
   onExploreClick: () => void;
   onOpenLifeKit: () => void;
@@ -15,6 +16,7 @@ interface HomeScreenProps {
 }
 
 export const HomeScreen: React.FC<HomeScreenProps> = ({
+  user,
   onSelectItem,
   onExploreClick,
   onOpenLifeKit,
@@ -22,6 +24,10 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+  const displayName = user?.name || (user?.email ? user.email.split('@')[0] : 'Member');
+  const displayAvatar = user?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(displayName)}&background=1B3B2B&color=fff&bold=true`;
+  const displayLocation = user?.location || 'Rajpur Road, Dehradun';
 
   const filteredItems = mockItems.filter((item) => {
     const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -37,14 +43,14 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
       {/* Header */}
       <header className="gearmesh-home__header">
         <div className="gearmesh-home__user-info">
-          <span className="gearmesh-home__greeting">Good Morning, Alex</span>
+          <span className="gearmesh-home__greeting">Good Morning, {displayName.split(' ')[0] || 'Member'}</span>
           <div className="gearmesh-home__location">
             <MapPin size={13} color="var(--color-primary-forest)" />
-            <span>{currentUser.location}</span>
+            <span>{displayLocation}</span>
           </div>
         </div>
         <div className="gearmesh-home__avatar-wrap" onClick={onProfileClick}>
-          <img src={currentUser.avatar} alt={currentUser.name} className="gearmesh-home__avatar" />
+          <img src={displayAvatar} alt={displayName} className="gearmesh-home__avatar" />
           <span className="gearmesh-home__verified-dot" />
         </div>
       </header>

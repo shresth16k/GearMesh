@@ -5,20 +5,28 @@ import { NavTab } from './BottomNav';
 import './DesktopNav.css';
 
 interface DesktopNavProps {
-  activeTab: NavTab | 'lifeKit';
+  user?: { name: string; email?: string; avatar?: string; location?: string; rating?: number };
+  activeTab: NavTab | 'lifeKit' | 'admin';
   onTabChange: (tab: NavTab) => void;
   onOpenLifeKit: () => void;
   onProfileClick: () => void;
   onListClick: () => void;
+  onAdminClick?: () => void;
 }
 
 export const DesktopNav: React.FC<DesktopNavProps> = ({
+  user,
   activeTab,
   onTabChange,
   onOpenLifeKit,
   onProfileClick,
-  onListClick
+  onListClick,
+  onAdminClick
 }) => {
+  const displayName = user?.name || (user?.email ? user.email.split('@')[0] : 'Community Member');
+  const displayAvatar = user?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(displayName)}&background=1B3B2B&color=fff&bold=true`;
+  const displayLocation = user?.location || 'Rajpur Road, Dehradun';
+  const displayRating = user?.rating !== undefined ? user.rating : 5.0;
   return (
     <header className="gearmesh-desktop-nav">
       <div className="gearmesh-desktop-nav__container">
@@ -87,8 +95,19 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
           {/* Clean Location Badge */}
           <div className="gearmesh-desktop-nav__location" title="Current Community Hub">
             <MapPin size={14} color="var(--color-primary-forest)" />
-            <span>{currentUser.location}</span>
+            <span>{displayLocation}</span>
           </div>
+
+          {/* Admin Portal Button (Web only) */}
+          <button
+            type="button"
+            className={`gearmesh-desktop-nav__admin-btn ${activeTab === 'admin' ? 'gearmesh-desktop-nav__admin-btn--active' : ''}`}
+            onClick={onAdminClick}
+            title="Open Admin Dashboard (Web)"
+          >
+            <ShieldCheck size={14} strokeWidth={2.4} />
+            <span>Admin</span>
+          </button>
 
           {/* List an item button */}
           <button type="button" className="gearmesh-desktop-nav__list-btn" onClick={onListClick}>
@@ -100,19 +119,19 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
           <div
             className={`gearmesh-desktop-nav__user-pill ${activeTab === 'profile' ? 'gearmesh-desktop-nav__user-pill--active' : ''}`}
             onClick={onProfileClick}
-            title="Alex Rivera — View Member Profile"
+            title={`${displayName} — View Member Profile`}
             role="button"
             tabIndex={0}
           >
             <div className="gearmesh-desktop-nav__avatar-wrap">
-              <img src={currentUser.avatar} alt={currentUser.name} className="gearmesh-desktop-nav__avatar" />
+              <img src={displayAvatar} alt={displayName} className="gearmesh-desktop-nav__avatar" />
               <span className="gearmesh-desktop-nav__verified-dot">
                 <ShieldCheck size={8} color="#FFFFFF" strokeWidth={2.5} />
               </span>
             </div>
             <div className="gearmesh-desktop-nav__user-meta">
-              <span className="gearmesh-desktop-nav__user-name">{currentUser.name}</span>
-              <span className="gearmesh-desktop-nav__user-rating">★ {currentUser.rating}</span>
+              <span className="gearmesh-desktop-nav__user-name">{displayName}</span>
+              <span className="gearmesh-desktop-nav__user-rating">★ {displayRating}</span>
             </div>
           </div>
         </div>

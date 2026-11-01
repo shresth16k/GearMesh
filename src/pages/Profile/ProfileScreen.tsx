@@ -31,6 +31,8 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({
   onNavigateActivity,
   onNavigateList
 }) => {
+  const [avatarError, setAvatarError] = React.useState(false);
+
   return (
     <div className="gearmesh-profile">
       <div className="gearmesh-profile__scroll-container">
@@ -38,13 +40,35 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({
         <div className="gearmesh-profile__header">
           <div className="gearmesh-profile__header-top">
             <h1 className="gearmesh-profile__page-title">Member Profile</h1>
-            <span className="gearmesh-profile__member-since">Member since March 2024</span>
+            <span className="gearmesh-profile__member-since">Member since 2026</span>
           </div>
 
           <div className="gearmesh-profile__user-card">
             <div className="gearmesh-profile__user-card-main">
               <div className="gearmesh-profile__avatar-container">
-                <img src={user.avatar} alt={user.name} className="gearmesh-profile__avatar" />
+                {avatarError || !user.avatar ? (
+                  <div
+                    className="gearmesh-profile__avatar"
+                    style={{
+                      background: 'var(--color-primary-forest)',
+                      color: '#FFFFFF',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '24px',
+                      fontWeight: 700
+                    }}
+                  >
+                    {user.name ? user.name.charAt(0).toUpperCase() : 'M'}
+                  </div>
+                ) : (
+                  <img
+                    src={user.avatar}
+                    alt={user.name}
+                    className="gearmesh-profile__avatar"
+                    onError={() => setAvatarError(true)}
+                  />
+                )}
                 <span className="gearmesh-profile__verified-badge">
                   <ShieldCheck size={12} color="#FFFFFF" />
                 </span>

@@ -171,6 +171,33 @@
 }
 
 /* List Button */
+.gearmesh-desktop-nav__admin-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 9999px;
+  background: var(--color-soft-ivory);
+  border: 1px solid var(--color-soft-border);
+  color: var(--color-primary-forest);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.18s ease;
+}
+
+.gearmesh-desktop-nav__admin-btn:hover,
+.gearmesh-desktop-nav__admin-btn--active {
+  background: var(--color-pale-sage);
+  border-color: var(--color-muted-sage);
+  color: var(--color-deep-forest);
+  box-shadow: 0 2px 8px rgba(24, 58, 43, 0.12);
+}
+
 .gearmesh-desktop-nav__list-btn {
   display: inline-flex;
   align-items: center;

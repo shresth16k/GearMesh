@@ -25,6 +25,12 @@ const slides = [
     tag: 'SUSTAINABILITY',
     title: 'Same Things. New Stories.',
     description: 'Every shared tent, projector, and bicycle cuts material waste and nurtures a more connected, sustainable tomorrow.'
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=800&q=80',
+    tag: 'AI LIFE KITS',
+    title: 'Instant Adventure Gear Bundles.',
+    description: 'Ask our smart AI concierge for weekend camping, photography shoots, or trekking setups and get all verified gear bundled in seconds.'
   }
 ];
 

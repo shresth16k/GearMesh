@@ -30,3 +30,7 @@ lerna-debug.log*
 .DS_Store
 Thumbs.db
 *.db
+
+# Sensitive email credentials
+backend/email.properties
+backend/target/
