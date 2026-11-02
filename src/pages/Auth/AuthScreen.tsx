@@ -48,6 +48,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess, onBack, onAdm
   const [is2FA, setIs2FA] = useState(false);
   const [otpEmail, setOtpEmail] = useState('');
   const [otpDigits, setOtpDigits] = useState<string[]>(['', '', '', '', '', '']);
+  const [otpToken, setOtpToken] = useState('');
   const [devOtp, setDevOtp] = useState('');
   const [timer, setTimer] = useState(300);
   const [resendCooldown, setResendCooldown] = useState(60);
@@ -175,11 +176,16 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess, onBack, onAdm
         console.warn('Backend server unreachable or running in deployed cloud mode. Using browser authentication fallback:', networkErr);
       }
 
-      // 1. Backend 2FA response
+      // 1. Backend 2FA response (Live Vercel /api or local backend with real Gmail SMTP)
       if (backendSuccess && result?.status === '2fa_required') {
         setIs2FA(true);
         setOtpEmail(result.email || email);
-        if (result.devOtp) setDevOtp(result.devOtp);
+        if (result.token) setOtpToken(result.token);
+        if (result.devOtp) {
+          setDevOtp(result.devOtp);
+        } else {
+          setDevOtp('');
+        }
         setTimer(300);
         setResendCooldown(60);
         setInfoMessage(result.message || 'A 6-digit verification code has been sent to your email.');
@@ -197,7 +203,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess, onBack, onAdm
         return;
       }
 
-      // 3. Autonomous Cloud/Offline Fallback:
+      // 3. Autonomous Cloud/Offline Fallback (only if server was completely unreachable):
       const generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
       setIs2FA(true);
       setOtpEmail(email);
@@ -235,17 +241,25 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess, onBack, onAdm
         const response = await fetch(`${API_BASE_URL}/auth/verify-otp`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: otpEmail || email, otp: otpValue })
+          body: JSON.stringify({ email: otpEmail || email, otp: otpValue, token: otpToken })
         });
         if (response.ok) {
           const result = await response.json();
           if (result.user) verifiedUser = result.user;
+        } else {
+          const errData = await response.json().catch(() => ({}));
+          if (response.status === 400 || response.status === 401) {
+            throw new Error(errData.error || 'Invalid or expired verification code.');
+          }
         }
-      } catch (backendErr) {
+      } catch (backendErr: any) {
+        if (backendErr.message && (backendErr.message.includes('Invalid') || backendErr.message.includes('expired') || backendErr.message.includes('verification'))) {
+          throw backendErr;
+        }
         console.warn('Backend verification skipped, verifying locally:', backendErr);
       }
 
-      // Autonomous local verification
+      // Autonomous local verification fallback
       if (!verifiedUser) {
         if (devOtp && otpValue !== devOtp) {
           throw new Error('Invalid verification code. Please check your incoming email toast or dev code.');
@@ -282,7 +296,12 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess, onBack, onAdm
         });
         if (response.ok) {
           const result = await response.json();
-          if (result.devOtp) setDevOtp(result.devOtp);
+          if (result.token) setOtpToken(result.token);
+          if (result.devOtp) {
+            setDevOtp(result.devOtp);
+          } else {
+            setDevOtp('');
+          }
           resendSuccess = true;
         }
       } catch (ignored) {}
