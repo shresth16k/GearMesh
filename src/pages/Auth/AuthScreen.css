@@ -522,6 +522,36 @@
   color: #4285F4;
 }
 
+/* Instant Demo Sign-In */
+.gearmesh-auth__demo-row {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.gearmesh-auth__demo-btn {
+  background: transparent;
+  border: 1.5px dashed var(--color-primary-forest);
+  border-radius: var(--radius-md);
+  padding: 9px 14px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-primary-forest);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  justify-content: center;
+}
+
+.gearmesh-auth__demo-btn:hover {
+  background: var(--color-soft-ivory);
+  border-style: solid;
+  transform: translateY(-1px);
+}
+
 /* Terms */
 .gearmesh-auth__terms {
   text-align: center;

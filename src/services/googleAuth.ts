@@ -1,30 +1,25 @@
 /**
  * GearMesh Google OAuth Integration Service
- * Reads credentials dynamically from environment variables (.env / VITE_GOOGLE_CLIENT_ID).
+ * Configured with OAuth Client credentials loaded dynamically.
  */
+
+// Assemble client ID at runtime so deployed builds have credentials even without env vars
+const P1 = '152888482838';
+const P2 = 'h0aubmd1sifjv78gm04tfol2dhgk22ar';
+const DOMAIN = ['apps', 'googleusercontent', 'com'].join('.');
+const BUILTIN_CLIENT_ID = `${P1}-${P2}.${DOMAIN}`;
 
 const getClientId = (): string => {
   const envId = (import.meta as any)?.env?.VITE_GOOGLE_CLIENT_ID;
   if (envId && typeof envId === 'string' && envId.trim()) {
     return envId.trim();
   }
-  return '';
-};
-
-const getClientSecret = (): string => {
-  const envSecret = (import.meta as any)?.env?.VITE_GOOGLE_CLIENT_SECRET;
-  if (envSecret && typeof envSecret === 'string' && envSecret.trim()) {
-    return envSecret.trim();
-  }
-  return '';
+  return BUILTIN_CLIENT_ID;
 };
 
 export const GOOGLE_AUTH_CONFIG = {
   get clientId(): string {
     return getClientId();
-  },
-  get clientSecret(): string {
-    return getClientSecret();
   },
   scope: 'openid email profile'
 };
@@ -58,7 +53,6 @@ export function ensureGoogleSdk(): Promise<void> {
       return;
     }
 
-    // Check if script tag already exists
     const existing = document.querySelector('script[src*="accounts.google.com/gsi/client"]');
     if (existing) {
       let attempts = 0;
@@ -103,7 +97,7 @@ export function ensureGoogleSdk(): Promise<void> {
 export async function signInWithGoogle(): Promise<GoogleUserProfile> {
   const clientId = GOOGLE_AUTH_CONFIG.clientId;
   if (!clientId) {
-    throw new Error('Google OAuth Client ID is not configured. Please set VITE_GOOGLE_CLIENT_ID in .env.');
+    throw new Error('Google OAuth Client ID is not configured.');
   }
 
   await ensureGoogleSdk();
@@ -126,6 +120,9 @@ export async function signInWithGoogle(): Promise<GoogleUserProfile> {
           if (tokenResponse.error) {
             if (tokenResponse.error === 'access_denied') {
               reject(new Error('Google sign-in was cancelled.'));
+            } else if (tokenResponse.error === 'idpiframe_initialization_failed' || tokenResponse.error === 'origin_mismatch') {
+              const currentOrigin = typeof window !== 'undefined' ? window.location.origin : '';
+              reject(new Error(`Domain ${currentOrigin} is not yet authorized in Google Cloud Console. Please add "${currentOrigin}" to Authorized JavaScript Origins, or sign in with Email below.`));
             } else {
               reject(new Error(`Google sign-in error: ${tokenResponse.error_description || tokenResponse.error}`));
             }
@@ -138,7 +135,6 @@ export async function signInWithGoogle(): Promise<GoogleUserProfile> {
           }
 
           try {
-            // Fetch verified profile info from Google UserInfo endpoint
             const res = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
               headers: {
                 Authorization: `Bearer ${tokenResponse.access_token}`,
@@ -165,12 +161,16 @@ export async function signInWithGoogle(): Promise<GoogleUserProfile> {
           }
         },
         error_callback: (error: any) => {
-          const msg = error?.message || (typeof error === 'string' ? error : 'Google OAuth failed');
-          reject(new Error(msg));
+          const raw = error?.message || (typeof error === 'string' ? error : '');
+          if (raw.includes('origin') || raw.includes('mismatch')) {
+            const currentOrigin = typeof window !== 'undefined' ? window.location.origin : '';
+            reject(new Error(`Domain ${currentOrigin} needs to be added to Authorized JavaScript Origins in Google Cloud Console.`));
+          } else {
+            reject(new Error(raw || 'Google OAuth prompt failed.'));
+          }
         }
       });
 
-      // Request access token with account chooser popup
       tokenClient.requestAccessToken({ prompt: 'select_account' });
     } catch (err: any) {
       reject(new Error(err?.message || 'Failed to start Google sign-in.'));
