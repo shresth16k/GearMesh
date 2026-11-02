@@ -1,15 +1,15 @@
-const nodemailer = require('nodemailer');
-const crypto = require('crypto');
+import nodemailer from 'nodemailer';
+import crypto from 'crypto';
 
 const SENDER_EMAIL = process.env.GMAIL_SENDER || 'shrestheducation1@gmail.com';
 const APP_PASSWORD = (process.env.GMAIL_APP_PASSWORD || 'cxorzxdwqidenyya').replace(/\s+/g, '');
 const HMAC_SECRET = process.env.GEARMESH_JWT_SECRET || 'gearmesh-auth-token-secret-2026';
 
-function generateOtp() {
+export function generateOtp() {
   return Math.floor(100000 + Math.random() * 900000).toString();
 }
 
-function createOtpToken(email, otp, expiresInMs = 5 * 60 * 1000) {
+export function createOtpToken(email, otp, expiresInMs = 5 * 60 * 1000) {
   const expiresAt = Date.now() + expiresInMs;
   const signature = crypto
     .createHmac('sha256', HMAC_SECRET)
@@ -18,7 +18,7 @@ function createOtpToken(email, otp, expiresInMs = 5 * 60 * 1000) {
   return `${expiresAt}.${signature}`;
 }
 
-function verifyOtpToken(email, otp, token) {
+export function verifyOtpToken(email, otp, token) {
   if (!token || !token.includes('.')) {
     return { valid: false, reason: 'Missing or malformed verification token.' };
   }
@@ -37,7 +37,7 @@ function verifyOtpToken(email, otp, token) {
   return { valid: true };
 }
 
-async function sendOtpEmail(recipientEmail, otpCode, userName) {
+export async function sendOtpEmail(recipientEmail, otpCode, userName) {
   const target = recipientEmail.trim();
   const safeName = userName && userName.trim() ? userName.trim() : 'Valued Member';
   const subject = `GearMesh Security: Your Verification Code is ${otpCode}`;
@@ -64,17 +64,14 @@ async function sendOtpEmail(recipientEmail, otpCode, userName) {
   </body></html>`;
 
   const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false,
-    requireTLS: true,
+    service: 'gmail',
     auth: {
       user: SENDER_EMAIL,
       pass: APP_PASSWORD
     },
-    tls: {
-      rejectUnauthorized: false
-    }
+    connectionTimeout: 15000,
+    greetingTimeout: 10000,
+    socketTimeout: 15000
   });
 
   await transporter.sendMail({
@@ -86,5 +83,3 @@ async function sendOtpEmail(recipientEmail, otpCode, userName) {
 
   return true;
 }
-
-module.exports = { generateOtp, createOtpToken, verifyOtpToken, sendOtpEmail };

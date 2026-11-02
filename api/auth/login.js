@@ -1,6 +1,6 @@
-const { generateOtp, createOtpToken, sendOtpEmail } = require('../lib/email');
+import { generateOtp, createOtpToken, sendOtpEmail } from '../lib/email.js';
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
@@ -31,6 +31,6 @@ module.exports = async function handler(req, res) {
     });
   } catch (err) {
     console.error('Login API Error:', err);
-    return res.status(500).json({ error: 'Unable to process sign in: ' + err.message });
+    return res.status(500).json({ error: 'Unable to process sign in: ' + (err?.message || err) });
   }
-};
+}

@@ -1,6 +1,6 @@
-const { verifyOtpToken } = require('../lib/email');
+import { verifyOtpToken } from '../lib/email.js';
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
@@ -13,31 +13,32 @@ module.exports = async function handler(req, res) {
     const email = (body.email || '').trim().toLowerCase();
     const otp = (body.otp || '').trim();
     const token = body.token || '';
-    const name = body.name || '';
 
     if (!email || !otp) {
-      return res.status(400).json({ error: 'Please enter the 6-digit verification code.' });
+      return res.status(400).json({ error: 'Please enter both your email address and 6-digit verification code.' });
     }
 
-    if (token) {
-      const verification = verifyOtpToken(email, otp, token);
-      if (!verification.valid) {
-        return res.status(401).json({ error: verification.reason || 'Invalid verification code.' });
-      }
-    } else if (otp.length !== 6) {
-      return res.status(400).json({ error: 'Please enter all 6 digits.' });
+    const verification = verifyOtpToken(email, otp, token);
+    if (!verification.valid) {
+      return res.status(400).json({ error: verification.reason });
     }
 
-    const displayName = name || email.split('@')[0];
+    const name = email.split('@')[0];
     const user = {
-      id: `u-${Date.now().toString(36)}-${Math.random().toString(36).substring(2, 6)}`,
-      name: displayName,
-      email: email
+      id: 'gm_' + Date.now().toString(36),
+      name: name.charAt(0).toUpperCase() + name.slice(1),
+      email: email,
+      avatar: `https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80`,
+      role: 'Member'
     };
 
-    return res.status(200).json({ success: true, user });
+    return res.status(200).json({
+      status: 'authenticated',
+      user,
+      message: 'Authentication successful. Welcome to GearMesh!'
+    });
   } catch (err) {
     console.error('Verify OTP API Error:', err);
-    return res.status(500).json({ error: 'Unable to verify code.' });
+    return res.status(500).json({ error: 'Verification failed: ' + (err?.message || err) });
   }
-};
+}
