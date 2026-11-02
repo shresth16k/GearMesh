@@ -49,11 +49,9 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess, onBack, onAdm
   const [otpEmail, setOtpEmail] = useState('');
   const [otpDigits, setOtpDigits] = useState<string[]>(['', '', '', '', '', '']);
   const [otpToken, setOtpToken] = useState('');
-  const [devOtp, setDevOtp] = useState('');
   const [timer, setTimer] = useState(300);
   const [resendCooldown, setResendCooldown] = useState(60);
   const [infoMessage, setInfoMessage] = useState('');
-  const [showEmailModal, setShowEmailModal] = useState(false);
   const otpInputsRef = useRef<(HTMLInputElement | null)[]>([]);
 
   // Responsive desktop vs mobile view differentiation
@@ -129,17 +127,6 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess, onBack, onAdm
     otpInputsRef.current[targetIdx]?.focus();
   };
 
-  const handleAutoFillDevOtp = () => {
-    if (!devOtp) return;
-    const digits = devOtp.slice(0, 6).split('');
-    const newDigits = [...otpDigits];
-    digits.forEach((d, i) => {
-      newDigits[i] = d;
-    });
-    setOtpDigits(newDigits);
-    otpInputsRef.current[5]?.focus();
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
@@ -151,74 +138,42 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess, onBack, onAdm
         : `${API_BASE_URL}/auth/${isSignUp ? 'register' : 'login'}`;
       const payload = isOtpLogin ? { email } : { name, email, password };
 
-      let result: any = null;
-      let backendSuccess = false;
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      
+      const result = await response.json().catch(() => ({}));
 
-      try {
-        const response = await fetch(endpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-        if (response.ok) {
-          result = await response.json();
-          backendSuccess = true;
-        } else {
-          const errData = await response.json().catch(() => ({}));
-          if (response.status === 400 || response.status === 401 || response.status === 409) {
-            throw new Error(errData.error || 'Authentication failed.');
-          }
-        }
-      } catch (networkErr: any) {
-        if (networkErr.message && (networkErr.message.includes('Password') || networkErr.message.includes('password') || networkErr.message.includes('already exists') || networkErr.message.includes('valid name'))) {
-          throw networkErr;
-        }
-        console.warn('Backend server unreachable or running in deployed cloud mode. Using browser authentication fallback:', networkErr);
+      if (!response.ok) {
+        throw new Error(result.error || 'Authentication failed. Please verify your information and try again.');
       }
 
-      // 1. Backend 2FA response (Live Vercel /api or local backend with real Gmail SMTP)
-      if (backendSuccess && result?.status === '2fa_required') {
+      // Backend 2FA response (Live Vercel /api or local Java backend with Gmail SMTP)
+      if (result?.status === '2fa_required') {
         setIs2FA(true);
         setOtpEmail(result.email || email);
         if (result.token) setOtpToken(result.token);
-        if (result.devOtp) {
-          setDevOtp(result.devOtp);
-        } else {
-          setDevOtp('');
-        }
         setTimer(300);
         setResendCooldown(60);
-        setInfoMessage(result.message || 'A 6-digit verification code has been sent to your email.');
+        setInfoMessage(result.message || 'A 6-digit verification code has been dispatched to your email.');
         setTimeout(() => {
           otpInputsRef.current[0]?.focus();
         }, 120);
         return;
       }
 
-      // 2. Backend instant login
-      if (backendSuccess && result?.user) {
+      // Backend instant login
+      if (result?.user) {
         saveLocalUser(result.user);
         if (rememberMe) localStorage.setItem('gearmesh-user', JSON.stringify(result.user));
         onSuccess(result.user);
         return;
       }
 
-      // 3. Autonomous Cloud/Offline Fallback (only if server was completely unreachable):
-      const generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
-      setIs2FA(true);
-      setOtpEmail(email);
-      setDevOtp(generatedCode);
-      setTimer(300);
-      setResendCooldown(60);
-      setInfoMessage(
-        isSignUp
-          ? 'Account details received! 2FA code generated. Check your incoming email toast to verify.'
-          : 'Security verification code generated. Enter the code below to complete sign-in.'
-      );
-      setTimeout(() => {
-        otpInputsRef.current[0]?.focus();
-      }, 120);
-    } catch (requestError) {
+      throw new Error('Unexpected server response. Please try again.');
+    } catch (requestError: any) {
       setError(requestError instanceof Error ? requestError.message : 'Unable to authenticate.');
     } finally {
       setIsSubmitting(false);
@@ -236,46 +191,22 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess, onBack, onAdm
     setInfoMessage('');
     setIsSubmitting(true);
     try {
-      let verifiedUser: any = null;
-      try {
-        const response = await fetch(`${API_BASE_URL}/auth/verify-otp`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: otpEmail || email, otp: otpValue, token: otpToken })
-        });
-        if (response.ok) {
-          const result = await response.json();
-          if (result.user) verifiedUser = result.user;
-        } else {
-          const errData = await response.json().catch(() => ({}));
-          if (response.status === 400 || response.status === 401) {
-            throw new Error(errData.error || 'Invalid or expired verification code.');
-          }
-        }
-      } catch (backendErr: any) {
-        if (backendErr.message && (backendErr.message.includes('Invalid') || backendErr.message.includes('expired') || backendErr.message.includes('verification'))) {
-          throw backendErr;
-        }
-        console.warn('Backend verification skipped, verifying locally:', backendErr);
+      const response = await fetch(`${API_BASE_URL}/auth/verify-otp`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: otpEmail || email, otp: otpValue, token: otpToken })
+      });
+      
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok || !result.user) {
+        throw new Error(result.error || 'Invalid or expired verification code. Please check your email inbox.');
       }
 
-      // Autonomous local verification fallback
-      if (!verifiedUser) {
-        if (devOtp && otpValue !== devOtp) {
-          throw new Error('Invalid verification code. Please check your incoming email toast or dev code.');
-        }
-        const userDisplayName = name || (otpEmail || email).split('@')[0];
-        verifiedUser = {
-          id: `u-${Date.now()}`,
-          name: userDisplayName,
-          email: otpEmail || email
-        };
-      }
-
-      saveLocalUser(verifiedUser);
-      if (rememberMe) localStorage.setItem('gearmesh-user', JSON.stringify(verifiedUser));
-      onSuccess(verifiedUser);
-    } catch (requestError) {
+      saveLocalUser(result.user);
+      if (rememberMe) localStorage.setItem('gearmesh-user', JSON.stringify(result.user));
+      onSuccess(result.user);
+    } catch (requestError: any) {
       setError(requestError instanceof Error ? requestError.message : 'Unable to verify code.');
     } finally {
       setIsSubmitting(false);
@@ -287,36 +218,22 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess, onBack, onAdm
     setError('');
     setInfoMessage('');
     try {
-      let resendSuccess = false;
-      try {
-        const response = await fetch(`${API_BASE_URL}/auth/resend-otp`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: otpEmail || email })
-        });
-        if (response.ok) {
-          const result = await response.json();
-          if (result.token) setOtpToken(result.token);
-          if (result.devOtp) {
-            setDevOtp(result.devOtp);
-          } else {
-            setDevOtp('');
-          }
-          resendSuccess = true;
-        }
-      } catch (ignored) {}
-
-      if (!resendSuccess) {
-        const newCode = Math.floor(100000 + Math.random() * 900000).toString();
-        setDevOtp(newCode);
+      const response = await fetch(`${API_BASE_URL}/auth/resend-otp`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: otpEmail || email })
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to resend code. Please try again.');
       }
-
+      if (result.token) setOtpToken(result.token);
       setResendCooldown(60);
       setTimer(300);
       setOtpDigits(['', '', '', '', '', '']);
       setInfoMessage('A new 6-digit verification code has been dispatched to your email.');
       setTimeout(() => otpInputsRef.current[0]?.focus(), 50);
-    } catch (requestError) {
+    } catch (requestError: any) {
       setError(requestError instanceof Error ? requestError.message : 'Unable to resend code.');
     }
   };
@@ -477,36 +394,6 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess, onBack, onAdm
         </div>
 
         <div className="gearmesh-auth__body">
-          {/* Top Live Incoming Email Notification Toast (visible when OTP is generated) */}
-          {devOtp && (
-            <div className="gearmesh-auth__incoming-email-toast">
-              <div className="gearmesh-auth__toast-left">
-                <div className="gearmesh-auth__toast-icon">📧</div>
-                <div className="gearmesh-auth__toast-content">
-                  <div className="gearmesh-auth__toast-title">Email Delivered to Your Inbox</div>
-                  <div className="gearmesh-auth__toast-desc">
-                    Code for <strong>{otpEmail || email}</strong>: <span className="gearmesh-auth__toast-code">{devOtp}</span>
-                  </div>
-                </div>
-              </div>
-              <div className="gearmesh-auth__toast-actions">
-                <button
-                  type="button"
-                  className="gearmesh-auth__toast-btn gearmesh-auth__toast-btn--preview"
-                  onClick={() => setShowEmailModal(true)}
-                >
-                  View Email
-                </button>
-                <button
-                  type="button"
-                  className="gearmesh-auth__toast-btn gearmesh-auth__toast-btn--fill"
-                  onClick={handleAutoFillDevOtp}
-                >
-                  Auto-Fill
-                </button>
-              </div>
-            </div>
-          )}
 
           {is2FA ? (
             <div className="gearmesh-auth__2fa-view">
@@ -530,33 +417,6 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess, onBack, onAdm
               {error && (
                 <div className="gearmesh-auth__error" role="alert">
                   {error}
-                </div>
-              )}
-
-              {devOtp && (
-                <div className="gearmesh-auth__otp-dev-hint">
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                    <KeyRound size={15} />
-                    <span>Demo / Dev Code:</span>
-                    <span className="gearmesh-auth__otp-dev-code">{devOtp}</span>
-                  </div>
-                  <div style={{ display: 'flex', gap: 6 }}>
-                    <button
-                      type="button"
-                      className="gearmesh-auth__otp-autofill-btn"
-                      style={{ background: '#374151' }}
-                      onClick={() => setShowEmailModal(true)}
-                    >
-                      Open Email
-                    </button>
-                    <button
-                      type="button"
-                      className="gearmesh-auth__otp-autofill-btn"
-                      onClick={handleAutoFillDevOtp}
-                    >
-                      Auto-Fill
-                    </button>
-                  </div>
                 </div>
               )}
 
@@ -846,77 +706,6 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess, onBack, onAdm
           )}
         </div>
       </div>
-
-      {/* Realistic In-App Email Mailbox Modal */}
-      {showEmailModal && devOtp && (
-        <div className="gearmesh-email-modal-overlay" onClick={() => setShowEmailModal(false)}>
-          <div className="gearmesh-email-modal" onClick={(e) => e.stopPropagation()}>
-            <div className="gearmesh-email-modal__top-bar">
-              <div className="gearmesh-email-modal__window-dots">
-                <span className="dot dot--red" />
-                <span className="dot dot--yellow" />
-                <span className="dot dot--green" />
-              </div>
-              <span className="gearmesh-email-modal__app-title">📧 Mailbox — {otpEmail || email}</span>
-              <button
-                type="button"
-                className="gearmesh-email-modal__close-btn"
-                onClick={() => setShowEmailModal(false)}
-              >
-                ✕
-              </button>
-            </div>
-
-            <div className="gearmesh-email-modal__header">
-              <div className="gearmesh-email-modal__avatar">GM</div>
-              <div className="gearmesh-email-modal__meta">
-                <div className="gearmesh-email-modal__from-row">
-                  <span className="gearmesh-email-modal__from-name">GearMesh Security</span>
-                  <span className="gearmesh-email-modal__from-addr">&lt;no-reply@gearmesh.com&gt;</span>
-                </div>
-                <div className="gearmesh-email-modal__to-row">
-                  <span>To: <strong>{otpEmail || email}</strong></span>
-                  <span className="gearmesh-email-modal__time">Just now</span>
-                </div>
-                <div className="gearmesh-email-modal__subject">
-                  Subject: Your GearMesh 2FA Verification Code: <strong>{devOtp}</strong>
-                </div>
-              </div>
-            </div>
-
-            <div className="gearmesh-email-modal__body">
-              <div className="gearmesh-email-card">
-                <div className="gearmesh-email-card__logo">
-                  <img src="/leaf.svg" alt="GearMesh" style={{ width: 22, height: 22 }} />
-                  <span>GearMesh</span>
-                </div>
-                <h2 className="gearmesh-email-card__heading">Your Verification Code</h2>
-                <p className="gearmesh-email-card__text">
-                  We received a sign-in or registration request for your GearMesh account. Enter this one-time code on the verification screen:
-                </p>
-                <div className="gearmesh-email-card__code-display">
-                  {devOtp.split('').map((char, i) => (
-                    <span key={i} className="gearmesh-email-card__digit">{char}</span>
-                  ))}
-                </div>
-                <p className="gearmesh-email-card__subtext">
-                  ⏱️ This code expires in 5 minutes. If you did not request this code, you can safely ignore this email.
-                </p>
-                <button
-                  type="button"
-                  className="gearmesh-email-card__action-btn"
-                  onClick={() => {
-                    handleAutoFillDevOtp();
-                    setShowEmailModal(false);
-                  }}
-                >
-                  Insert Code & Auto-fill →
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
