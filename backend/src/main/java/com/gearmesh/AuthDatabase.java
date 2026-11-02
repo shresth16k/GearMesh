@@ -19,6 +19,10 @@ final class AuthDatabase {
     private static final SecureRandom RANDOM = new SecureRandom();
 
     private static String resolveJdbcUrl() {
+        String envDb = System.getenv("SQLITE_DB_PATH");
+        if (envDb != null && !envDb.isBlank()) {
+            return "jdbc:sqlite:" + envDb.trim();
+        }
         java.io.File[] candidates = new java.io.File[] {
             new java.io.File("backend/GearMesh.db"),
             new java.io.File("GearMesh.db"),

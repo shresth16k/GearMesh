@@ -16,7 +16,17 @@ import java.sql.SQLException;
  * Provides instant live endpoints with zero external dependencies.
  */
 public class GearMeshServer {
-    private static final int PORT = 8080;
+    private static final int PORT = resolvePort();
+
+    private static int resolvePort() {
+        String envPort = System.getenv("PORT");
+        if (envPort != null && !envPort.isBlank()) {
+            try {
+                return Integer.parseInt(envPort.trim());
+            } catch (NumberFormatException ignored) {}
+        }
+        return 8080;
+    }
 
     public static void main(String[] args) throws IOException, SQLException {
         AuthDatabase authDatabase = new AuthDatabase();

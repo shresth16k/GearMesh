@@ -18,6 +18,10 @@ final class AuthHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
+        if ("OPTIONS".equalsIgnoreCase(exchange.getRequestMethod())) {
+            GearMeshServer.sendJsonResponse(exchange, 204, "");
+            return;
+        }
         if (!"POST".equalsIgnoreCase(exchange.getRequestMethod())) {
             GearMeshServer.sendJsonResponse(exchange, 405, "{\"error\":\"Method not allowed\"}");
             return;

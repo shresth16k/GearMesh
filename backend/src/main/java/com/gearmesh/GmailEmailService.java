@@ -49,9 +49,11 @@ public class GmailEmailService {
         }
         // Environment variable fallback
         String envEmail = System.getenv("GEARMESH_GMAIL_SENDER");
+        if (envEmail == null || envEmail.isBlank()) envEmail = System.getenv("GMAIL_SENDER");
         if (envEmail != null && !envEmail.isBlank()) senderEmail = envEmail.trim();
 
         String envPass = System.getenv("GEARMESH_GMAIL_APP_PASSWORD");
+        if (envPass == null || envPass.isBlank()) envPass = System.getenv("GMAIL_APP_PASSWORD");
         if (envPass != null && !envPass.isBlank()) appPassword = envPass.trim().replaceAll("\\s+", "");
     }
 
