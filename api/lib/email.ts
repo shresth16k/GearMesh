@@ -1,4 +1,4 @@
-import tls from 'tls';
+import nodemailer from 'nodemailer';
 import crypto from 'crypto';
 
 const SENDER_EMAIL = process.env.GMAIL_SENDER || process.env.GEARMESH_GMAIL_SENDER || 'shrestheducation1@gmail.com';
@@ -42,7 +42,7 @@ export function verifyOtpToken(email: string, otp: string, token: string): { val
   return { valid: true };
 }
 
-export function sendOtpEmail(recipientEmail: string, otpCode: string, userName?: string): Promise<boolean> {
+export async function sendOtpEmail(recipientEmail: string, otpCode: string, userName?: string): Promise<boolean> {
   const target = recipientEmail.trim();
   const safeName = userName && userName.trim() ? userName.trim() : 'Valued Member';
   const subject = `GearMesh Security: Your Verification Code is ${otpCode}`;
@@ -68,85 +68,28 @@ export function sendOtpEmail(recipientEmail: string, otpCode: string, userName?:
     </div>
   </body></html>`;
 
-  return new Promise((resolve) => {
-    try {
-      const socket = tls.connect(465, 'smtp.gmail.com', () => {
-        let step = 0;
-        let buffer = '';
+  try {
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: SENDER_EMAIL,
+        pass: APP_PASSWORD.replace(/\s+/g, '')
+      },
+      connectionTimeout: 8000,
+      greetingTimeout: 8000,
+      socketTimeout: 8000
+    });
 
-        socket.on('data', (data) => {
-          buffer += data.toString();
-          const lines = buffer.split('\r\n');
-          buffer = lines.pop() || '';
+    await transporter.sendMail({
+      from: `"GearMesh Security" <${SENDER_EMAIL}>`,
+      to: target,
+      subject: subject,
+      html: htmlBody
+    });
 
-          for (const line of lines) {
-            if (!line) continue;
-            const code = line.slice(0, 3);
-            const isFinal = line.charAt(3) === ' ';
-            if (!isFinal) continue;
-
-            if (step === 0 && code === '220') {
-              step = 1;
-              socket.write('EHLO localhost\r\n');
-            } else if (step === 1 && code === '250') {
-              step = 2;
-              socket.write('AUTH LOGIN\r\n');
-            } else if (step === 2 && code === '334') {
-              step = 3;
-              socket.write(Buffer.from(SENDER_EMAIL).toString('base64') + '\r\n');
-            } else if (step === 3 && code === '334') {
-              step = 4;
-              socket.write(Buffer.from(APP_PASSWORD.replace(/\s+/g, '')).toString('base64') + '\r\n');
-            } else if (step === 4 && code === '235') {
-              step = 5;
-              socket.write(`MAIL FROM:<${SENDER_EMAIL}>\r\n`);
-            } else if (step === 5 && code === '250') {
-              step = 6;
-              socket.write(`RCPT TO:<${target}>\r\n`);
-            } else if (step === 6 && code === '250') {
-              step = 7;
-              socket.write('DATA\r\n');
-            } else if (step === 7 && code === '354') {
-              step = 8;
-              const emailMessage = [
-                `From: GearMesh Security <${SENDER_EMAIL}>`,
-                `To: <${target}>`,
-                `Subject: ${subject}`,
-                'MIME-Version: 1.0',
-                'Content-Type: text/html; charset=UTF-8',
-                '',
-                htmlBody,
-                '.'
-              ].join('\r\n') + '\r\n';
-              socket.write(emailMessage);
-            } else if (step === 8 && code === '250') {
-              step = 9;
-              socket.write('QUIT\r\n');
-              socket.end();
-              resolve(true);
-              return;
-            } else if (code.startsWith('4') || code.startsWith('5')) {
-              console.error(`[SMTP ERROR] Step ${step}, Code ${code}: ${line}`);
-              socket.destroy();
-              resolve(false);
-              return;
-            }
-          }
-        });
-      });
-
-      socket.on('error', (err) => {
-        console.error('[SMTP SOCKET ERROR]', err);
-        resolve(false);
-      });
-
-      socket.setTimeout(12000, () => {
-        socket.destroy();
-        resolve(false);
-      });
-    } catch (err) {
-      console.error('[SMTP EXECUTION ERROR]', err);
-      resolve(false);
-    }
-  });
+    return true;
+  } catch (err) {
+    console.error('[EMAIL SEND ERROR]', err);
+    return false;
+  }
 }
