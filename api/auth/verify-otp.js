@@ -1,17 +1,12 @@
-import { verifyOtpToken } from '../lib/email';
+const { verifyOtpToken } = require('../lib/email');
 
-export default async function handler(req: any, res: any) {
+module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
-
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
+  if (req.method === 'OPTIONS') return res.status(200).end();
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   try {
     const body = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || {});
@@ -40,12 +35,9 @@ export default async function handler(req: any, res: any) {
       email: email
     };
 
-    return res.status(200).json({
-      success: true,
-      user
-    });
-  } catch (err: any) {
+    return res.status(200).json({ success: true, user });
+  } catch (err) {
     console.error('Verify OTP API Error:', err);
     return res.status(500).json({ error: 'Unable to verify code.' });
   }
-}
+};

@@ -1,17 +1,12 @@
-import { generateOtp, createOtpToken, sendOtpEmail } from '../lib/email';
+const { generateOtp, createOtpToken, sendOtpEmail } = require('../lib/email');
 
-export default async function handler(req: any, res: any) {
+module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
-
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
+  if (req.method === 'OPTIONS') return res.status(200).end();
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   try {
     const body = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || {});
@@ -26,7 +21,6 @@ export default async function handler(req: any, res: any) {
     const otp = generateOtp();
     const token = createOtpToken(email, otp);
 
-    // Send real verification email via Google SMTP
     await sendOtpEmail(email, otp, name);
 
     return res.status(200).json({
@@ -36,8 +30,8 @@ export default async function handler(req: any, res: any) {
       name,
       message: 'Account registered! A 6-digit verification code has been sent to your email.'
     });
-  } catch (err: any) {
+  } catch (err) {
     console.error('Register API Error:', err);
-    return res.status(500).json({ error: 'Unable to process registration.' });
+    return res.status(500).json({ error: 'Unable to process registration: ' + err.message });
   }
-}
+};
