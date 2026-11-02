@@ -201,3 +201,59 @@ final class SendOtpHandler implements HttpHandler {
         }
     }
 }
+
+final class GoogleAuthHandler implements HttpHandler {
+    private final AuthDatabase database;
+
+    GoogleAuthHandler(AuthDatabase database) {
+        this.database = database;
+    }
+
+    @Override
+    public void handle(HttpExchange exchange) throws IOException {
+        if ("OPTIONS".equalsIgnoreCase(exchange.getRequestMethod())) {
+            GearMeshServer.sendJsonResponse(exchange, 204, "");
+            return;
+        }
+        if (!"POST".equalsIgnoreCase(exchange.getRequestMethod())) {
+            GearMeshServer.sendJsonResponse(exchange, 405, "{\"error\":\"Method not allowed\"}");
+            return;
+        }
+        try {
+            String body = new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
+            String email = AuthHandler.jsonValue(body, "email");
+            String name = AuthHandler.jsonValue(body, "name");
+            String avatar = AuthHandler.jsonValue(body, "avatar");
+
+            if (email.isBlank() || !email.contains("@")) {
+                GearMeshServer.sendJsonResponse(exchange, 400, "{\"error\":\"Invalid Google account email address.\"}");
+                return;
+            }
+
+            AuthDatabase.AuthResult user = database.getUserByEmail(email);
+            if (user == null) {
+                String safeName = (name != null && !name.isBlank()) ? name.trim() : email.split("@")[0];
+                user = database.register(safeName, email, "google_oauth_" + java.util.UUID.randomUUID().toString());
+            }
+
+            System.out.println("=================================================");
+            System.out.println("  [GEARMESH AUTH] Direct Google OAuth Login Success");
+            System.out.println("  User:   " + user.name());
+            System.out.println("  Email:  " + user.email());
+            System.out.println("  ID:     " + user.id());
+            System.out.println("=================================================");
+
+            String jsonResponse = "{\"success\":true,\"user\":{"
+                + "\"id\":\"" + AuthHandler.escape(user.id()) + "\","
+                + "\"name\":\"" + AuthHandler.escape(user.name()) + "\","
+                + "\"email\":\"" + AuthHandler.escape(user.email()) + "\","
+                + "\"avatar\":\"" + AuthHandler.escape(avatar != null ? avatar : "") + "\","
+                + "\"provider\":\"google\""
+                + "}}";
+            GearMeshServer.sendJsonResponse(exchange, 200, jsonResponse);
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            GearMeshServer.sendJsonResponse(exchange, 500, "{\"error\":\"Server error during Google authentication.\"}");
+        }
+    }
+}

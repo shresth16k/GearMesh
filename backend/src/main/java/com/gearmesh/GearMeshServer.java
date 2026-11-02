@@ -33,6 +33,7 @@ public class GearMeshServer {
         server.createContext("/api/auth/send-otp", new SendOtpHandler(authDatabase));
         server.createContext("/api/auth/verify-otp", new OtpVerifyHandler(authDatabase));
         server.createContext("/api/auth/resend-otp", new OtpResendHandler(authDatabase));
+        server.createContext("/api/auth/google", new GoogleAuthHandler(authDatabase));
         server.createContext("/api/admin/login", new AdminLoginHandler(authDatabase));
         server.createContext("/api/admin/users", new AdminUsersHandler(authDatabase));
         server.createContext("/api/admin/stats", new AdminStatsHandler(authDatabase));

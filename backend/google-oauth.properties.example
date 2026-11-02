@@ -1,0 +1,4 @@
+# GearMesh Backend Google OAuth Properties Template
+# Copy this file to backend/google-oauth.properties and set your credentials
+google.client.id=
+google.client.secret=

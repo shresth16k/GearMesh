@@ -31,6 +31,7 @@ lerna-debug.log*
 Thumbs.db
 *.db
 
-# Sensitive email credentials
+# Sensitive email & OAuth credentials
 backend/email.properties
+backend/google-oauth.properties
 backend/target/
