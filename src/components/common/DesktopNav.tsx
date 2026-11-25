@@ -80,6 +80,15 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
 
           <button
             type="button"
+            className={`gearmesh-desktop-nav__link ${activeTab === 'inspection' ? 'gearmesh-desktop-nav__link--active' : ''}`}
+            onClick={() => onTabChange('inspection')}
+          >
+            <ShieldCheck size={17} strokeWidth={activeTab === 'inspection' ? 2.3 : 1.8} />
+            <span>Return Inspection</span>
+          </button>
+
+          <button
+            type="button"
             className={`gearmesh-desktop-nav__link ${activeTab === 'profile' ? 'gearmesh-desktop-nav__link--active' : ''}`}
             onClick={onProfileClick}
           >

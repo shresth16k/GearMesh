@@ -2,17 +2,19 @@ import React, { useState } from 'react';
 import { mockTransactions } from '../../data/mockData';
 import { StatusBadge } from '../../components/common/StatusBadge';
 import { Transaction } from '../../types';
-import { ChevronRight, ArrowRight, Sprout } from 'lucide-react';
+import { ChevronRight, ArrowRight, Sprout, ShieldAlert } from 'lucide-react';
 import './ActivityScreen.css';
 
 interface ActivityScreenProps {
   onOpenLocker: (tx: Transaction) => void;
   onExploreClick: () => void;
+  onInspectReturn?: () => void;
 }
 
 export const ActivityScreen: React.FC<ActivityScreenProps> = ({
   onOpenLocker,
-  onExploreClick
+  onExploreClick,
+  onInspectReturn
 }) => {
   const [activeTab, setActiveTab] = useState<'borrowing' | 'lending'>('borrowing');
 
@@ -39,6 +41,32 @@ export const ActivityScreen: React.FC<ActivityScreenProps> = ({
             Lending
           </button>
         </div>
+
+        {/* Quick Return Inspection shortcut for Owners */}
+        {activeTab === 'lending' && onInspectReturn && (
+          <button
+            onClick={onInspectReturn}
+            style={{
+              marginTop: '0.85rem',
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.5rem',
+              padding: '0.7rem 1rem',
+              background: '#FFF3E0',
+              border: '1px solid #FFB74D',
+              borderRadius: '8px',
+              color: '#E65100',
+              fontWeight: 600,
+              fontSize: '0.88rem',
+              cursor: 'pointer'
+            }}
+          >
+            <ShieldAlert size={16} />
+            <span>Inspect Returned Item & Check Damages</span>
+          </button>
+        )}
       </div>
 
       {/* Transactions List */}

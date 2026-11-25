@@ -2,7 +2,7 @@ import React from 'react';
 import { Home, Compass, Plus, Clock, User } from 'lucide-react';
 import './BottomNav.css';
 
-export type NavTab = 'home' | 'explore' | 'list' | 'activity' | 'profile';
+export type NavTab = 'home' | 'explore' | 'list' | 'activity' | 'profile' | 'inspection';
 
 interface BottomNavProps {
   activeTab: NavTab;

@@ -35,3 +35,11 @@ Thumbs.db
 backend/email.properties
 backend/google-oauth.properties
 backend/target/
+
+# Python cache & virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/

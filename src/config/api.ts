@@ -24,6 +24,20 @@ const getResolvedApiBaseUrl = (): string => {
 
 export const API_BASE_URL = getResolvedApiBaseUrl();
 
+export const INSPECTION_API_URL = (() => {
+  const customUrl = (import.meta as any)?.env?.VITE_INSPECTION_API_URL;
+  if (customUrl && typeof customUrl === 'string' && customUrl.trim()) {
+    return customUrl.trim().replace(/\/$/, '');
+  }
+  if (typeof window !== 'undefined') {
+    const hostname = window.location.hostname;
+    if (hostname === 'localhost' || hostname === '127.0.0.1') {
+      return 'http://localhost:5001/api/inspection';
+    }
+  }
+  return '/api/inspection';
+})();
+
 export const isLocalhost = (): boolean => {
   if (typeof window === 'undefined') return false;
   const hostname = window.location.hostname;

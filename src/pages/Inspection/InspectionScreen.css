@@ -1,0 +1,400 @@
+.gearmesh-inspection {
+  min-height: 100vh;
+  background-color: var(--color-bg-light, #F8F9F7);
+  padding: 1.5rem 1rem 6rem;
+  color: var(--color-text-dark, #1D231F);
+}
+
+.gearmesh-inspection__container {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.gearmesh-inspection__header {
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.gearmesh-inspection__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(33, 76, 56, 0.1);
+  color: #1B3B2B;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+}
+
+.gearmesh-inspection__title {
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: #1B3B2B;
+  margin: 0 0 0.5rem;
+}
+
+.gearmesh-inspection__subtitle {
+  font-size: 0.95rem;
+  color: #556258;
+  margin: 0;
+  max-width: 680px;
+  line-height: 1.5;
+}
+
+/* Pipeline Info Banner */
+.gearmesh-inspection__pipeline-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.gearmesh-inspection__pipeline-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  flex: 1 1 240px;
+}
+
+.gearmesh-inspection__step-num {
+  width: 24px;
+  height: 24px;
+  background: #1B3B2B;
+  color: #FFFFFF;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.gearmesh-inspection__step-text h4 {
+  margin: 0 0 0.2rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #1B3B2B;
+}
+
+.gearmesh-inspection__step-text p {
+  margin: 0;
+  font-size: 0.78rem;
+  color: #667069;
+  line-height: 1.35;
+}
+
+/* Upload Split Grid */
+.gearmesh-inspection__upload-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.75rem;
+}
+
+.gearmesh-inspection__upload-card {
+  background: #FFFFFF;
+  border: 1.5px dashed rgba(27, 59, 43, 0.25);
+  border-radius: 14px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gearmesh-inspection__upload-card:hover {
+  border-color: #1B3B2B;
+  box-shadow: 0 4px 14px rgba(27, 59, 43, 0.08);
+}
+
+.gearmesh-inspection__card-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0 0 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #1B3B2B;
+}
+
+.gearmesh-inspection__card-desc {
+  font-size: 0.82rem;
+  color: #727B75;
+  margin: 0 0 1rem;
+}
+
+.gearmesh-inspection__preview-box {
+  width: 100%;
+  height: 220px;
+  background: #F4F6F4;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.gearmesh-inspection__preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gearmesh-inspection__placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: #8C9690;
+  font-size: 0.85rem;
+}
+
+.gearmesh-inspection__upload-btn {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #F0F4F1;
+  color: #1B3B2B;
+  font-weight: 600;
+  font-size: 0.88rem;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.gearmesh-inspection__upload-btn:hover {
+  background: #E2ECE5;
+}
+
+.gearmesh-inspection__sample-links {
+  margin-top: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  color: #738077;
+}
+
+.gearmesh-inspection__sample-btn {
+  background: none;
+  border: none;
+  color: #1B3B2B;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+/* Controls section */
+.gearmesh-inspection__controls {
+  background: #FFFFFF;
+  border-radius: 14px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+}
+
+.gearmesh-inspection__meta-inputs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  flex: 1;
+}
+
+.gearmesh-inspection__input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 200px;
+}
+
+.gearmesh-inspection__input-group label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #38423B;
+}
+
+.gearmesh-inspection__input-group input {
+  padding: 0.6rem 0.85rem;
+  border-radius: 8px;
+  border: 1px solid #D5DDD7;
+  font-size: 0.92rem;
+}
+
+.gearmesh-inspection__run-btn {
+  background: #1B3B2B;
+  color: #FFFFFF;
+  border: none;
+  padding: 0.9rem 1.8rem;
+  font-size: 0.98rem;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  box-shadow: 0 4px 12px rgba(27, 59, 43, 0.25);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.gearmesh-inspection__run-btn:hover:not(:disabled) {
+  background: #25523C;
+  transform: translateY(-1px);
+}
+
+.gearmesh-inspection__run-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Results Section */
+.gearmesh-inspection__results {
+  background: #FFFFFF;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.gearmesh-inspection__alert {
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1.75rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.gearmesh-inspection__alert--clean {
+  background: #E8F5E9;
+  border: 1.5px solid #81C784;
+  color: #1B5E20;
+}
+
+.gearmesh-inspection__alert--damage {
+  background: #FFF3E0;
+  border: 1.5px solid #FFB74D;
+  color: #E65100;
+}
+
+.gearmesh-inspection__alert-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0 0 0.35rem;
+}
+
+.gearmesh-inspection__alert-msg {
+  font-size: 0.92rem;
+  margin: 0 0 0.5rem;
+  line-height: 1.4;
+}
+
+.gearmesh-inspection__cost-callout {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #BF360C;
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 8px;
+  margin-top: 0.3rem;
+}
+
+/* Visual Comparison Comparison Images */
+.gearmesh-inspection__visuals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 1.75rem;
+}
+
+.gearmesh-inspection__visual-item {
+  background: #F9FAF9;
+  border-radius: 10px;
+  border: 1px solid #E5EBE6;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.gearmesh-inspection__visual-title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.6rem 0.85rem;
+  background: #EDF1EE;
+  color: #2F3B33;
+  margin: 0;
+}
+
+.gearmesh-inspection__visual-item img {
+  width: 100%;
+  height: 220px;
+  object-fit: contain;
+  background: #000000;
+}
+
+/* Stats metrics row */
+.gearmesh-inspection__stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+}
+
+.gearmesh-inspection__stat-box {
+  background: #F6F8F6;
+  border-radius: 10px;
+  padding: 0.9rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.gearmesh-inspection__stat-label {
+  font-size: 0.78rem;
+  color: #6C7A71;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.gearmesh-inspection__stat-val {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1B3B2B;
+}
+
+@media (max-width: 768px) {
+  .gearmesh-inspection__title {
+    font-size: 1.45rem;
+  }
+  .gearmesh-inspection__controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .gearmesh-inspection__run-btn {
+    justify-content: center;
+  }
+}

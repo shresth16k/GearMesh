@@ -12,6 +12,7 @@ import { ListItemScreen } from './pages/ListItem/ListItemScreen';
 import { ProfileScreen } from './pages/Profile/ProfileScreen';
 import { LifeKitScreen } from './pages/LifeKit/LifeKitScreen';
 import { AdminScreen } from './pages/Admin/AdminScreen';
+import { InspectionScreen } from './pages/Inspection/InspectionScreen';
 import { BottomNav, NavTab } from './components/common/BottomNav';
 import { DesktopNav } from './components/common/DesktopNav';
 import { Item, Transaction, LifeKit } from './types';
@@ -31,6 +32,7 @@ export type ScreenId =
   | 'listItem'
   | 'profile'
   | 'lifeKit'
+  | 'inspection'
   | 'admin';
 
 export const App: React.FC = () => {
@@ -181,10 +183,11 @@ export const App: React.FC = () => {
     else if (tab === 'list') setCurrentScreen('listItem');
     else if (tab === 'activity') setCurrentScreen('activity');
     else if (tab === 'profile') setCurrentScreen('profile');
+    else if (tab === 'inspection') setCurrentScreen('inspection');
   };
 
   // Only show navbars when authenticated and not on auth/admin/onboarding
-  const showBottomNav = isAuthenticated && ['home', 'explore', 'activity', 'profile'].includes(currentScreen);
+  const showBottomNav = isAuthenticated && ['home', 'explore', 'activity', 'profile', 'inspection'].includes(currentScreen);
   const showDesktopNav = isAuthenticated && !['auth', 'admin', 'onboarding'].includes(currentScreen);
 
   return (
@@ -362,6 +365,10 @@ export const App: React.FC = () => {
                 setActiveTab('explore');
                 setCurrentScreen('explore');
               }}
+              onInspectReturn={() => {
+                setActiveTab('inspection');
+                setCurrentScreen('inspection');
+              }}
             />
           )}
 
@@ -428,6 +435,11 @@ export const App: React.FC = () => {
                 setCurrentScreen('borrowRequest');
               }}
             />
+          )}
+
+          {/* AI Product Return Damage Inspection */}
+          {isAuthenticated && currentScreen === 'inspection' && (
+            <InspectionScreen />
           )}
 
 
